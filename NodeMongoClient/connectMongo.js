@@ -1,26 +1,12 @@
 // set up the constants
+const { response } = require("express");
 const mongodb = require("mongodb");
-const fs = require("fs");
-/*
-When we use readFileSync, it puts every line on that file on a newline,
-where the \n character is used. You can verify this by storing the result
-of readFileSync to a variable and then using the split method. Thus, a good
-workaround is to us the .replace() string method to replace the \n and the
-carriage return \r into commas, like ",". Thus, after using readFileSync,
-you can use .replace(/(\r\n|\n|\r)/gm, ","))
-*/
-const readCreds = () => {
-    try {
-        var data = fs.readFileSync("../creds/creds.txt", "utf-8");
-        var creds = data.replace(/(\r\n|\n|\r)/gm, ",");
-        return creds.split(",");
-    } catch(err) {
-        console.error(err);
-    }
-}
-// set up the MongoDB credentials
-var mongoUser, mongoPass;
-let credentials = readCreds();
+const ssh = require("node-ssh-forward");
+const reader = require("./readCredentials");
+
+// set up the MongoDB and SSH credentials
+var mongoUser, mongoPass, sshPass = "";
+let credentials = reader.readCreds();
 for (let cred of credentials) {
     if (cred.includes("mongodbuser")) {
         mongoUser = cred.split("=")[1];
@@ -28,12 +14,51 @@ for (let cred of credentials) {
     if (cred.includes("mongodbpass")) {
         mongoPass = cred.split("=")[1];
     }
+    if (cred.includes("sshpass")) {
+        sshPass = cred.split("=")[1];
+    };
 }
+// SSH tunnel instance
+var sshTunnel = new ssh.SSHConnection({
+    endHost: "192.168.1.104",
+    username: "ubuntu",
+    password: sshPass
+});
+// This function does the SSH port forwarding
+sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
+    .then(() => console.log("ssh tunnel on"))
+    .catch(err => console.log(err));
 // the MongoDB URL
-var mongoUrl = `mongodb://${mongoUser}:${mongoPass}@localhost:27017/`;
+var databaseName = "vaultpass";
+/*
+I use the "encodeURIComponent" in the database connection string because the password
+uses a special character @, within it, which the database connection string uses to parse
+the username and password separate from the host
+*/
+var mongoUrl = `mongodb://${mongoUser}:${encodeURIComponent(mongoPass)}@localhost:27017/${databaseName}`;
 let client = mongodb.MongoClient;
-client.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, 
-    (err, db) => {
-        if (err) throw err;
-    })
-module.exports = {readCreds}
+// set a global variable
+// global.dataResults = "pie";
+function makeConnection(res) {
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, 
+        (err, db) => {
+            if (err) throw err;
+            let dbObject = db.db(databaseName);
+            dbObject.collection("vaultusers").findOne({firstName: "Pierre"}, (err, result) => {
+                if (err) throw err;
+                let data = result;
+                let userData = {firstName: data.firstName, lastName: data.lastName, 
+                    username: data.username, password: data.password, email: data.email};
+                db.close(() => {
+                    res = userData;
+                });
+                sshTunnel.shutdown();
+            });
+        });
+    return res;
+}
+var a = "";
+var b;
+setTimeout(() => {b = makeConnection(a)}, 1500);
+setTimeout(() => {console.log(b)}, 3000);
+//module.exports = {makeConnection, dataResults};
