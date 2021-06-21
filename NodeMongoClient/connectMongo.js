@@ -39,26 +39,24 @@ var mongoUrl = `mongodb://${mongoUser}:${encodeURIComponent(mongoPass)}@localhos
 let client = mongodb.MongoClient;
 // set a global variable
 // global.dataResults = "pie";
-function makeConnection(res) {
-    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, 
-        (err, db) => {
+const makeConnection = () => {
+    var theData;
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        let dbObject = db.db(databaseName);
+        let vaultUsers = dbObject.collection("vaultusers");
+        vaultUsers.findOne({firstName: "Pierre"}, (err, result) => {
             if (err) throw err;
-            let dbObject = db.db(databaseName);
-            dbObject.collection("vaultusers").findOne({firstName: "Pierre"}, (err, result) => {
-                if (err) throw err;
-                let data = result;
-                let userData = {firstName: data.firstName, lastName: data.lastName, 
-                    username: data.username, password: data.password, email: data.email};
-                db.close(() => {
-                    res = userData;
-                });
-                sshTunnel.shutdown();
+            theData = result;
+            db.close(() => {
+                return theData;
             });
-        });
-    return res;
-}
+            sshTunnel.shutdown();
+        })      
+    });
+};
 var a = "";
 var b;
-setTimeout(() => {b = makeConnection(a)}, 1500);
+setTimeout(() => {b = makeConnection()}, 1500);
 setTimeout(() => {console.log(b)}, 3000);
 //module.exports = {makeConnection, dataResults};
