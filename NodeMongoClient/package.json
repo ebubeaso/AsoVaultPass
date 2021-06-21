@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "MONGO_HOST=192.168.1.104 node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "MONGO_HOST=192.168.1.104 node server.js",
+    "test": "node apiTest.js"
   },
   "keywords": [],
   "author": "",
@@ -19,5 +19,12 @@
     "mongodb-client-encryption": "^1.2.2",
     "node-ssh-forward": "^0.7.2",
     "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "jest": "^27.0.4",
+    "mocha": "^9.0.1",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }
