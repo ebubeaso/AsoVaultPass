@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "MONGO_HOST=192.168.1.104 node server.js",
-    "test": "node apiTest.js"
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "bson": "^4.2.3",
     "bson-ext": "^2.0.5",
     "cors": "^2.8.5",
