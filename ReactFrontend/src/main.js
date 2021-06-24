@@ -35380,18 +35380,14 @@ const TheHeader = () => {
                 react_1.default.createElement(Styles_1.Header, null,
                     react_1.default.createElement("nav", null,
                         react_1.default.createElement(Styles_1.Ul, null,
-                            react_1.default.createElement("div", { id: "nav1" },
+                            react_1.default.createElement(Styles_1.Nav1, null,
                                 react_1.default.createElement(Styles_1.NavList, null,
-                                    react_1.default.createElement(Styles_1.LogoDiv, null)),
-                                react_1.default.createElement(Styles_1.NavList, null,
-                                    react_1.default.createElement(react_router_dom_1.Link, { to: "/" }, "Home")),
-                                react_1.default.createElement(Styles_1.NavList, null,
-                                    react_1.default.createElement(react_router_dom_1.Link, { to: "/services" }, "Services"))),
+                                    react_1.default.createElement(Styles_1.LogoDiv, null))),
                             react_1.default.createElement(Styles_1.LoginNav, null,
                                 react_1.default.createElement(Styles_1.NavList, null,
-                                    react_1.default.createElement(react_router_dom_1.Link, { to: "/login" }, "Login")),
+                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
                                 react_1.default.createElement(Styles_1.NavList, null,
-                                    react_1.default.createElement(react_router_dom_1.Link, { to: "/signup" }, "Register"))))))),
+                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/" },
                     react_1.default.createElement(Vault_1.VaultHome, null)),
@@ -35434,28 +35430,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LogoDiv = exports.LoginNav = exports.Nav1 = exports.NavList = exports.NavLinks = exports.Ul = exports.Header = exports.IntroParagraph = exports.Subtitle = exports.Title = void 0;
+exports.LogoDiv = exports.LoginNav = exports.Nav1 = exports.NavList = exports.NavLinks = exports.Header = exports.Ul = exports.IntroParagraph = exports.Subtitle = exports.Title = void 0;
 const styled_components_1 = __importStar(require("styled-components"));
+const react_router_dom_1 = require("react-router-dom");
 // generalized styling variables
 const fontStyle = styled_components_1.css `font-family: Helvetica`;
 const flexDisplay = styled_components_1.css `display: flex`;
 const centerAlign = styled_components_1.css `text-align: center;`;
 const mainTitleColor = styled_components_1.css `color: maroon`;
 const navColor = styled_components_1.css `color: whitesmoke`;
-const links = styled_components_1.css `font-size: 20pt; text-decoration: none; ${navColor};`;
+const links = styled_components_1.css `font-size: 26pt; text-decoration: none; ${navColor};`;
 // Specific styled component variables
 exports.Title = styled_components_1.default.h1 `
     font-size: 44pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTitleColor};
-`;
+    ${mainTitleColor};`;
 exports.Subtitle = styled_components_1.default.h2 `
-    font-size: 32pt;
-    ${fontStyle};
-    ${centerAlign};
-    ${mainTitleColor};
-`;
+    font-size: 32pt; ${fontStyle}; ${centerAlign}; ${mainTitleColor};`;
 exports.IntroParagraph = styled_components_1.default.p `
     font-size: 18pt;
     ${fontStyle};
@@ -35463,31 +35455,27 @@ exports.IntroParagraph = styled_components_1.default.p `
     ${mainTitleColor};
     margin: 1% 15%;
 `;
+exports.Ul = styled_components_1.default.ul `${flexDisplay};`;
 exports.Header = styled_components_1.default.header `
     ${flexDisplay};
     padding: 1%;
     flex-direction: column;
     margin-left: -10px;
-    background: linear-gradient(to right, steelblue, navy);
+    background: linear-gradient(to right, darkgray, darkcyan);
     width: 100%;
 `;
-exports.Ul = styled_components_1.default.ul `${flexDisplay}`;
-exports.NavLinks = styled_components_1.default.a `
-    ${links};
-    &:link {${links}};
-    &:visited {${links}};
+exports.NavLinks = styled_components_1.default(react_router_dom_1.Link) `
+    ${links}; &:link {${links}}; &:visited {${links}};
 `;
 exports.NavList = styled_components_1.default.li `
     list-style-type: none;
-    margin-right: 4%;
+    margin-right: 2vw;
+    margin-top: 2vw;
     ${navColor};
 `;
 // These are some special div setups
-exports.Nav1 = styled_components_1.default.div `
-`;
-exports.LoginNav = styled_components_1.default.div `
-    margin-left: 75vw;
-`;
+exports.Nav1 = styled_components_1.default.div `margin-top: -2%; margin-left: 10vw;`;
+exports.LoginNav = styled_components_1.default.div `margin-left: 60vw; ${flexDisplay};`;
 exports.LogoDiv = styled_components_1.default.div `
     background-image: url("./src/AsoVaultPass.png");
     background-size: cover;
@@ -35495,7 +35483,7 @@ exports.LogoDiv = styled_components_1.default.div `
     height: 6vw;
 `;
 
-},{"styled-components":54}],63:[function(require,module,exports){
+},{"react-router-dom":34,"styled-components":54}],63:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -35506,9 +35494,10 @@ const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
-        react_1.default.createElement(Styles_1.Title, null, "Aso Vault Pass"),
-        react_1.default.createElement(Styles_1.Subtitle, null, "Your secrets are safe with me"),
-        react_1.default.createElement(Styles_1.IntroParagraph, null, "Have a hard time remembering passwords? This custom password manager tool will help you with just that! This app will save your credentials to different sites so that it will make it easier for you to remember your username and password to the different sites and services that you use.")));
+        react_1.default.createElement("div", { className: "SearchDiv" },
+            react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" })),
+        react_1.default.createElement(Styles_1.Title, null, "My Sites"),
+        react_1.default.createElement("div", { className: "SiteGrid" })));
 };
 exports.VaultHome = VaultHome;
 

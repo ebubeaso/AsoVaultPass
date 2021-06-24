@@ -8,8 +8,9 @@ const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
-        react_1.default.createElement(Styles_1.Title, null, "Aso Vault Pass"),
-        react_1.default.createElement(Styles_1.Subtitle, null, "Your secrets are safe with me"),
-        react_1.default.createElement(Styles_1.IntroParagraph, null, "Have a hard time remembering passwords? This custom password manager tool will help you with just that! This app will save your credentials to different sites so that it will make it easier for you to remember your username and password to the different sites and services that you use.")));
+        react_1.default.createElement("div", { className: "SearchDiv" },
+            react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" })),
+        react_1.default.createElement(Styles_1.Title, null, "My Sites"),
+        react_1.default.createElement("div", { className: "SiteGrid" })));
 };
 exports.VaultHome = VaultHome;

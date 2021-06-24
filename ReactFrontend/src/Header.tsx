@@ -1,6 +1,6 @@
 import React from "react";
-import { Header, Ul, NavList, NavLinks, LoginNav, LogoDiv } from "./Styles";
-import { HashRouter, Switch, Link, Route } from "react-router-dom";
+import { Header, Ul, NavList, NavLinks, LoginNav, LogoDiv, Nav1 } from "./Styles";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import { VaultHome } from "./Vault";
 
 export const TheHeader: React.FC = () => {
@@ -11,14 +11,12 @@ export const TheHeader: React.FC = () => {
             <Header>
             <nav>
                 <Ul>
-                <div id="nav1">
+                <Nav1>
                     <NavList><LogoDiv></LogoDiv></NavList>
-                    <NavList><Link to="/">Home</Link></NavList>
-                    <NavList><Link to="/services">Services</Link></NavList>
-                </div>
+                </Nav1>
                 <LoginNav>
-                    <NavList><Link to="/login">Login</Link></NavList>
-                    <NavList><Link to="/signup">Register</Link></NavList>
+                    <NavList><NavLinks to="/login">Login</NavLinks></NavList>
+                    <NavList><NavLinks to="/signup">Register</NavLinks></NavList>
                 </LoginNav>
                 </Ul>
             </nav>
