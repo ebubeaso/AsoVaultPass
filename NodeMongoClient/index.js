@@ -44,7 +44,7 @@ app.post("/vaultuser", (req, res) => {
     let body = req.body;
     let auth = {username: body.username, password: body.password}
     sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
-    .catch(err => console.log(err));
+    .catch(err => {throw err;});
     client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
         if (err) throw err;
         let dbObject = db.db(databaseName);
@@ -85,6 +85,41 @@ app.post("/testvault", (req, res) => {
             db.close();
         })      
     });
+});
+app.post("/newuser", (req, res) => {
+    let theBody = req.body;
+    let first = theBody.firstName;
+    let last = theBody.lastName; 
+    let user = theBody.username;
+    let passwd = theBody.password;
+    let theEmail = theBody.email;
+    let userContent = {firstName: first, lastName: last, username: user, 
+        password: passwd, email: theEmail}
+    // start the SSH connection
+    sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
+    .catch(err => {console.log("oof"); throw err;});
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) {console.log("Nyx"); throw err};
+        let dbObject = db.db(databaseName);
+        let vaultUsers = dbObject.collection("vaultusers");
+        vaultUsers.findOne({username: user}, (err, result) => {
+            if (err) {console.log("Jojo"); throw err};
+            let theData = result;
+            if (theData != null) {
+                // close the connection
+                res.json("Username is already taken");
+                db.close();
+                sshTunnel.shutdown();
+            } else {
+                vaultUsers.insertOne(userContent, (err, result) => {
+                    if (err) throw err;
+                    res.json({Message: "Success!", Result: "New user has been added!"});
+                    db.close();
+                    sshTunnel.shutdown();
+                })
+            }
+    })
 })
+});
 // export the module
 module.exports = app;
