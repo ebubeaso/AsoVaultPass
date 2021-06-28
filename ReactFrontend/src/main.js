@@ -35508,7 +35508,7 @@ exports.LoginNav = styled_components_1.default.div `
     }
 `;
 exports.LogoDiv = styled_components_1.default.div `
-    background-image: url("./src/AsoVaultPass.png");
+    background-image: url("./src/logos/AsoVaultPass.png");
     background-size: cover;
     width: 6vw;
     height: 6vw;
