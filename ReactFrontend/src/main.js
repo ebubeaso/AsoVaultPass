@@ -35499,7 +35499,7 @@ exports.Nav1 = styled_components_1.default.div `
     }
 `;
 exports.LoginNav = styled_components_1.default.div `
-    margin-left: 60vw; ${flexDisplay};
+    margin-left: 55vw; ${flexDisplay};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         margin-left: 10vw;
     }

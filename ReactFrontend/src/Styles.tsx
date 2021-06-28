@@ -67,7 +67,7 @@ export const Nav1 = styled.div`
     }
 `;
 export const LoginNav = styled.div`
-    margin-left: 60vw; ${flexDisplay};
+    margin-left: 55vw; ${flexDisplay};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         margin-left: 10vw;
     }
@@ -76,7 +76,7 @@ export const LoginNav = styled.div`
     }
 `;
 export const LogoDiv = styled.div`
-    background-image: url("./src/AsoVaultPass.png");
+    background-image: url("./src/logos/AsoVaultPass.png");
     background-size: cover;
     width: 6vw;
     height: 6vw;
