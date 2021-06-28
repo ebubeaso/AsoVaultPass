@@ -14,15 +14,18 @@ export const VaultHome: React.FC = () => {
                 onMouseOut={() => setButtonColor("green")}>Search</button>
         </div>
         <Title>My Sites</Title>
-        <div className="SiteGrid">
-            <div className="GridItem">Facebook</div>
-            <div className="GridItem">Gmail</div>
-            <div className="GridItem">Outlook</div>
-            <div className="GridItem">Dropbox</div>
-            <div className="GridItem">Fashion Nova</div>
-            <div className="GridItem">Bank of America</div>
-            <div className="GridItem">Paypal</div>
-        </div>
+            <div className="Sites">
+            <Subtitle>Frequently Used</Subtitle>
+            <div className="SiteGrid">
+                <div className="GridItem">Facebook</div>
+                <div className="GridItem">Gmail</div>
+                <div className="GridItem">Outlook</div>
+                <div className="GridItem">Dropbox</div>
+                <div className="GridItem">Fashion Nova</div>
+                <div className="GridItem">Bank of America</div>
+                <div className="GridItem">Paypal</div>
+            </div>
+            </div>
         </div>
     )
-}
+};

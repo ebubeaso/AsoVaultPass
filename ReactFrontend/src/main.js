@@ -35437,23 +35437,35 @@ const react_router_dom_1 = require("react-router-dom");
 const fontStyle = styled_components_1.css `font-family: Helvetica`;
 const flexDisplay = styled_components_1.css `display: flex`;
 const centerAlign = styled_components_1.css `text-align: center;`;
-const mainTitleColor = styled_components_1.css `color: maroon`;
+const mainTextColor = styled_components_1.css `color: darkcyan`;
 const navColor = styled_components_1.css `color: whitesmoke`;
-const links = styled_components_1.css `font-size: 26pt; text-decoration: none; ${navColor};`;
+const links = styled_components_1.css `font-size: 26pt; text-decoration: none; ${navColor};
+    @media only screen and (min-width: 300px) and (max-width: 600px) {
+        font-size: 16pt;
+    }   `;
 // Specific styled component variables
 exports.Title = styled_components_1.default.h1 `
     font-size: 44pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTitleColor};`;
+    ${mainTextColor};
+    @media only screen and (max-width: 800px) {
+        font-size: 30pt;
+      }   `;
 exports.Subtitle = styled_components_1.default.h2 `
-    font-size: 32pt; ${fontStyle}; ${centerAlign}; ${mainTitleColor};`;
+    font-size: 32pt; ${fontStyle}; ${centerAlign}; ${mainTextColor};
+    @media only screen and (min-width: 300px) and (max-width: 600px) {
+        font-size: 22pt;
+      }   `;
 exports.IntroParagraph = styled_components_1.default.p `
     font-size: 18pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTitleColor};
+    ${mainTextColor};
     margin: 1% 15%;
+    @media only screen and (min-width: 300px) and (max-width: 600px) {
+        font-size: 12pt;
+      }   
 `;
 exports.Ul = styled_components_1.default.ul `${flexDisplay};`;
 exports.Header = styled_components_1.default.header `
@@ -35463,24 +35475,53 @@ exports.Header = styled_components_1.default.header `
     margin-left: -10px;
     background: linear-gradient(to right, darkgray, darkcyan);
     width: 100%;
+    @media only screen and (min-width: 300px) and (max-width: 600px) {
+        margin-right: -10px;
+    }
 `;
 exports.NavLinks = styled_components_1.default(react_router_dom_1.Link) `
     ${links}; &:link {${links}}; &:visited {${links}};
 `;
 exports.NavList = styled_components_1.default.li `
     list-style-type: none;
-    margin-right: 2vw;
+    margin-right: 5vw;
     margin-top: 2vw;
     ${navColor};
 `;
 // These are some special div setups
-exports.Nav1 = styled_components_1.default.div `margin-top: -2%; margin-left: 10vw;`;
-exports.LoginNav = styled_components_1.default.div `margin-left: 60vw; ${flexDisplay};`;
+exports.Nav1 = styled_components_1.default.div `
+    margin-top: -2%; margin-left: 10vw;
+    @media only screen and (min-width: 300px) and (max-width: 750px) {
+        margin-left: 0vw;
+    }
+    @media only screen and (min-width: 751px) and (max-width: 1280px) {
+        margin-left: 10vw;
+    }
+`;
+exports.LoginNav = styled_components_1.default.div `
+    margin-left: 60vw; ${flexDisplay};
+    @media only screen and (min-width: 300px) and (max-width: 600px) {
+        margin-left: 10vw;
+    }
+    @media only screen and (min-width: 601px) and (max-width: 1280px) {
+        margin-left: 25vw;
+    }
+`;
 exports.LogoDiv = styled_components_1.default.div `
     background-image: url("./src/AsoVaultPass.png");
     background-size: cover;
     width: 6vw;
     height: 6vw;
+    @media only screen and (min-width: 300px) and (max-width: 600px) {
+        width: 14vw; 
+        height: 14vw;
+        margin-top: -5%;
+        margin-left: 8vw
+    }
+    @media only screen and (min-width: 601px) and (max-width: 1280px) {
+        width: 11vw;
+        height: 11vw;
+    }
 `;
 
 },{"react-router-dom":34,"styled-components":54}],63:[function(require,module,exports){
@@ -35501,14 +35542,16 @@ const VaultHome = () => {
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
             react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null, "My Sites"),
-        react_1.default.createElement("div", { className: "SiteGrid" },
-            react_1.default.createElement("div", { className: "GridItem" }, "Facebook"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Gmail"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Outlook"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Dropbox"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Fashion Nova"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Bank of America"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Paypal"))));
+        react_1.default.createElement("div", { className: "Sites" },
+            react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used"),
+            react_1.default.createElement("div", { className: "SiteGrid" },
+                react_1.default.createElement("div", { className: "GridItem" }, "Facebook"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Gmail"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Outlook"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Dropbox"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Fashion Nova"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Bank of America"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Paypal")))));
 };
 exports.VaultHome = VaultHome;
 

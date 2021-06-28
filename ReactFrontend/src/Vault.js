@@ -15,13 +15,15 @@ const VaultHome = () => {
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
             react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null, "My Sites"),
-        react_1.default.createElement("div", { className: "SiteGrid" },
-            react_1.default.createElement("div", { className: "GridItem" }, "Facebook"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Gmail"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Outlook"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Dropbox"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Fashion Nova"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Bank of America"),
-            react_1.default.createElement("div", { className: "GridItem" }, "Paypal"))));
+        react_1.default.createElement("div", { className: "Sites" },
+            react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used"),
+            react_1.default.createElement("div", { className: "SiteGrid" },
+                react_1.default.createElement("div", { className: "GridItem" }, "Facebook"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Gmail"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Outlook"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Dropbox"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Fashion Nova"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Bank of America"),
+                react_1.default.createElement("div", { className: "GridItem" }, "Paypal")))));
 };
 exports.VaultHome = VaultHome;
