@@ -38,6 +38,34 @@ nav {
     text-align: center;
     font-size: 26pt;
 }
+/* This is for the login page */
+.TheForm {
+    display: flex;
+    flex-direction: column;
+    margin: 1% 20%;
+    background-color: gray;
+    border: 2px solid black;
+}
+#username, #password {
+    margin-left: 30%;
+    font-size: 20pt;
+    font-family: Helvetica;
+    margin-top: 1%;
+    padding: 1%;
+    width: 35%;
+}
+#username-label, #password-label {
+    margin-left: 30%;
+    font-size: 20pt;
+    font-family: Helvetica;
+    margin-top: 1%;
+}
+#submit-login {
+    width: 20%;
+    margin: 2% 30%;
+    padding: 1%;
+    font-size: 18pt;
+}
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
@@ -54,6 +82,9 @@ nav {
     #search {
         width: 67%;
         margin-left: 15%;
+    }
+    #username-label, #password-label {
+        font-size: 12pt;
     }
 }
 @media screen and (min-width: 801px) and (max-width: 1290px) {

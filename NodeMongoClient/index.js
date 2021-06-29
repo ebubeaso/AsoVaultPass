@@ -38,7 +38,9 @@ which the database connection string uses to parse the username and password sep
 var databaseName = "vaultpass";
 var mongoUrl = `mongodb://${mongoUser}:${encodeURIComponent(mongoPass)}@localhost:27017/${databaseName}`;
 let client = mongodb.MongoClient;
-
+app.get("/", (req, res) => {
+    res.json("Hello!!");
+});
 app.post("/vaultuser", (req, res) => {
     // get the request parameters
     let body = req.body;

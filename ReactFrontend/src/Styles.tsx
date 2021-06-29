@@ -76,10 +76,11 @@ export const LoginNav = styled.div`
     }
 `;
 export const LogoDiv = styled.div`
-    background-image: url("./src/logos/AsoVaultPass.png");
+    background-image: url("static/logos/AsoVaultPass.png");
     background-size: cover;
     width: 6vw;
     height: 6vw;
+    cursor: pointer;
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         width: 14vw; 
         height: 14vw;
