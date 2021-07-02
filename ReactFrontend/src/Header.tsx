@@ -7,25 +7,33 @@ import request from "superagent";
 import https from 'https';
 import axios from 'axios';
 // determine the login session
-var authenticate: string | boolean = ""
+export var authenticate: string | boolean = "";
 export const VaultLogin: React.FC = () => {
+    var [login, setLogin] = React.useState<string | boolean>("");
+    var [,setState] = React.useState<any>();
     var [user, setUser] = React.useState<string>("");
     var [passwd, setPasswd] = React.useState<string>("");
     // this is used to send the account credentials
     var auth = {username: user, password: passwd}
     const sendAuth = () => {
         var httpsAgent = new https.Agent({rejectUnauthorized: false})
-        authenticate = false;
+        setLogin(false);
         axios.post("https://192.168.1.103:9900/vaultuser", auth, 
         {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
             let result = response.data;
             console.log(result);
-            authenticate = true;
+            if (result.Message == "Success") {
+                setLogin(true);
+            } 
+            if (result.Message == "Failed") { 
+                setLogin(false);
+            }
         })
         .catch(err => console.log(err));
     }
-    return (
+    if (login == "") {
+        return (
         <div>
         <Subtitle>VaultPass Login</Subtitle>
         <div className="TheForm">
@@ -40,42 +48,14 @@ export const VaultLogin: React.FC = () => {
             <button id="submit-login" onClick={sendAuth}>Login</button>
         </div>
         </div>
-    )
-}
-export const TheHeader: React.FC = () => {
-    if (authenticate === "") {
-        return WelcomeHeader;
+        )
     }
-    return authenticate ? <AppHeader/> : <Title>Loading, Please wait...</Title>
+    return login ? <AppHeader/> : <NotAuthorized/>
 }
-const WelcomeHeader: JSX.Element = (
-        <div>
-        <HashRouter>
-            <div>
-            <Header>
-            <nav>
-                <Ul>
-                <Nav1>
-                    <NavList><LogoDiv></LogoDiv></NavList>
-                </Nav1>
-                <LoginNav>
-                    <NavList><NavLinks to="/login">Login</NavLinks></NavList>
-                    <NavList><NavLinks to="/signup">Register</NavLinks></NavList>
-                </LoginNav>
-                </Ul>
-            </nav>
-            </Header>
-            </div>
-            <Switch>
-                <Route exact path="/"><VaultHome/></Route>
-                <Route path="/login"><VaultLogin/></Route>
-                <Route path="/signup"></Route>
-            </Switch>
-        </HashRouter>
-        </div>
-    )
-
-const AppHeader: React.FC = () => {
+export const TheHeader: React.FC = () => { 
+    return <VaultLogin/>;
+}
+export const AppHeader: React.FC = () => {
     return (
         <div>
         <HashRouter>
@@ -85,12 +65,12 @@ const AppHeader: React.FC = () => {
                 <Ul>
                 <Nav1>
                     <NavList>
-                        <NavLinks to="/main"><LogoDiv></LogoDiv></NavLinks>
+                        <NavLinks to="/"><LogoDiv></LogoDiv></NavLinks>
                     </NavList>
                 </Nav1>
                 <LoginNav>
                     <NavList>
-                        <NavLinks to="/account">My Account</NavLinks>
+                        <NavLinks to="/account">Account</NavLinks>
                     </NavList>
                     <NavList>
                         <NavLinks to="/logout">Logout</NavLinks>
@@ -101,11 +81,42 @@ const AppHeader: React.FC = () => {
             </Header>
             </div>
             <Switch>
-                <Route exact path="/main"><VaultMain/></Route>
+                <Route path="/"><VaultMain/></Route>
                 <Route path="/account"></Route>
-                <Route path="/logout"></Route>
+                <Route path="/logout"><VaultLogin/></Route>
             </Switch>
         </HashRouter>
+        </div>
+    )
+}
+const NotAuthorized: React.FC = () => {
+    return (
+        <div>
+        <HashRouter>
+            <div>
+            <Header>
+                <nav>
+                <Ul>
+                <Nav1></Nav1>
+                <LoginNav>
+                    <NavList>
+                        <NavLinks to="/Login">Login</NavLinks>
+                    </NavList>
+                    <NavList>
+                        <NavLinks to="/signup">Register</NavLinks>
+                    </NavList>
+                </LoginNav>
+                </Ul>
+                </nav>
+            </Header>
+            </div>
+            <Switch>
+                <Route path="/login"><VaultLogin/></Route>
+                <Route path="/signup"><Title>Signup</Title></Route>
+            </Switch>
+        </HashRouter>
+        <Title>You are not authorized</Title>
+        <Subtitle>Either login with the right credentials or create a new account</Subtitle>
         </div>
     )
 }

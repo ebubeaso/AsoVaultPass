@@ -65,6 +65,12 @@ nav {
     margin: 2% 30%;
     padding: 1%;
     font-size: 18pt;
+    cursor: pointer;
+}
+#submit-login:hover {
+    background-color: green;
+    border: 2px solid white;
+    color: white;
 }
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .GridItem {
@@ -85,6 +91,18 @@ nav {
     }
     #username-label, #password-label {
         font-size: 12pt;
+    }
+    .TheForm {
+        margin: 1% 10%;
+    }
+    #username, #password {
+        font-size: 11pt;
+        width: 50%;
+    }
+    #submit-login {
+        margin: 4% 30%;
+        width: 35%;
+        font-size: 11pt;
     }
 }
 @media screen and (min-width: 801px) and (max-width: 1290px) {
