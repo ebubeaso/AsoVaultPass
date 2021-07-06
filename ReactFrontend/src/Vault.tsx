@@ -1,5 +1,7 @@
 import React from 'react';
 import { Title, Subtitle, IntroParagraph } from './Styles';
+import { authenticate, httpsAgent } from './Header';
+import axios from 'axios';
 
 export const VaultHome: React.FC = () => {
     return (
@@ -27,7 +29,16 @@ export const VaultHome: React.FC = () => {
 }
 export const VaultMain: React.FC = () => {
     var [buttonColor, setButtonColor] = React.useState<string>("green");
-    let buttonCss: React.CSSProperties = {backgroundColor: buttonColor}
+    var [appData, setAppData] = React.useState<Array<any>>([]);
+    let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
+    React.useEffect(() => {
+        axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
+        {httpsAgent, headers: {"Content-Type": "application/json"}})
+        .then(response => {
+            let result = response.data;
+            setAppData(result);
+        })
+    }, [])
     return (
         <div>
         <div className="SearchDiv">
@@ -38,16 +49,12 @@ export const VaultMain: React.FC = () => {
         </div>
         <Title>My Sites</Title>
             <div className="Sites">
-            <Subtitle>Frequently Used</Subtitle>
-            <div className="SiteGrid">
-                <div className="GridItem">Facebook</div>
-                <div className="GridItem">Gmail</div>
-                <div className="GridItem">Outlook</div>
-                <div className="GridItem">Dropbox</div>
-                <div className="GridItem">Fashion Nova</div>
-                <div className="GridItem">Bank of America</div>
-                <div className="GridItem">Paypal</div>
-            </div>
+                <Subtitle>Frequently Used</Subtitle>
+                {appData.map((d) => (
+                <div className="SiteGrid" key={d.Username}>
+                    <div className="GridItem">{d.Service}</div>
+                </div>
+                ))}
             </div>
         </div>
     )

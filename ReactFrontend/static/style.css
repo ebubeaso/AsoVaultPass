@@ -32,6 +32,9 @@ nav {
     margin-top: -1%;
 }
 .GridItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: whitesmoke;
     box-shadow: -4px 6px 4px rgba(0, 0, 0, 0.8);
     padding: 1%;

@@ -32,11 +32,12 @@ def index():
     return jsonify({"Result": "This is a test route"})
 
 class VaultTable(Resource):
-    def get(self):
-        data = Vault.query.all()
+    def get(self, name):
+        # This queries the data
+        data = Vault.query.filter_by(username=name).order_by(Vault.service)
         result = [entry.serializer() for entry in data]
         return result, 200
 
-api.add_resource(VaultTable, "/vault")
+api.add_resource(VaultTable, "/vault/<string:name>")
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

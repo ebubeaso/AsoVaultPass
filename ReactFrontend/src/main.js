@@ -36960,33 +36960,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppHeader = exports.TheHeader = exports.VaultLogin = exports.authenticate = void 0;
+exports.AppHeader = exports.TheHeader = exports.VaultLogin = exports.authenticate = exports.httpsAgent = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const react_router_dom_1 = require("react-router-dom");
 const Vault_1 = require("./Vault");
 const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
-// determine the login session
 exports.authenticate = "";
 const VaultLogin = () => {
     var [login, setLogin] = react_1.default.useState("");
-    var [, setState] = react_1.default.useState();
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
     // this is used to send the account credentials
     var auth = { username: user, password: passwd };
     const sendAuth = () => {
-        var httpsAgent = new https_1.default.Agent({ rejectUnauthorized: false });
+        exports.httpsAgent = new https_1.default.Agent({ rejectUnauthorized: false });
         setLogin(false);
-        axios_1.default.post("https://192.168.1.103:9900/vaultuser", auth, { httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post("https://192.168.1.103:9900/vaultuser", auth, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             console.log(result);
             if (result.Message == "Success") {
                 setLogin(true);
+                exports.authenticate = user;
             }
-            else {
+            if (result.Message == "Failed") {
                 setLogin(false);
             }
         })
@@ -37193,6 +37192,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VaultMain = exports.VaultHome = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
+const Header_1 = require("./Header");
+const axios_1 = __importDefault(require("axios"));
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "Aso VaultPass"),
@@ -37203,7 +37204,15 @@ const VaultHome = () => {
 exports.VaultHome = VaultHome;
 const VaultMain = () => {
     var [buttonColor, setButtonColor] = react_1.default.useState("green");
+    var [appData, setAppData] = react_1.default.useState([]);
     let buttonCss = { backgroundColor: buttonColor };
+    react_1.default.useEffect(() => {
+        axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setAppData(result);
+        });
+    }, []);
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
@@ -37211,18 +37220,12 @@ const VaultMain = () => {
         react_1.default.createElement(Styles_1.Title, null, "My Sites"),
         react_1.default.createElement("div", { className: "Sites" },
             react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used"),
-            react_1.default.createElement("div", { className: "SiteGrid" },
-                react_1.default.createElement("div", { className: "GridItem" }, "Facebook"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Gmail"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Outlook"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Dropbox"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Fashion Nova"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Bank of America"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Paypal")))));
+            appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d.Username },
+                react_1.default.createElement("div", { className: "GridItem" }, d.Service)))))));
 };
 exports.VaultMain = VaultMain;
 
-},{"./Styles":89,"react":70}],91:[function(require,module,exports){
+},{"./Header":87,"./Styles":89,"axios":7,"react":70}],91:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength

@@ -1,22 +1,22 @@
 import React from "react";
 import { Header, Ul, NavList, NavLinks, LoginNav, LogoDiv, Nav1, 
     Subtitle, Title } from "./Styles";
-import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import { VaultHome, VaultMain} from "./Vault";
 import request from "superagent";
 import https from 'https';
 import axios from 'axios';
 // determine the login session
+export var httpsAgent: https.Agent;
 export var authenticate: string | boolean = "";
 export const VaultLogin: React.FC = () => {
     var [login, setLogin] = React.useState<string | boolean>("");
-    var [,setState] = React.useState<any>();
     var [user, setUser] = React.useState<string>("");
     var [passwd, setPasswd] = React.useState<string>("");
     // this is used to send the account credentials
     var auth = {username: user, password: passwd}
     const sendAuth = () => {
-        var httpsAgent = new https.Agent({rejectUnauthorized: false})
+        httpsAgent = new https.Agent({rejectUnauthorized: false})
         setLogin(false);
         axios.post("https://192.168.1.103:9900/vaultuser", auth, 
         {httpsAgent, headers: {"Content-Type": "application/json"}})
@@ -25,6 +25,7 @@ export const VaultLogin: React.FC = () => {
             console.log(result);
             if (result.Message == "Success") {
                 setLogin(true);
+                authenticate = user;
             } 
             if (result.Message == "Failed") { 
                 setLogin(false);

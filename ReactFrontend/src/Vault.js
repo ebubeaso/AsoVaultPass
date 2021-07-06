@@ -6,6 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.VaultMain = exports.VaultHome = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
+const Header_1 = require("./Header");
+const axios_1 = __importDefault(require("axios"));
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "Aso VaultPass"),
@@ -16,7 +18,15 @@ const VaultHome = () => {
 exports.VaultHome = VaultHome;
 const VaultMain = () => {
     var [buttonColor, setButtonColor] = react_1.default.useState("green");
+    var [appData, setAppData] = react_1.default.useState([]);
     let buttonCss = { backgroundColor: buttonColor };
+    react_1.default.useEffect(() => {
+        axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setAppData(result);
+        });
+    }, []);
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
@@ -24,13 +34,7 @@ const VaultMain = () => {
         react_1.default.createElement(Styles_1.Title, null, "My Sites"),
         react_1.default.createElement("div", { className: "Sites" },
             react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used"),
-            react_1.default.createElement("div", { className: "SiteGrid" },
-                react_1.default.createElement("div", { className: "GridItem" }, "Facebook"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Gmail"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Outlook"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Dropbox"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Fashion Nova"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Bank of America"),
-                react_1.default.createElement("div", { className: "GridItem" }, "Paypal")))));
+            appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d.Username },
+                react_1.default.createElement("div", { className: "GridItem" }, d.Service)))))));
 };
 exports.VaultMain = VaultMain;

@@ -3,33 +3,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AppHeader = exports.TheHeader = exports.VaultLogin = exports.authenticate = void 0;
+exports.AppHeader = exports.TheHeader = exports.VaultLogin = exports.authenticate = exports.httpsAgent = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const react_router_dom_1 = require("react-router-dom");
 const Vault_1 = require("./Vault");
 const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
-// determine the login session
 exports.authenticate = "";
 const VaultLogin = () => {
     var [login, setLogin] = react_1.default.useState("");
-    var [, setState] = react_1.default.useState();
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
     // this is used to send the account credentials
     var auth = { username: user, password: passwd };
     const sendAuth = () => {
-        var httpsAgent = new https_1.default.Agent({ rejectUnauthorized: false });
+        exports.httpsAgent = new https_1.default.Agent({ rejectUnauthorized: false });
         setLogin(false);
-        axios_1.default.post("https://192.168.1.103:9900/vaultuser", auth, { httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post("https://192.168.1.103:9900/vaultuser", auth, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             console.log(result);
             if (result.Message == "Success") {
                 setLogin(true);
+                exports.authenticate = user;
             }
-            else {
+            if (result.Message == "Failed") {
                 setLogin(false);
             }
         })
