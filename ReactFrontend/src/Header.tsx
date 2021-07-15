@@ -1,14 +1,15 @@
 import React from "react";
 import { Header, Ul, NavList, NavLinks, LoginNav, LogoDiv, Nav1, 
     Subtitle, Title } from "./Styles";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { VaultHome, VaultMain} from "./Vault";
 import request from "superagent";
 import https from 'https';
 import axios from 'axios';
 // determine the login session
 export var httpsAgent: https.Agent;
-export var authenticate: string | boolean = "";
+export var authenticate: string = "";
+
 export const VaultLogin: React.FC = () => {
     var [login, setLogin] = React.useState<string | boolean>("");
     var [user, setUser] = React.useState<string>("");
@@ -17,18 +18,16 @@ export const VaultLogin: React.FC = () => {
     var auth = {username: user, password: passwd}
     const sendAuth = () => {
         httpsAgent = new https.Agent({rejectUnauthorized: false})
-        setLogin(false);
         axios.post("https://192.168.1.103:9900/vaultuser", auth, 
         {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
             let result = response.data;
-            console.log(result);
             if (result.Message == "Success") {
                 setLogin(true);
                 authenticate = user;
-            } 
-            if (result.Message == "Failed") { 
+            } else {
                 setLogin(false);
+                alert("Sorry, you have entered incorrect credentials, please try again");
             }
         })
         .catch(err => console.log(err));
@@ -51,12 +50,19 @@ export const VaultLogin: React.FC = () => {
         </div>
         )
     }
-    return login ? <AppHeader/> : <NotAuthorized/>
+    return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
 }
-export const TheHeader: React.FC = () => { 
-    return <VaultLogin/>;
-}
-export const AppHeader: React.FC = () => {
+export const TheHeader: React.FC = () => {
+    var [session, setSession] = React.useState(false);
+    React.useEffect(() => {
+        // this will check every 1 second to see if you have logged in
+        setInterval(() => {
+            if (authenticate.length > 0) {
+                setSession(true);
+            }
+            if (session == true) {clearInterval()}
+        }, 1000)
+    }, [])
     return (
         <div>
         <HashRouter>
@@ -66,15 +72,18 @@ export const AppHeader: React.FC = () => {
                 <Ul>
                 <Nav1>
                     <NavList>
-                        <NavLinks to="/"><LogoDiv></LogoDiv></NavLinks>
+                    {session ? <NavLinks to="/main"><LogoDiv></LogoDiv></NavLinks> : 
+                    <LogoDiv></LogoDiv>}
                     </NavList>
                 </Nav1>
                 <LoginNav>
                     <NavList>
-                        <NavLinks to="/account">Account</NavLinks>
+                        {session ? <NavLinks to="/account">Account</NavLinks> : 
+                        <NavLinks to="/login">Login</NavLinks>}
                     </NavList>
                     <NavList>
-                        <NavLinks to="/logout">Logout</NavLinks>
+                        {session ? <NavLinks to="/logout">Logout</NavLinks> : 
+                        <NavLinks to="/signup">Register</NavLinks>}
                     </NavList>
                 </LoginNav>
                 </Ul>
@@ -82,40 +91,22 @@ export const AppHeader: React.FC = () => {
             </Header>
             </div>
             <Switch>
-                <Route path="/"><VaultMain/></Route>
-                <Route path="/account"></Route>
-                <Route path="/logout"><VaultLogin/></Route>
+                <Route exact path="/" component={VaultHome}/>
+                <Route exact path="/main" component={VaultMain}/>
+                <Route exact path="/login" component={VaultLogin}/>
+                <Route path="/signup"><Title>Signup</Title></Route>
+                <Route path="/account"/>
+                <Route path="/logout" component={VaultLogin}/>
+                <Route exact path="/unauthorized" component={NotAuthorized}/>
             </Switch>
         </HashRouter>
         </div>
     )
 }
-const NotAuthorized: React.FC = () => {
+
+const NotAuthorized: React.FC =  () => {
     return (
         <div>
-        <HashRouter>
-            <div>
-            <Header>
-                <nav>
-                <Ul>
-                <Nav1></Nav1>
-                <LoginNav>
-                    <NavList>
-                        <NavLinks to="/Login">Login</NavLinks>
-                    </NavList>
-                    <NavList>
-                        <NavLinks to="/signup">Register</NavLinks>
-                    </NavList>
-                </LoginNav>
-                </Ul>
-                </nav>
-            </Header>
-            </div>
-            <Switch>
-                <Route path="/login"><VaultLogin/></Route>
-                <Route path="/signup"><Title>Signup</Title></Route>
-            </Switch>
-        </HashRouter>
         <Title>You are not authorized</Title>
         <Subtitle>Either login with the right credentials or create a new account</Subtitle>
         </div>

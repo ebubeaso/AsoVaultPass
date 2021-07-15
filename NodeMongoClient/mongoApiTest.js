@@ -136,32 +136,3 @@ axios.post("https://localhost:9900/testvault", {
 }, {httpsAgent}).then(response => {
     console.log(response.data);
 }).catch(err => console.log(err));
-
-// testing out the incorrect credentials
-// axios.post("http://localhost:9900/testvault", {
-//     username: "jaxon", password: "password123"
-// }).then(response => {
-//     let result = response;
-// }).catch(err => {
-//     let theError = err;
-//     expect(theError.response.status).to.equal(400);
-//     expect(theError.response.data.Message).to.equal("Failed");
-//     console.log("This request testing incorrect credentials has passed!");
-// });
-// axios.post("http://localhost:9900/testvault", {
-//     username: "pierre", password: "Ebube"
-// }).then(response => {
-//     let result = response;
-// }).catch(err => {
-//     let theError = err;
-//     expect(theError.response.status).to.equal(400);
-//     expect(theError.response.data.Message).to.equal("Failed");
-//     console.log("This request testing incorrect credentials has passed as well!");
-// });
-
-// testing out the https endpoint
-// request.post("https://localhost:9900/vaultuser")
-//     .send({username: "pierre", password: passwd})
-//     .disableTLSCerts()
-//     .then(res => console.log(res.body))
-//     .catch(err => console.log(err));

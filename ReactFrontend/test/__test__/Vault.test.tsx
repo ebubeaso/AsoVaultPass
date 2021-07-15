@@ -2,12 +2,17 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import {shallow, configure} from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { VaultHome, VaultLogin } from '../../src/Vault';
+import { VaultHome, VaultMain } from '../../src/Vault';
+import { VaultLogin, TheHeader } from '../../src/Header';
 import { Title } from '../../src/Styles';
+import { correctPasswd, incorrectPasswd } from './testCreds';
 // configure the enzyme adapter to avoid the adapter error
 configure({adapter: new Adapter()});
 it("render without crashing", () => {
-    render(<VaultHome/>)
+    render(<VaultHome/>);
+    render(<VaultMain/>);
+    render(<VaultLogin/>);
+    render(<TheHeader/>);
 });
 
 it("Change the screen resolution", () => {
@@ -23,6 +28,11 @@ it("Testing responsiveness", () => {
     expect(window.innerHeight).toEqual(600);
     expect(vault.find(Title)).toBeTruthy();
 })
-it("Render the login component without crashing", () => {
-    render(<VaultLogin/>);
+it("Test the login", () => {
+    let wrapper = shallow(<VaultLogin/>);
+    // testing the username input
+    wrapper.find("#username").simulate('change', {target: {
+        name: "username", value: "pierre"}})
+    expect(wrapper.find("#username").html()).toContain("pierre");
+
 })

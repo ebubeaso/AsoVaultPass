@@ -10,9 +10,7 @@
     background-color: lightgray;
     border: 2px solid gray;
 }
-.SearchDiv {
-    display: flex;
-}
+.SearchDiv {display: flex;}
 .SearchButton {
     color: white;
     border: 2px solid gray;
@@ -28,9 +26,7 @@
     font-size: 24pt;
     outline: 0px;
 }
-nav {
-    margin-top: -1%;
-}
+nav {margin-top: -1%;}
 .GridItem {
     display: flex;
     flex-direction: column;
@@ -39,7 +35,7 @@ nav {
     box-shadow: -4px 6px 4px rgba(0, 0, 0, 0.8);
     padding: 1%;
     text-align: center;
-    font-size: 26pt;
+    width: 70%;
 }
 /* This is for the login page */
 .TheForm {
@@ -75,16 +71,31 @@ nav {
     border: 2px solid white;
     color: white;
 }
+.Icon {
+    font-size: 38pt;
+    background-color: green;
+    padding: 1%;
+    width: 11%;
+    margin: -1% 42%;
+    color: white;
+    border: 2px solid white;
+    border-radius: 100px;
+}
+.Service {font-size: 26pt;}
+.Icon, .Service {font-family: monospace;}
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
+        width: 60%;
+        height: 50%;
     }
     .SiteGrid {
         grid-template-columns: auto auto;
     }
-    .GridItem {
+    .Service, .Icon {
         font-size: 18pt;
     }
+    .Icon {width: 20%; margin: -1% 35%;}
     .SearchButton {
         font-size: 12pt;
     }

@@ -4,9 +4,11 @@ const mongodb = require("mongodb");
 const ssh = require("node-ssh-forward");
 const express = require("express");
 const fs = require("fs");
+const crypto = require("crypto");
 const app = express();
 const port = 9900;
 const reader = require("./readCredentials");
+const db2 = require("./dbBackup");
 // some middleware
 app.use(cors());
 app.use(express.json());
@@ -44,7 +46,9 @@ app.get("/", (req, res) => {
 app.post("/vaultuser", (req, res) => {
     // get the request parameters
     let body = req.body;
-    let auth = {username: body.username, password: body.password}
+    // hash the password entry to see if it is valid
+    let passwd = crypto.createHash("sha512").update(body.password).digest("hex").substr(0, 20);
+    let auth = {username: body.username, password: passwd}
     sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
     .catch(err => {throw err;});
     client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
@@ -71,7 +75,8 @@ app.post("/testvault", (req, res) => {
     // get the request parameters
     let testUrl = `mongodb://${mongoUser}:${encodeURIComponent(mongoPass)}@192.168.1.104/${databaseName}`;
     let body = req.body;
-    let auth = {username: body.username, password: body.password}
+    let passwd = crypto.createHash("sha512").update(body.password).digest("hex").substr(0, 20);
+    let auth = {username: body.username, password: passwd}
     client.connect(testUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
         if (err) throw err;
         let dbObject = db.db(databaseName);
@@ -93,7 +98,7 @@ app.post("/newuser", (req, res) => {
     let first = theBody.firstName;
     let last = theBody.lastName; 
     let user = theBody.username;
-    let passwd = theBody.password;
+    let passwd = crypto.createHash("sha512").update(theBody.password).digest("hex").substr(0, 20);
     let theEmail = theBody.email;
     let userContent = {firstName: first, lastName: last, username: user, 
         password: passwd, email: theEmail}
@@ -104,6 +109,7 @@ app.post("/newuser", (req, res) => {
         if (err) {console.log("Nyx"); throw err};
         let dbObject = db.db(databaseName);
         let vaultUsers = dbObject.collection("vaultusers");
+        // this code will see if the user exists in the database
         vaultUsers.findOne({username: user}, (err, result) => {
             if (err) {console.log("Jojo"); throw err};
             let theData = result;
@@ -120,8 +126,10 @@ app.post("/newuser", (req, res) => {
                     sshTunnel.shutdown();
                 })
             }
+        })
     })
-})
+    // send the info to the mariaDB database
+    db2.connectDB(theBody.username, theBody.password, theBody.email);
 });
 // export the module
 module.exports = app;

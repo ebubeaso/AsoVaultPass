@@ -30,6 +30,7 @@ export const VaultHome: React.FC = () => {
 export const VaultMain: React.FC = () => {
     var [buttonColor, setButtonColor] = React.useState<string>("green");
     var [appData, setAppData] = React.useState<Array<any>>([]);
+    var [popup, setPopup] = React.useState<boolean>(false);
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
         axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
@@ -39,6 +40,10 @@ export const VaultMain: React.FC = () => {
             setAppData(result);
         })
     }, [])
+    // This function is used to display the popup service
+    const servicePopup = () => {
+        
+    }
     return (
         <div>
         <div className="SearchDiv">
@@ -52,9 +57,17 @@ export const VaultMain: React.FC = () => {
                 <Subtitle>Frequently Used</Subtitle>
                 {appData.map((d) => (
                 <div className="SiteGrid" key={d.Username}>
-                    <div className="GridItem">{d.Service}</div>
+                    <div className="GridItem">
+                        <p className="Icon">{d.Service[0]}</p>
+                        <p className="Service">{d.Service}</p>
+                    </div>
+                    <div className="GridItem">
+                        <p className="Icon" id="NewService" onClick={servicePopup}>+</p>
+                        <p className="Service">Add Service</p>
+                    </div>
                 </div>
                 ))}
+
             </div>
         </div>
     )

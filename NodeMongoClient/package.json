@@ -16,6 +16,7 @@
     "bson-ext": "^2.0.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mariadb": "^2.5.4",
     "mongodb": "^3.6.5",
     "mongodb-client-encryption": "^1.2.2",
     "node-ssh-forward": "^0.7.2",

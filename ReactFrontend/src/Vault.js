@@ -35,6 +35,8 @@ const VaultMain = () => {
         react_1.default.createElement("div", { className: "Sites" },
             react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used"),
             appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d.Username },
-                react_1.default.createElement("div", { className: "GridItem" }, d.Service)))))));
+                react_1.default.createElement("div", { className: "GridItem" },
+                    react_1.default.createElement("p", { className: "Icon" }, d.Service[0]),
+                    react_1.default.createElement("p", { className: "Service" }, d.Service))))))));
 };
 exports.VaultMain = VaultMain;
