@@ -36983,7 +36983,7 @@ const VaultLogin = () => {
                 setLogin(true);
                 exports.authenticate = user;
             }
-            else {
+            if (result.Message != "Success") {
                 setLogin(false);
                 alert("Sorry, you have entered incorrect credentials, please try again");
             }
@@ -36995,14 +36995,15 @@ const VaultLogin = () => {
             react_1.default.createElement(Styles_1.Subtitle, null, "VaultPass Login"),
             react_1.default.createElement("div", { className: "TheForm" },
                 react_1.default.createElement("form", { id: "login" },
-                    react_1.default.createElement("label", { htmlFor: "username", id: "username-label" }, "Username"),
-                    react_1.default.createElement("input", { type: "text", name: "username", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
-                    react_1.default.createElement("label", { htmlFor: "password", id: "password-label" }, "Password"),
-                    react_1.default.createElement("input", { type: "password", name: "password", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
-                react_1.default.createElement("button", { id: "submit-login", onClick: sendAuth }, "Login"))));
+                    react_1.default.createElement("label", { htmlFor: "username", className: "FormLabel", id: "username-label" }, "Username"),
+                    react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
+                    react_1.default.createElement("label", { htmlFor: "password", className: "FormLabel", id: "password-label" }, "Password"),
+                    react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
+                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
     }
     return login ? react_1.default.createElement("div", null,
-        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null, NotAuthorized);
+        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null,
+        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" }));
 };
 exports.VaultLogin = VaultLogin;
 const TheHeader = () => {
@@ -37031,7 +37032,10 @@ const TheHeader = () => {
                             react_1.default.createElement(Styles_1.LoginNav, null,
                                 react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/account" }, "Account") :
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
-                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/logout" }, "Logout") :
+                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
+                                        exports.authenticate = "";
+                                        setSession(false);
+                                    } }, "Logout") :
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Vault_1.VaultHome }),
@@ -37040,12 +37044,15 @@ const TheHeader = () => {
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/signup" },
                     react_1.default.createElement(Styles_1.Title, null, "Signup")),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/account" }),
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/logout", component: exports.VaultLogin })))));
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/logout", component: exports.VaultLogin }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized })))));
 };
 exports.TheHeader = TheHeader;
-const NotAuthorized = (react_1.default.createElement("div", null,
-    react_1.default.createElement(Styles_1.Title, null, "You are not authorized"),
-    react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
+const NotAuthorized = () => {
+    return (react_1.default.createElement("div", null,
+        react_1.default.createElement(Styles_1.Title, null, "You are not authorized"),
+        react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
+};
 
 },{"./Styles":89,"./Vault":90,"axios":7,"https":96,"react":70,"react-router-dom":61}],88:[function(require,module,exports){
 "use strict";
@@ -37087,7 +37094,7 @@ const react_router_dom_1 = require("react-router-dom");
 const fontStyle = styled_components_1.css `font-family: Helvetica`;
 const flexDisplay = styled_components_1.css `display: flex`;
 const centerAlign = styled_components_1.css `text-align: center;`;
-const mainTextColor = styled_components_1.css `color: darkcyan`;
+// const mainTextColor = css`color: darkcyan`;
 const navColor = styled_components_1.css `color: whitesmoke`;
 const links = styled_components_1.css `font-size: 26pt; text-decoration: none; ${navColor};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
@@ -37098,12 +37105,11 @@ exports.Title = styled_components_1.default.h1 `
     font-size: 44pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTextColor};
     @media only screen and (max-width: 800px) {
         font-size: 30pt;
       }   `;
 exports.Subtitle = styled_components_1.default.h2 `
-    font-size: 32pt; ${fontStyle}; ${centerAlign}; ${mainTextColor};
+    font-size: 32pt; ${fontStyle}; ${centerAlign};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         font-size: 22pt;
       }   `;
@@ -37111,7 +37117,6 @@ exports.IntroParagraph = styled_components_1.default.p `
     font-size: 18pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTextColor};
     margin: 1% 15%;
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         font-size: 12pt;
@@ -37181,7 +37186,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultMain = exports.VaultHome = void 0;
+exports.MyAccount = exports.VaultMain = exports.VaultHome = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const Header_1 = require("./Header");
@@ -37197,6 +37202,10 @@ exports.VaultHome = VaultHome;
 const VaultMain = () => {
     var [buttonColor, setButtonColor] = react_1.default.useState("green");
     var [appData, setAppData] = react_1.default.useState([]);
+    var [newUser, setNewUser] = react_1.default.useState("");
+    var [newPasswd, setNewPasswd] = react_1.default.useState("");
+    var [newService, setNewService] = react_1.default.useState("");
+    var [addPopup, setAddPopup] = react_1.default.useState(false);
     let buttonCss = { backgroundColor: buttonColor };
     react_1.default.useEffect(() => {
         axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
@@ -37205,6 +37214,27 @@ const VaultMain = () => {
             setAppData(result);
         });
     }, []);
+    // These functions are used to display or hide the popup service
+    const showAddPopup = () => {
+        setAddPopup(true);
+    };
+    const closeAddPopup = () => {
+        setAddPopup(false);
+    };
+    // this sends the new service to the database
+    const addService = () => {
+    };
+    const addingPopup = (react_1.default.createElement("div", { className: "Popup" },
+        react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
+            react_1.default.createElement("form", { id: "add-form" },
+                react_1.default.createElement("button", { className: "CloseButton", id: "close-add", onClick: closeAddPopup }, " X "),
+                react_1.default.createElement("label", { htmlFor: "add-service", className: "FormLabel", id: "add-service-label" }, "Service"),
+                react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "add-service", value: newService, onChange: (e) => setNewService(e.target.value) }),
+                react_1.default.createElement("label", { htmlFor: "add-username", className: "FormLabel", id: "add-user-label" }, "Username"),
+                react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "add-username", value: newUser, onChange: (e) => setNewUser(e.target.value) }),
+                react_1.default.createElement("label", { htmlFor: "add-password", className: "FormLabel", id: "add-pass-label" }, "Password"),
+                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "add-password", value: newPasswd, onChange: (e) => setNewPasswd(e.target.value) })),
+            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: addService }, "Add Service"))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
@@ -37215,9 +37245,17 @@ const VaultMain = () => {
             appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d.Username },
                 react_1.default.createElement("div", { className: "GridItem" },
                     react_1.default.createElement("p", { className: "Icon" }, d.Service[0]),
-                    react_1.default.createElement("p", { className: "Service" }, d.Service))))))));
+                    react_1.default.createElement("p", { className: "Service" }, d.Service)),
+                react_1.default.createElement("div", { className: "GridItem" },
+                    react_1.default.createElement("p", { className: "Icon", id: "NewService", onClick: showAddPopup }, "+"),
+                    react_1.default.createElement("p", { className: "Service" }, "Add Service")))))),
+        (addPopup) ? addingPopup : null));
 };
 exports.VaultMain = VaultMain;
+const MyAccount = () => {
+    return (react_1.default.createElement("div", null));
+};
+exports.MyAccount = MyAccount;
 
 },{"./Header":87,"./Styles":89,"axios":7,"react":70}],91:[function(require,module,exports){
 'use strict'

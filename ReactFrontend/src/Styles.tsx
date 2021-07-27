@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const fontStyle = css`font-family: Helvetica`;
 const flexDisplay = css`display: flex`;
 const centerAlign = css`text-align: center;`;
-const mainTextColor = css`color: darkcyan`;
+// const mainTextColor = css`color: darkcyan`;
 const navColor = css`color: whitesmoke`;
 const links = css`font-size: 26pt; text-decoration: none; ${navColor};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
@@ -16,12 +16,11 @@ export const Title = styled.h1`
     font-size: 44pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTextColor};
     @media only screen and (max-width: 800px) {
         font-size: 30pt;
       }   `;
 export const Subtitle = styled.h2`
-    font-size: 32pt; ${fontStyle}; ${centerAlign}; ${mainTextColor};
+    font-size: 32pt; ${fontStyle}; ${centerAlign};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         font-size: 22pt;
       }   `;
@@ -29,7 +28,6 @@ export const IntroParagraph = styled.p`
     font-size: 18pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTextColor};
     margin: 1% 15%;
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         font-size: 12pt;

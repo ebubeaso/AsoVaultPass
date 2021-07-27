@@ -1,0 +1,27 @@
+.Popup {
+    display: flex;
+    background: rgba(0, 0, 0, 0.5);
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    padding-right: 2%;
+    position: fixed;
+    margin-left: -30px;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+.CloseButton {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    margin-left: 85%;
+    padding: 1%;
+    background-color: red;
+    cursor: pointer;
+    color: whitesmoke;
+    font-size: 16pt;
+    font-weight: bold;
+    width: 80px;
+    border: 2px solid black;
+    border-radius: 15px;
+}

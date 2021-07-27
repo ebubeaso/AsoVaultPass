@@ -26,7 +26,7 @@ const react_router_dom_1 = require("react-router-dom");
 const fontStyle = styled_components_1.css `font-family: Helvetica`;
 const flexDisplay = styled_components_1.css `display: flex`;
 const centerAlign = styled_components_1.css `text-align: center;`;
-const mainTextColor = styled_components_1.css `color: darkcyan`;
+// const mainTextColor = css`color: darkcyan`;
 const navColor = styled_components_1.css `color: whitesmoke`;
 const links = styled_components_1.css `font-size: 26pt; text-decoration: none; ${navColor};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
@@ -37,12 +37,11 @@ exports.Title = styled_components_1.default.h1 `
     font-size: 44pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTextColor};
     @media only screen and (max-width: 800px) {
         font-size: 30pt;
       }   `;
 exports.Subtitle = styled_components_1.default.h2 `
-    font-size: 32pt; ${fontStyle}; ${centerAlign}; ${mainTextColor};
+    font-size: 32pt; ${fontStyle}; ${centerAlign};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         font-size: 22pt;
       }   `;
@@ -50,7 +49,6 @@ exports.IntroParagraph = styled_components_1.default.p `
     font-size: 18pt;
     ${fontStyle};
     ${centerAlign};
-    ${mainTextColor};
     margin: 1% 15%;
     @media only screen and (min-width: 300px) and (max-width: 600px) {
         font-size: 12pt;

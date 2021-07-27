@@ -30,7 +30,10 @@ export const VaultHome: React.FC = () => {
 export const VaultMain: React.FC = () => {
     var [buttonColor, setButtonColor] = React.useState<string>("green");
     var [appData, setAppData] = React.useState<Array<any>>([]);
-    var [popup, setPopup] = React.useState<boolean>(false);
+    var [newUser, setNewUser] = React.useState<string>("");
+    var [newPasswd, setNewPasswd] = React.useState<string>("");
+    var [newService, setNewService] = React.useState<string>("");
+    var [addPopup, setAddPopup] = React.useState<boolean>(false);
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
         axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
@@ -40,10 +43,37 @@ export const VaultMain: React.FC = () => {
             setAppData(result);
         })
     }, [])
-    // This function is used to display the popup service
-    const servicePopup = () => {
-        
+    // These functions are used to display or hide the popup service
+    const showAddPopup = () => {
+        setAddPopup(true);
     }
+    const closeAddPopup = () => {
+        setAddPopup(false);
+    }
+    // this sends the new service to the database
+    const addService = () => {
+
+    }
+    const addingPopup: JSX.Element = (
+        <div className="Popup">
+            <div className="TheForm" id="add-service">
+            <form id="add-form">
+                <button className="CloseButton" id="close-add" onClick={closeAddPopup}> X </button>
+                <Subtitle>Add a New Service</Subtitle>
+                <label htmlFor="add-service" className="FormLabel" id="add-service-label">Service</label>
+                <input type="text" name="username" className="FormInput" id="add-service" value={newService}
+                    onChange={(e) => setNewService(e.target.value)} />
+                <label htmlFor="add-username" className="FormLabel" id="add-user-label">Username</label>
+                <input type="text" name="username" className="FormInput" id="add-username" value={newUser}
+                    onChange={(e) => setNewUser(e.target.value)} />
+                <label htmlFor="add-password" className="FormLabel" id="add-pass-label">Password</label>
+                <input type="password" name="password" className="FormInput" id="add-password" 
+                    value={newPasswd} onChange={(e) => setNewPasswd(e.target.value)} />
+            </form>
+            <button className="SubmitButton" id="add-service" onClick={addService}>Add Service</button>
+            </div>
+        </div>
+    )
     return (
         <div>
         <div className="SearchDiv">
@@ -62,13 +92,16 @@ export const VaultMain: React.FC = () => {
                         <p className="Service">{d.Service}</p>
                     </div>
                     <div className="GridItem">
-                        <p className="Icon" id="NewService" onClick={servicePopup}>+</p>
+                        <p className="Icon" id="NewService" onClick={showAddPopup}>+</p>
                         <p className="Service">Add Service</p>
                     </div>
                 </div>
                 ))}
-
             </div>
+            {(addPopup) ? addingPopup : null}
         </div>
     )
+}
+export const MyAccount: React.FC = () => {
+    return (<div></div>)
 }

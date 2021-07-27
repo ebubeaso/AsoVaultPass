@@ -26,7 +26,7 @@ const VaultLogin = () => {
                 setLogin(true);
                 exports.authenticate = user;
             }
-            else {
+            if (result.Message != "Success") {
                 setLogin(false);
                 alert("Sorry, you have entered incorrect credentials, please try again");
             }
@@ -38,14 +38,15 @@ const VaultLogin = () => {
             react_1.default.createElement(Styles_1.Subtitle, null, "VaultPass Login"),
             react_1.default.createElement("div", { className: "TheForm" },
                 react_1.default.createElement("form", { id: "login" },
-                    react_1.default.createElement("label", { htmlFor: "username", id: "username-label" }, "Username"),
-                    react_1.default.createElement("input", { type: "text", name: "username", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
-                    react_1.default.createElement("label", { htmlFor: "password", id: "password-label" }, "Password"),
-                    react_1.default.createElement("input", { type: "password", name: "password", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
-                react_1.default.createElement("button", { id: "submit-login", onClick: sendAuth }, "Login"))));
+                    react_1.default.createElement("label", { htmlFor: "username", className: "FormLabel", id: "username-label" }, "Username"),
+                    react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
+                    react_1.default.createElement("label", { htmlFor: "password", className: "FormLabel", id: "password-label" }, "Password"),
+                    react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
+                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
     }
     return login ? react_1.default.createElement("div", null,
-        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null, NotAuthorized);
+        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null,
+        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" }));
 };
 exports.VaultLogin = VaultLogin;
 const TheHeader = () => {
@@ -74,7 +75,10 @@ const TheHeader = () => {
                             react_1.default.createElement(Styles_1.LoginNav, null,
                                 react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/account" }, "Account") :
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
-                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/logout" }, "Logout") :
+                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
+                                        exports.authenticate = "";
+                                        setSession(false);
+                                    } }, "Logout") :
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Vault_1.VaultHome }),
@@ -83,9 +87,12 @@ const TheHeader = () => {
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/signup" },
                     react_1.default.createElement(Styles_1.Title, null, "Signup")),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/account" }),
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/logout", component: exports.VaultLogin })))));
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/logout", component: exports.VaultLogin }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized })))));
 };
 exports.TheHeader = TheHeader;
-const NotAuthorized = (react_1.default.createElement("div", null,
-    react_1.default.createElement(Styles_1.Title, null, "You are not authorized"),
-    react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
+const NotAuthorized = () => {
+    return (react_1.default.createElement("div", null,
+        react_1.default.createElement(Styles_1.Title, null, "You are not authorized"),
+        react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
+};

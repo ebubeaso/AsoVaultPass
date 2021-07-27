@@ -25,7 +25,8 @@ export const VaultLogin: React.FC = () => {
             if (result.Message == "Success") {
                 setLogin(true);
                 authenticate = user;
-            } else {
+            } 
+            if (result.Message != "Success") {
                 setLogin(false);
                 alert("Sorry, you have entered incorrect credentials, please try again");
             }
@@ -38,14 +39,14 @@ export const VaultLogin: React.FC = () => {
         <Subtitle>VaultPass Login</Subtitle>
         <div className="TheForm">
             <form id="login">
-                <label htmlFor="username" id="username-label">Username</label>
-                <input type="text" name="username" id="username" value={user}
+                <label htmlFor="username" className="FormLabel" id="username-label">Username</label>
+                <input type="text" name="username" className="FormInput" id="username" value={user}
                 onChange={(e) => setUser(e.target.value)} />
-                <label htmlFor="password" id="password-label">Password</label>
-                <input type="password" name="password" id="password" value={passwd}
+                <label htmlFor="password" className="FormLabel" id="password-label">Password</label>
+                <input type="password" name="password" className="FormInput" id="password" value={passwd}
                 onChange={(e) => setPasswd(e.target.value)} />
             </form>
-            <button id="submit-login" onClick={sendAuth}>Login</button>
+            <button className="SubmitButton" id="submit-login" onClick={sendAuth}>Login</button>
         </div>
         </div>
         )
@@ -82,7 +83,8 @@ export const TheHeader: React.FC = () => {
                         <NavLinks to="/login">Login</NavLinks>}
                     </NavList>
                     <NavList>
-                        {session ? <NavLinks to="/logout">Logout</NavLinks> : 
+                        {session ? <NavLinks to="/logout" onClick={() => {
+                            authenticate = ""; setSession(false)}}>Logout</NavLinks> : 
                         <NavLinks to="/signup">Register</NavLinks>}
                     </NavList>
                 </LoginNav>

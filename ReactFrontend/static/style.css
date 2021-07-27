@@ -1,7 +1,8 @@
 .SiteGrid {
     display: grid;
-    padding: 2%;
+    padding: 0% 1%;
     grid-template-columns: auto auto auto auto;
+    margin: 2% 0%;
     grid-column-gap: 3%;
     grid-row-gap: 2vw;
     height: 30vh;
@@ -10,7 +11,10 @@
     background-color: lightgray;
     border: 2px solid gray;
 }
-.SearchDiv {display: flex;}
+.SearchDiv {
+    display: flex;
+    margin-top: 2%;
+}
 .SearchButton {
     color: white;
     border: 2px solid gray;
@@ -18,6 +22,8 @@
     padding: 1%;
     cursor: pointer;
 }
+#login {margin: 2% 0%;}
+body {margin: 0%;}
 #search {
     width: 50%;
     margin-left: 25%;
@@ -45,28 +51,28 @@ nav {margin-top: -1%;}
     background-color: gray;
     border: 2px solid black;
 }
-#username, #password {
+.FormInput {
     margin-left: 30%;
     font-size: 20pt;
     font-family: Helvetica;
-    margin-top: 1%;
+    margin-bottom: 1%;
     padding: 1%;
     width: 35%;
 }
-#username-label, #password-label {
+.FormLabel {
     margin-left: 30%;
     font-size: 20pt;
     font-family: Helvetica;
     margin-top: 1%;
 }
-#submit-login {
+.SubmitButton {
     width: 20%;
-    margin: 2% 30%;
+    margin: 0% 30% 2% 30%;
     padding: 1%;
     font-size: 18pt;
     cursor: pointer;
 }
-#submit-login:hover {
+.SubmitButton:hover {
     background-color: green;
     border: 2px solid white;
     color: white;
@@ -81,39 +87,24 @@ nav {margin-top: -1%;}
     border: 2px solid white;
     border-radius: 100px;
 }
+#NewService {cursor: pointer;}
 .Service {font-size: 26pt;}
 .Icon, .Service {font-family: monospace;}
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
-        width: 60%;
+        width: 70%;
         height: 50%;
     }
-    .SiteGrid {
-        grid-template-columns: auto auto;
-    }
-    .Service, .Icon {
-        font-size: 18pt;
-    }
-    .Icon {width: 20%; margin: -1% 35%;}
-    .SearchButton {
-        font-size: 12pt;
-    }
-    #search {
-        width: 67%;
-        margin-left: 15%;
-    }
-    #username-label, #password-label {
-        font-size: 12pt;
-    }
-    .TheForm {
-        margin: 1% 10%;
-    }
-    #username, #password {
-        font-size: 11pt;
-        width: 50%;
-    }
-    #submit-login {
+    .SiteGrid {grid-template-columns: auto auto;}
+    .Service {font-size: 14pt;}
+    .Icon {width: 20%; margin: -4% 35%; font-size: 18pt;}
+    .SearchButton {font-size: 12pt;}
+    #search {width: 67%;margin-left: 15%;}
+    .FormLabel {font-size: 12pt;}
+    .TheForm {margin: 1% 10%;}
+    .FormInput {font-size: 11pt; width: 50%;}
+    .SubmitButton {
         margin: 4% 30%;
         width: 35%;
         font-size: 11pt;
