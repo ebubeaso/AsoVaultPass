@@ -42,13 +42,14 @@ nav {margin-top: -1%;}
     padding: 1%;
     text-align: center;
     width: 70%;
+    overflow: scroll;
 }
 /* This is for the login page */
 .TheForm {
     display: flex;
     flex-direction: column;
     margin: 1% 20%;
-    background-color: gray;
+    background-color: lightgray;
     border: 2px solid black;
 }
 .FormInput {
@@ -90,6 +91,7 @@ nav {margin-top: -1%;}
 #NewService {cursor: pointer;}
 .Service {font-size: 26pt;}
 .Icon, .Service {font-family: monospace;}
+.DataOptions {display: flex;}
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);

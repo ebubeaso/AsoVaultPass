@@ -33,7 +33,11 @@ export const VaultMain: React.FC = () => {
     var [newUser, setNewUser] = React.useState<string>("");
     var [newPasswd, setNewPasswd] = React.useState<string>("");
     var [newService, setNewService] = React.useState<string>("");
+    var [editUser, setEditUser] = React.useState<string>("");
+    var [editPasswd, setEditPasswd] = React.useState<string>("");
     var [addPopup, setAddPopup] = React.useState<boolean>(false);
+    var [editPopup, setEditPopup] = React.useState<boolean>(false);
+    var [details, setDetails] = React.useState<boolean>(false);
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
         axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
@@ -43,15 +47,20 @@ export const VaultMain: React.FC = () => {
             setAppData(result);
         })
     }, [])
-    // These functions are used to display or hide the popup service
-    const showAddPopup = () => {
-        setAddPopup(true);
-    }
-    const closeAddPopup = () => {
-        setAddPopup(false);
-    }
+    // These functions are used to display or hide the popup screen that adds a new service.
+    const showAddPopup = () => {setAddPopup(true);}
+    const closeAddPopup = () => {setAddPopup(false);}
+    // These functions are used to display or hide the popup screen that edits information.
+    const showEditPopup = () => {setEditPopup(true);}
+    const closeEditPopup = () => {setEditPopup(false);}
+    // this function shows the details of the account
+    const showDetails = () => {setDetails(true);}
+    const closeDetails = () => {setDetails(false);}
     // this sends the new service to the database
     const addService = () => {
+
+    }
+    const editService = () => {
 
     }
     const addingPopup: JSX.Element = (
@@ -74,6 +83,23 @@ export const VaultMain: React.FC = () => {
             </div>
         </div>
     )
+    const changePopup: JSX.Element = (
+        <div className="Popup">
+            <div className="TheForm" id="add-service">
+            <form id="add-form">
+                <button className="CloseButton" id="close-edit" onClick={closeEditPopup}> X </button>
+                <Subtitle>Edit Credentials</Subtitle>
+                <label htmlFor="edit-username" className="FormLabel" id="edit-user-label">Username</label>
+                <input type="text" name="username" className="FormInput" id="edit-username" value={editUser}
+                    onChange={(e) => setEditUser(e.target.value)} />
+                <label htmlFor="edit-password" className="FormLabel" id="edit-pass-label">Password</label>
+                <input type="password" name="password" className="FormInput" id="edit-password" 
+                    value={editPasswd} onChange={(e) => setEditPasswd(e.target.value)} />
+            </form>
+            <button className="SubmitButton" id="add-service" onClick={editService}>Update Info</button>
+            </div>
+        </div>
+    )
     return (
         <div>
         <div className="SearchDiv">
@@ -89,7 +115,18 @@ export const VaultMain: React.FC = () => {
                 <div className="SiteGrid" key={d.Username}>
                     <div className="GridItem">
                         <p className="Icon">{d.Service[0]}</p>
-                        <p className="Service">{d.Service}</p>
+                        <p className="Service" id="ServiceName" onClick={showDetails}>{d.Service}</p>
+                        {
+                            (details) ? 
+                            <div>
+                                <div className="DataOptions">
+                                <button className="EditButton" onClick={showEditPopup}>Edit Info</button>
+                                <button className="CloseButton" id="close-details" onClick={closeDetails}> X </button>
+                                </div>
+                                <p className="Service">Username: {d.Username}</p>
+                                <p className="Service">Password: {d.Password}</p>
+                            </div> : null
+                        }
                     </div>
                     <div className="GridItem">
                         <p className="Icon" id="NewService" onClick={showAddPopup}>+</p>
@@ -99,6 +136,7 @@ export const VaultMain: React.FC = () => {
                 ))}
             </div>
             {(addPopup) ? addingPopup : null}
+            {(editPopup) ? changePopup : null}
         </div>
     )
 }

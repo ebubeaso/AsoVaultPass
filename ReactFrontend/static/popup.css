@@ -12,8 +12,8 @@
     align-items: center;
 }
 .CloseButton {
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin-top: 1%;
+    margin-bottom: 1%;
     margin-left: 85%;
     padding: 1%;
     background-color: red;
@@ -24,4 +24,36 @@
     width: 80px;
     border: 2px solid black;
     border-radius: 15px;
+}
+button#close-details.CloseButton {
+    margin-left: 4%;
+}
+button#close-details, button.EditButton, p#ServiceName {
+    cursor: pointer;
+}
+button.EditButton {
+    margin-left: 46%;
+    font-size: 16pt;
+    border: 2px solid black;
+    border-radius: 15px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    padding: 1%;
+}
+button.EditButton:hover {
+    background-color: green;
+    border: 2px solid white;
+    color: white;
+}
+@media screen and (min-width: 300px) and (max-width: 800px) {
+    .CloseButton {
+        margin-left: 70%;
+    }
+    .Popup {padding-right: 8%;}
+    button.EditButton {
+        font-size: 12pt;
+        padding: 3%;
+        margin: 2% 1% 2% 25%;
+        width: 70%;
+    }
 }
