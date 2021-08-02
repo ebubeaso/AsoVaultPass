@@ -3,6 +3,7 @@ import { Header, Ul, NavList, NavLinks, LoginNav, LogoDiv, Nav1,
     Subtitle, Title } from "./Styles";
 import { HashRouter, Switch, Route, useHistory, Redirect } from "react-router-dom";
 import { VaultHome, VaultMain} from "./Vault";
+import { Signup } from "./Signup";
 import request from "superagent";
 import https from 'https';
 import axios from 'axios';
@@ -25,6 +26,12 @@ export const VaultLogin: React.FC = () => {
             if (result.Message == "Success") {
                 setLogin(true);
                 authenticate = user;
+                /* 
+                We want to save the user's username in the session so that when we
+                refresh the page after updating some data, the user can still remain
+                logged into the session 
+                */
+                window.sessionStorage.setItem("authenticated", authenticate);
             } 
             if (result.Message != "Success") {
                 setLogin(false);
@@ -73,19 +80,21 @@ export const TheHeader: React.FC = () => {
                 <Ul>
                 <Nav1>
                     <NavList>
-                    {session ? <NavLinks to="/main"><LogoDiv></LogoDiv></NavLinks> : 
-                    <LogoDiv></LogoDiv>}
+                        {(window.sessionStorage.getItem("authenticated") != null ) ? 
+                        <NavLinks to="/main"><LogoDiv></LogoDiv></NavLinks> : <LogoDiv></LogoDiv>}
                     </NavList>
                 </Nav1>
                 <LoginNav>
                     <NavList>
-                        {session ? <NavLinks to="/account">Account</NavLinks> : 
-                        <NavLinks to="/login">Login</NavLinks>}
+                        {(window.sessionStorage.getItem("authenticated") != null ) ? 
+                        <NavLinks to="/account">Account</NavLinks> : <NavLinks to="/login">Login</NavLinks>}
                     </NavList>
                     <NavList>
-                        {session ? <NavLinks to="/logout" onClick={() => {
-                            authenticate = ""; setSession(false)}}>Logout</NavLinks> : 
-                        <NavLinks to="/signup">Register</NavLinks>}
+                        {(window.sessionStorage.getItem("authenticated") != null ) ? 
+                        <NavLinks to="/logout" onClick={() => {
+                            window.sessionStorage.removeItem("authenticated"); authenticate = ""; 
+                            alert("You have logged out"); setSession(false);}}>Logout
+                        </NavLinks> : <NavLinks to="/signup">Register</NavLinks>}
                     </NavList>
                 </LoginNav>
                 </Ul>
@@ -96,7 +105,7 @@ export const TheHeader: React.FC = () => {
                 <Route exact path="/" component={VaultHome}/>
                 <Route exact path="/main" component={VaultMain}/>
                 <Route exact path="/login" component={VaultLogin}/>
-                <Route path="/signup"><Title>Signup</Title></Route>
+                <Route path="/signup"><Signup/></Route>
                 <Route path="/account"/>
                 <Route path="/logout" component={VaultLogin}/>
                 <Route exact path="/unauthorized" component={NotAuthorized}/>

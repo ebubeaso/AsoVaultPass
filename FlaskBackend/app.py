@@ -10,6 +10,7 @@ from werkzeug.security import safe_str_cmp
 import os
 from datetime import timedelta
 from models import Vault
+import random
 # initialize the variables
 app = Flask(__name__)
 api = Api(app)
@@ -26,18 +27,54 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{db_user}:{db_pass}@192.168.1.
 # Turns off the flask SQLAlchemy tracker to save resources
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+# We have this list to store the array of IDs that were already taken when adding a new data entry 
+# The ID values must be unique for each data point
+taken_id_list = []
 # set up the routes
 @app.route("/")
 def index():
     return jsonify({"Result": "This is a test route"})
+def id_checker(data):
+    """
+    This code snipped is made to see if the random generated number is in use. It will run
+    recursively if it continues to find a random number that is in the list of data objects
+    but it will return a random number to use if the number is not found.
+        - data = the array of objects that has the data of the user
+    """
+    randomID = random.randint(10000000, 99999999)
+    if randomID in taken_id_list:
+        id_checker(data)
+    else:
+        return randomID
 
 class VaultTable(Resource):
     def get(self, name):
         # This queries the data
-        data = Vault.query.filter_by(username=name).order_by(Vault.service)
+        data = Vault.query.filter_by(user=name).order_by(Vault.service)
         result = [entry.serializer() for entry in data]
+        # This code snippet will help the backend know what IDs were taken while it is making a unique ID
+        for i in result:
+            taken_id_list.append(i["ID"])
         return result, 200
+    def post(self, name):
+        the_data = request.json # save the JSON data into a variable
+        data = Vault.query.filter_by(user=name)
+        result = [entry.serializer() for entry in data]
+        id_number = id_checker(result)
+        # construct the new entry
+        new_entry = Vault(id_number, the_data["SessionUser"], the_data["Username"], 
+        the_data["Password"], the_data["Service"])
+        # add the entry
+        db.session.add(new_entry)
+        db.session.commit()
+        return {"Message": "Success!", "Result": "The new entry has been added!!"}, 201
+class VaultTableUpdates(Resource):
+    def put(self, name, ID):
+        pass
+    def delete(self, name, ID):
+        pass
 
 api.add_resource(VaultTable, "/vault/<string:name>")
+api.add_resource(VaultTableUpdates, "/vault/<string:name>/<string:ID>")
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

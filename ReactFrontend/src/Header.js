@@ -8,6 +8,7 @@ const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const react_router_dom_1 = require("react-router-dom");
 const Vault_1 = require("./Vault");
+const Signup_1 = require("./Signup");
 const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
 exports.authenticate = "";
@@ -25,6 +26,12 @@ const VaultLogin = () => {
             if (result.Message == "Success") {
                 setLogin(true);
                 exports.authenticate = user;
+                /*
+                We want to save the user's username in the session so that when we
+                refresh the page after updating some data, the user can still remain
+                logged into the session
+                */
+                window.sessionStorage.setItem("authenticated", exports.authenticate);
             }
             if (result.Message != "Success") {
                 setLogin(false);
@@ -69,23 +76,25 @@ const TheHeader = () => {
                     react_1.default.createElement("nav", null,
                         react_1.default.createElement(Styles_1.Ul, null,
                             react_1.default.createElement(Styles_1.Nav1, null,
-                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/main" },
-                                    react_1.default.createElement(Styles_1.LogoDiv, null)) :
-                                    react_1.default.createElement(Styles_1.LogoDiv, null))),
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/main" },
+                                        react_1.default.createElement(Styles_1.LogoDiv, null)) : react_1.default.createElement(Styles_1.LogoDiv, null))),
                             react_1.default.createElement(Styles_1.LoginNav, null,
-                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/account" }, "Account") :
-                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
-                                react_1.default.createElement(Styles_1.NavList, null, session ? react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
-                                        exports.authenticate = "";
-                                        setSession(false);
-                                    } }, "Logout") :
-                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/account" }, "Account") : react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                    react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
+                                            window.sessionStorage.removeItem("authenticated");
+                                            exports.authenticate = "";
+                                            alert("You have logged out");
+                                            setSession(false);
+                                        } }, "Logout") : react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Vault_1.VaultHome }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/main", component: Vault_1.VaultMain }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/login", component: exports.VaultLogin }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/signup" },
-                    react_1.default.createElement(Styles_1.Title, null, "Signup")),
+                    react_1.default.createElement(Signup_1.Signup, null)),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/account" }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/logout", component: exports.VaultLogin }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized })))));

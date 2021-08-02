@@ -2,7 +2,7 @@ import React from 'react';
 import { Title, Subtitle, IntroParagraph } from './Styles';
 import { authenticate, httpsAgent } from './Header';
 import axios from 'axios';
-
+var currentUser = window.sessionStorage.getItem("authenticated");
 export const VaultHome: React.FC = () => {
     return (
         <div>
@@ -30,6 +30,7 @@ export const VaultHome: React.FC = () => {
 export const VaultMain: React.FC = () => {
     var [buttonColor, setButtonColor] = React.useState<string>("green");
     var [appData, setAppData] = React.useState<Array<any>>([]);
+    var [details, setDetails] = React.useState<boolean>(false);
     var [newUser, setNewUser] = React.useState<string>("");
     var [newPasswd, setNewPasswd] = React.useState<string>("");
     var [newService, setNewService] = React.useState<string>("");
@@ -37,15 +38,29 @@ export const VaultMain: React.FC = () => {
     var [editPasswd, setEditPasswd] = React.useState<string>("");
     var [addPopup, setAddPopup] = React.useState<boolean>(false);
     var [editPopup, setEditPopup] = React.useState<boolean>(false);
-    var [details, setDetails] = React.useState<boolean>(false);
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
-        axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
-        {httpsAgent, headers: {"Content-Type": "application/json"}})
-        .then(response => {
-            let result = response.data;
-            setAppData(result);
-        })
+        if (authenticate.length > 0) { 
+            axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
+            {httpsAgent, headers: {"Content-Type": "application/json"}})
+            .then(response => {
+                let result = response.data;
+                setAppData(result);
+            }).catch(err => {
+                console.log(err); 
+                alert("Sorry, we could not connect to the resource. Try again later")
+            }) 
+        } else {
+            axios.get(`https://192.168.1.103:5500/vault/${currentUser}`, 
+            {httpsAgent, headers: {"Content-Type": "application/json"}})
+            .then(response => {
+                let result = response.data;
+                setAppData(result);
+            }).catch(err => {
+                console.log(err); 
+                alert("Sorry, we could not connect to the resource. Try again later")
+            })
+        }
     }, [])
     // These functions are used to display or hide the popup screen that adds a new service.
     const showAddPopup = () => {setAddPopup(true);}
@@ -53,13 +68,36 @@ export const VaultMain: React.FC = () => {
     // These functions are used to display or hide the popup screen that edits information.
     const showEditPopup = () => {setEditPopup(true);}
     const closeEditPopup = () => {setEditPopup(false);}
+    const showDetails = () => {setDetails(true)};
     // this function shows the details of the account
-    const showDetails = () => {setDetails(true);}
+    const showData = (user: any, passwd: any): JSX.Element => {
+        const TheDetails: JSX.Element =  (
+            <div>
+                <div className="DataOptions">
+                <button className="EditButton" onClick={showEditPopup}>Edit Info</button>
+                <button className="CloseButton" id="close-details" onClick={closeDetails}> X </button>
+                </div>
+                <p className="Service">Username: {user}</p>
+                <p className="Service">Password: {passwd}</p>
+            </div>
+        )
+        return TheDetails;
+    }
     const closeDetails = () => {setDetails(false);}
     // this sends the new service to the database
     const addService = () => {
-
-    }
+        let request = {
+            SessionUser: authenticate, Username: newUser, 
+            Password: newPasswd, Service: newService
+        }
+        axios.post(`https://192.168.1.103:5500/vault/${currentUser}`, request,
+        {httpsAgent, headers: {"Content-Type": "application/json"}})
+        .then(response => {
+            let result = response.data;
+            // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
+            setTimeout(() => {alert(result.Result); window.location.reload();}, 1000);
+        }).catch(err => console.log(err));
+    };
     const editService = () => {
 
     }
@@ -70,13 +108,13 @@ export const VaultMain: React.FC = () => {
                 <button className="CloseButton" id="close-add" onClick={closeAddPopup}> X </button>
                 <Subtitle>Add a New Service</Subtitle>
                 <label htmlFor="add-service" className="FormLabel" id="add-service-label">Service</label>
-                <input type="text" name="username" className="FormInput" id="add-service" value={newService}
+                <input type="text" name="add-service" className="FormInput" id="add-service" value={newService}
                     onChange={(e) => setNewService(e.target.value)} />
                 <label htmlFor="add-username" className="FormLabel" id="add-user-label">Username</label>
-                <input type="text" name="username" className="FormInput" id="add-username" value={newUser}
+                <input type="text" name="add-username" className="FormInput" id="add-username" value={newUser}
                     onChange={(e) => setNewUser(e.target.value)} />
                 <label htmlFor="add-password" className="FormLabel" id="add-pass-label">Password</label>
-                <input type="password" name="password" className="FormInput" id="add-password" 
+                <input type="password" name="add-password" className="FormInput" id="add-password" 
                     value={newPasswd} onChange={(e) => setNewPasswd(e.target.value)} />
             </form>
             <button className="SubmitButton" id="add-service" onClick={addService}>Add Service</button>
@@ -100,6 +138,15 @@ export const VaultMain: React.FC = () => {
             </div>
         </div>
     )
+    const mappings = appData.map((d) => (
+        <div className="SiteGrid" key={d["ID"]}>
+            <div className="GridItem">
+                <p className="Icon">{` ${d.Service[0]} `}</p>
+                <p className="Service" id="ServiceName" 
+                onClick={showDetails}>{d.Service}</p>
+                {details ? showData(d.Username, d.Password) : null}
+            </div>
+        </div>))
     return (
         <div>
         <div className="SearchDiv">
@@ -108,35 +155,19 @@ export const VaultMain: React.FC = () => {
                 onMouseOver={() => setButtonColor("#2ddc2d")}
                 onMouseOut={() => setButtonColor("green")}>Search</button>
         </div>
-        <Title>My Sites</Title>
+        <Title>Hello {(authenticate.length > 0)? authenticate : currentUser}!</Title>
+            <div className="UserData">
+            <Subtitle>Frequently Used Sites</Subtitle>
             <div className="Sites">
-                <Subtitle>Frequently Used</Subtitle>
-                {appData.map((d) => (
-                <div className="SiteGrid" key={d.Username}>
-                    <div className="GridItem">
-                        <p className="Icon">{d.Service[0]}</p>
-                        <p className="Service" id="ServiceName" onClick={showDetails}>{d.Service}</p>
-                        {
-                            (details) ? 
-                            <div>
-                                <div className="DataOptions">
-                                <button className="EditButton" onClick={showEditPopup}>Edit Info</button>
-                                <button className="CloseButton" id="close-details" onClick={closeDetails}> X </button>
-                                </div>
-                                <p className="Service">Username: {d.Username}</p>
-                                <p className="Service">Password: {d.Password}</p>
-                            </div> : null
-                        }
-                    </div>
-                    <div className="GridItem">
-                        <p className="Icon" id="NewService" onClick={showAddPopup}>+</p>
-                        <p className="Service">Add Service</p>
-                    </div>
+                {mappings}
+                <div className="GridItem" id="service-button">
+                    <p className="Icon" id="NewService" onClick={showAddPopup}>+</p>
+                    <p className="Service">Add Service</p>
                 </div>
-                ))}
             </div>
-            {(addPopup) ? addingPopup : null}
-            {(editPopup) ? changePopup : null}
+                {(addPopup) ? addingPopup : null}
+                {(editPopup) ? changePopup : null}
+            </div>
         </div>
     )
 }

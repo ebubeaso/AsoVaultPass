@@ -1,4 +1,12 @@
 .SiteGrid {
+    display: flex;
+}
+.UserData {
+    background-color: darkgray;
+    border: 2px solid darkcyan;
+    position: relative;
+}
+.Sites {
     display: grid;
     padding: 0% 1%;
     grid-template-columns: auto auto auto auto;
@@ -6,10 +14,6 @@
     grid-column-gap: 3%;
     grid-row-gap: 2vw;
     height: 30vh;
-}
-.Sites {
-    background-color: lightgray;
-    border: 2px solid gray;
 }
 .SearchDiv {
     display: flex;
@@ -34,14 +38,13 @@ body {margin: 0%;}
 }
 nav {margin-top: -1%;}
 .GridItem {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     background-color: whitesmoke;
-    box-shadow: -4px 6px 4px rgba(0, 0, 0, 0.8);
-    padding: 1%;
+    box-shadow: -4px 6px 4px rgb(0 0 0 / 80%);
+    padding: 2% 0%;
     text-align: center;
-    width: 70%;
+    width: 75%;
+    margin: 5% 0%;
     overflow: scroll;
 }
 /* This is for the login page */
@@ -49,27 +52,36 @@ nav {margin-top: -1%;}
     display: flex;
     flex-direction: column;
     margin: 1% 20%;
-    background-color: lightgray;
+    background-color: gray;
     border: 2px solid black;
 }
+.GridItem, .TheForm, .InvalidPasswd, #register {
+    display: flex;
+    flex-direction: column;
+}
 .FormInput {
-    margin-left: 30%;
-    font-size: 20pt;
-    font-family: Helvetica;
     margin-bottom: 1%;
     padding: 1%;
     width: 35%;
 }
 .FormLabel {
-    margin-left: 30%;
-    font-size: 20pt;
-    font-family: Helvetica;
     margin-top: 1%;
+}
+.FormInput, .FormLabel, .Invalid {
+    margin-left: 30%;
+    font-family: Helvetica;
+}
+.FormLabel, .FormInput {font-size: 20pt;}
+.Invalid {
+    color: red;
+    font-size: 14pt;
+    margin-top: 0%;
+    margin-bottom: 0%;
 }
 .SubmitButton {
     width: 20%;
     margin: 0% 30% 2% 30%;
-    padding: 1%;
+    padding: 1% 5%;
     font-size: 18pt;
     cursor: pointer;
 }
@@ -81,7 +93,7 @@ nav {margin-top: -1%;}
 .Icon {
     font-size: 38pt;
     background-color: green;
-    padding: 1%;
+    padding: 1% 5%;
     width: 11%;
     margin: -1% 42%;
     color: white;
@@ -111,6 +123,7 @@ nav {margin-top: -1%;}
         width: 35%;
         font-size: 11pt;
     }
+    .Invalid {font-size: 10pt;}
 }
 @media screen and (min-width: 801px) and (max-width: 1290px) {
     .SiteGrid {
