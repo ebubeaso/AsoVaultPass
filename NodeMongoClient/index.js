@@ -131,5 +131,28 @@ app.post("/newuser", (req, res) => {
     // send the info to the mariaDB database
     db2.connectDB(theBody.username, theBody.password, theBody.email);
 });
+app.post("/takenuser", (req, res) => {
+    let testUrl = `mongodb://${mongoUser}:${encodeURIComponent(mongoPass)}@192.168.1.104/${databaseName}`;
+    let theBody = req.body; 
+    let user = theBody.username;
+    client.connect(testUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) {console.log("Nyx"); throw err};
+        let dbObject = db.db(databaseName);
+        let vaultUsers = dbObject.collection("vaultusers");
+        // this code will see if the user exists in the database
+        vaultUsers.findOne({username: user}, (err, result) => {
+            if (err) {console.log("Jojo"); throw err};
+            let theData = result;
+            if (theData != null) {
+                // close the connection
+                res.json({Message: "Username is already taken"});
+                db.close();
+            } else {
+                res.json({Message: "That username is available!"});
+                db.close();
+            }
+        })
+    })
+})
 // export the module
 module.exports = app;

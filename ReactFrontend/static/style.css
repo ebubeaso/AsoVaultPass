@@ -78,6 +78,7 @@ nav {margin-top: -1%;}
     margin-top: 0%;
     margin-bottom: 0%;
 }
+p.Invalid#invalid-pass {margin-right: 10%;}
 .SubmitButton {
     width: 20%;
     margin: 0% 30% 2% 30%;

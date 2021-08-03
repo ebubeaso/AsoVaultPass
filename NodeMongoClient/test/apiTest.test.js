@@ -19,21 +19,21 @@ it("Responds to good API call", async () => {
         username: "pierre", password: passwd.replace(/\r?\n|\r/g, "")
     })
     expect(response.statusCode).to.equal(200);
+    expect(response.text).to.equal('{"Message":"Success","Result":"Authentication Successful!"}')
 });
 it("Respond to a bad user signup", async () => {
-    let theResponse = await apiCall(app).post("/newuser").send({
-        firstName: "Ebube", lastName: "Test", username: "easo", 
-        password: "test123!!", email: "escalade938@gmail.com"
-    })
-    expect(theResponse.text).to.equal("Username is already taken");
-})
-/*
-it("Respond to good user signup", async () => {
-    let theResponse = await apiCall(app).post("/newuser").send({
-        firstName: "Ebube", lastName: "Test", username: "easo", 
-        password: "test123!!", email: "escalade938@gmail.com"
+    let theResponse = await apiCall(app).post("/takenuser").send({
+        firstName: "Ebube", lastName: "Test", username: "pierre", 
+        password: "test123!!", email: `escalade938@gmail.com`
     })
     expect(theResponse.statusCode).to.equal(200);
-    //expect(theResponse.)
+    expect(theResponse.text).to.equal('{"Message":"Username is already taken"}');
 })
-*/
+it("Respond to a username that is available", async () => {
+    let response = await apiCall(app).post("/takenuser").send({
+        firstName: "Ebube", lastName: "Test", username: "hewi", 
+        password: "test123!!", email: `escalade938@gmail.com`
+    })
+    expect(response.statusCode).to.equal(200);
+    expect(response.text).to.equal('{"Message":"That username is available!"}');
+})

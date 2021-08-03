@@ -24,8 +24,5 @@ let connectDB = async (user, pass, email) => {
     await connection.end();
     return data;
 }
-// for testing the function
-//let result = connectDB("easo", "test123", "escalade938@gmail.com");
-
 // export this so that it can be used later
 module.exports = {connectDB};

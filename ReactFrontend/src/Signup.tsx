@@ -1,6 +1,7 @@
 import React from 'react';
 import { httpsAgent } from './Header';
 import { Title } from './Styles';
+import validator from './formValidator';
 export const Signup: React.FC = () => {
     var [fname, setFname] = React.useState<string>("");
     var [lname, setLname] = React.useState<string>("");
@@ -8,68 +9,90 @@ export const Signup: React.FC = () => {
     var [registerPasswd, setRegisterPasswd] = React.useState<string>("");
     var [confirmPasswd, setConfirmPasswd] = React.useState<string>("");
     var [registerEmail, setRegisterEmail] = React.useState<string>("");
-    // these states are for validation
-    var [validFname, setValidFname] = React.useState<string | boolean>("");
-    var [validLname, setValidLname] = React.useState<string | boolean>("");
-    var [validUser, setValidUser] = React.useState<string | boolean>("");
-    var [validPasswd, setvalidPasswd] = React.useState<string | boolean>("");
-    var [validConfirm, setValidConfirm] = React.useState<string | boolean>("");
-    var [validEmail, setValidEmail] = React.useState<string | boolean>("");
-    // the element to show when you put an invalid password
-    var inValidPassword: JSX.Element = (
-        <div className="InvalidPasswd">
-            <p className="Invalid">Invalid Password</p>
-            <p className="Invalid">Your password must match the following:</p>
-            <p className="Invalid">Must be at least 8 characters long</p>
-            <p className="Invalid">Must be have at least one capital letter and number</p>
-            <p className="Invalid">Must contain a special character (e.g. ! ? $ @)</p>
-        </div>
-    )
-    const register = () => {
-        let request = {firstName: fname, lastName: lname, username: registerUser,
-        password: registerPasswd, email: registerEmail}
+
+    const setForm = (validate:any) => {
+        // get the values from the form (initial state)
+        var [inputs, setInputs] = React.useState({
+            firstname: "", lastname: "", username: "",password: "", confirm: "", email: ""
+        })
+        const [formErrors, setFormErrors] = React.useState({
+            firstname: "", lastname: "", username: "",password: "", confirm: "", email: ""
+        }); //for handling form errors
+        // recognizes any change in the form
+        const changing = (e: any) => {
+            var {name, value} = e.target; // some destructuring
+            setInputs({...inputs, [name]: value}) //using spread syntax
+        }
+        // recognizes a form submission
+        const submission = () => {
+            // this will be for the form validation
+            setFormErrors(validate(inputs));
+            // This code below verifies that there are no form error messages
+            var valid: string | boolean = "";
+            var errorCount: number = 0;
+            let errorList = Object.values(formErrors); // turns the object into a list
+            if (errorList.includes("")) {
+                valid = false;
+                errorCount++;
+            }
+            for (let val of errorList) {
+                // checks to see if Please or Password is in one of the values from formError
+                // This will signify that the form is not valid and it won't send the request
+                if (val.includes("Please") || val.includes("Password")) {
+                    valid = false;
+                    errorCount++;
+                }
+            }
+            if (errorCount == 0) {valid = true};
+            if (valid) {
+                let request = {firstName: inputs.firstname, lastName: inputs.lastname, 
+                    username: inputs.username, password: inputs.password, email: inputs.email};
+                alert(request);
+                alert("Form Validated!");
+            };
+        }
+        return {changing, inputs, submission, formErrors};
     }
+    // using the custom hook that I made for form validation
+    const {changing, inputs, submission, formErrors} = setForm(validator);
+
     return (
         <div>
         <Title>Signup</Title>
         <div className="TheForm">
             <form id="register">
                 <br/>
-                {validFname === true || validFname == "" ? 
-                null : <p className="Invalid">Please Enter Your First Name</p>}
+                {formErrors.firstname && <p className="Invalid">{formErrors.firstname}</p>}
                 <label htmlFor="first-name" className="FormLabel" id="first-name-label">First Name</label>
                 <input type="text" name="firstname" className="FormInput" id="first-name" 
-                value={fname} onChange={(e) => setFname(e.target.value)} />
+                value={inputs.firstname} onChange={changing} />
                 
-                {validLname === true || validLname == "" ? 
-                null : <p className="Invalid">Please Enter Your Last Name</p>}
+                {formErrors.lastname && <p className="Invalid">{formErrors.lastname}</p>}
                 <label htmlFor="last-name" className="FormLabel" id="last-name-label">Last Name</label>
                 <input type="text" name="lastname" className="FormInput" id="last-name" 
-                value={lname} onChange={(e) => setLname(e.target.value)} />
+                value={inputs.lastname} onChange={changing} />
 
-                {validEmail ===  true || validEmail == "" ? 
-                null : <p className="Invalid">Please Enter a Valid Email</p>}
+                {formErrors.email && <p className="Invalid">{formErrors.email}</p>}
                 <label htmlFor="new-email" className="FormLabel" id="email-label">Email Address</label>
                 <input type="text" name="email" className="FormInput" id="new-email" 
-                value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} />
+                value={inputs.email} onChange={changing} />
 
-                {validUser === true || validUser == "" ? 
-                null : <p className="Invalid">Please Enter A Username</p>}
+                {formErrors.username && <p className="Invalid">{formErrors.username}</p>}
                 <label htmlFor="register-user" className="FormLabel" id="new-user-label">Username</label>
                 <input type="text" name="username" className="FormInput" id="register-user" 
-                value={registerUser} onChange={(e) => setRegisterUser(e.target.value)} />
+                value={inputs.username} onChange={changing} />
 
-                {validPasswd === true || validPasswd == "" ? null : inValidPassword}
+                {formErrors.password && <p className="Invalid" id="invalid-pass">{formErrors.password}</p>}
                 <label htmlFor="register-pass" className="FormLabel" id="new-pass-label">Password</label>
                 <input type="password" name="password" className="FormInput" id="register-pass" 
-                value={registerPasswd} onChange={(e) => setRegisterPasswd(e.target.value)} />
+                value={inputs.password} onChange={changing} />
 
-                {validConfirm === true || validConfirm == "" ? null : <p className="Invalid">Passwords do Not Match</p>}
+                {formErrors.confirm && <p className="Invalid">{formErrors.confirm}</p>}
                 <label htmlFor="confirm-pass" className="FormLabel" id="confirm-label">Confirm Password</label>
-                <input type="password" name="password" className="FormInput" id="confirm-pass" 
-                value={confirmPasswd} onChange={(e) => setConfirmPasswd(e.target.value)} />
+                <input type="password" name="confirm" className="FormInput" id="confirm-pass" 
+                value={inputs.confirm} onChange={changing} />
             </form>
-            <button className="SubmitButton" id="submit-login" onClick={register}>Signup!</button>
+            <button className="SubmitButton" id="submit-register" onClick={submission}>Signup!</button>
         </div>
         </div>
     )

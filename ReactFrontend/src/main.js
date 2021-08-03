@@ -1623,7 +1623,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 }).call(this)}).call(this,require('_process'))
-},{"./adapters/http":8,"./adapters/xhr":8,"./helpers/normalizeHeaderName":30,"./utils":33,"_process":100}],23:[function(require,module,exports){
+},{"./adapters/http":8,"./adapters/xhr":8,"./helpers/normalizeHeaderName":30,"./utils":33,"_process":101}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -3293,7 +3293,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/history.js":34,"./cjs/history.min.js":35,"_process":100}],37:[function(require,module,exports){
+},{"./cjs/history.js":34,"./cjs/history.min.js":35,"_process":101}],37:[function(require,module,exports){
 'use strict';
 
 var reactIs = require('react-is');
@@ -3583,7 +3583,7 @@ exports.typeOf = typeOf;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],39:[function(require,module,exports){
+},{"_process":101}],39:[function(require,module,exports){
 /** @license React v16.13.1
  * react-is.production.min.js
  *
@@ -3611,7 +3611,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-is.development.js":38,"./cjs/react-is.production.min.js":39,"_process":100}],41:[function(require,module,exports){
+},{"./cjs/react-is.development.js":38,"./cjs/react-is.production.min.js":39,"_process":101}],41:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
@@ -3786,7 +3786,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
   };
 }var index = React__default['default'].createContext || createReactContext;module.exports=index;
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@babel/runtime/helpers/inheritsLoose":1,"_process":100,"prop-types":48,"react":70,"tiny-warning":83}],43:[function(require,module,exports){
+},{"@babel/runtime/helpers/inheritsLoose":1,"_process":101,"prop-types":48,"react":70,"tiny-warning":83}],43:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -4412,7 +4412,7 @@ checkPropTypes.resetWarningCache = function() {
 module.exports = checkPropTypes;
 
 }).call(this)}).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":49,"_process":100}],46:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":49,"_process":101}],46:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -5073,7 +5073,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 };
 
 }).call(this)}).call(this,require('_process'))
-},{"./checkPropTypes":45,"./lib/ReactPropTypesSecret":49,"_process":100,"object-assign":43,"react-is":52}],48:[function(require,module,exports){
+},{"./checkPropTypes":45,"./lib/ReactPropTypesSecret":49,"_process":101,"object-assign":43,"react-is":52}],48:[function(require,module,exports){
 (function (process){(function (){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -5096,7 +5096,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./factoryWithThrowingShims":46,"./factoryWithTypeCheckers":47,"_process":100,"react-is":52}],49:[function(require,module,exports){
+},{"./factoryWithThrowingShims":46,"./factoryWithTypeCheckers":47,"_process":101,"react-is":52}],49:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -5112,11 +5112,11 @@ module.exports = ReactPropTypesSecret;
 
 },{}],50:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"_process":100,"dup":38}],51:[function(require,module,exports){
+},{"_process":101,"dup":38}],51:[function(require,module,exports){
 arguments[4][39][0].apply(exports,arguments)
 },{"dup":39}],52:[function(require,module,exports){
 arguments[4][40][0].apply(exports,arguments)
-},{"./cjs/react-is.development.js":50,"./cjs/react-is.production.min.js":51,"_process":100,"dup":40}],53:[function(require,module,exports){
+},{"./cjs/react-is.development.js":50,"./cjs/react-is.production.min.js":51,"_process":101,"dup":40}],53:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-dom.development.js
@@ -31382,7 +31382,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100,"object-assign":43,"react":70,"scheduler":78,"scheduler/tracing":79}],54:[function(require,module,exports){
+},{"_process":101,"object-assign":43,"react":70,"scheduler":78,"scheduler/tracing":79}],54:[function(require,module,exports){
 /** @license React v17.0.2
  * react-dom.production.min.js
  *
@@ -31723,7 +31723,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":53,"./cjs/react-dom.production.min.js":54,"_process":100}],56:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":53,"./cjs/react-dom.production.min.js":54,"_process":101}],56:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-is.development.js
@@ -31953,7 +31953,7 @@ exports.typeOf = typeOf;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],57:[function(require,module,exports){
+},{"_process":101}],57:[function(require,module,exports){
 /** @license React v17.0.2
  * react-is.production.min.js
  *
@@ -31971,7 +31971,7 @@ exports.typeOf=y;
 
 },{}],58:[function(require,module,exports){
 arguments[4][40][0].apply(exports,arguments)
-},{"./cjs/react-is.development.js":56,"./cjs/react-is.production.min.js":57,"_process":100,"dup":40}],59:[function(require,module,exports){
+},{"./cjs/react-is.development.js":56,"./cjs/react-is.production.min.js":57,"_process":101,"dup":40}],59:[function(require,module,exports){
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -32431,7 +32431,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-router-dom.js":59,"./cjs/react-router-dom.min.js":60,"_process":100}],62:[function(require,module,exports){
+},{"./cjs/react-router-dom.js":59,"./cjs/react-router-dom.min.js":60,"_process":101}],62:[function(require,module,exports){
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -33273,13 +33273,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-router.js":62,"./cjs/react-router.min.js":63,"_process":100}],65:[function(require,module,exports){
+},{"./cjs/react-router.js":62,"./cjs/react-router.min.js":63,"_process":101}],65:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"_process":100,"dup":38}],66:[function(require,module,exports){
+},{"_process":101,"dup":38}],66:[function(require,module,exports){
 arguments[4][39][0].apply(exports,arguments)
 },{"dup":39}],67:[function(require,module,exports){
 arguments[4][40][0].apply(exports,arguments)
-},{"./cjs/react-is.development.js":65,"./cjs/react-is.production.min.js":66,"_process":100,"dup":40}],68:[function(require,module,exports){
+},{"./cjs/react-is.development.js":65,"./cjs/react-is.production.min.js":66,"_process":101,"dup":40}],68:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react.development.js
@@ -35616,7 +35616,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100,"object-assign":43}],69:[function(require,module,exports){
+},{"_process":101,"object-assign":43}],69:[function(require,module,exports){
 /** @license React v17.0.2
  * react.production.min.js
  *
@@ -35652,7 +35652,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":68,"./cjs/react.production.min.js":69,"_process":100}],71:[function(require,module,exports){
+},{"./cjs/react.development.js":68,"./cjs/react.production.min.js":69,"_process":101}],71:[function(require,module,exports){
 'use strict';
 
 function isAbsolute(pathname) {
@@ -35745,7 +35745,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/resolve-pathname.js":71,"./cjs/resolve-pathname.min.js":72,"_process":100}],74:[function(require,module,exports){
+},{"./cjs/resolve-pathname.js":71,"./cjs/resolve-pathname.min.js":72,"_process":101}],74:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler-tracing.development.js
@@ -36096,7 +36096,7 @@ exports.unstable_wrap = unstable_wrap;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],75:[function(require,module,exports){
+},{"_process":101}],75:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler-tracing.production.min.js
  *
@@ -36757,7 +36757,7 @@ exports.unstable_wrapCallback = unstable_wrapCallback;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],77:[function(require,module,exports){
+},{"_process":101}],77:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -36790,7 +36790,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":76,"./cjs/scheduler.production.min.js":77,"_process":100}],79:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":76,"./cjs/scheduler.production.min.js":77,"_process":101}],79:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -36801,7 +36801,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":74,"./cjs/scheduler-tracing.production.min.js":75,"_process":100}],80:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":74,"./cjs/scheduler-tracing.production.min.js":75,"_process":101}],80:[function(require,module,exports){
 //
 
 module.exports = function shallowEqual(objA, objB, compare, compareContext) {
@@ -36855,7 +36855,7 @@ module.exports = function shallowEqual(objA, objB, compare, compareContext) {
 
 
 }).call(this)}).call(this,require('_process'))
-},{"@emotion/is-prop-valid":3,"@emotion/stylis":5,"@emotion/unitless":6,"_process":100,"hoist-non-react-statics":37,"react":70,"react-is":58,"shallowequal":80}],82:[function(require,module,exports){
+},{"@emotion/is-prop-valid":3,"@emotion/stylis":5,"@emotion/unitless":6,"_process":101,"hoist-non-react-statics":37,"react":70,"react-is":58,"shallowequal":80}],82:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -36874,7 +36874,7 @@ function invariant(condition, message) {
 exports.default = invariant;
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],83:[function(require,module,exports){
+},{"_process":101}],83:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -36900,7 +36900,7 @@ function warning(condition, message) {
 module.exports = warning;
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],84:[function(require,module,exports){
+},{"_process":101}],84:[function(require,module,exports){
 'use strict';
 
 function valueOf(obj) {
@@ -36954,7 +36954,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/value-equal.js":84,"./cjs/value-equal.min.js":85,"_process":100}],87:[function(require,module,exports){
+},{"./cjs/value-equal.js":84,"./cjs/value-equal.min.js":85,"_process":101}],87:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -37063,7 +37063,7 @@ const NotAuthorized = () => {
         react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
 };
 
-},{"./Signup":89,"./Styles":90,"./Vault":91,"axios":7,"https":97,"react":70,"react-router-dom":61}],88:[function(require,module,exports){
+},{"./Signup":89,"./Styles":90,"./Vault":91,"axios":7,"https":98,"react":70,"react-router-dom":61}],88:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -37083,6 +37083,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Signup = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
+const formValidator_1 = __importDefault(require("./formValidator"));
 const Signup = () => {
     var [fname, setFname] = react_1.default.useState("");
     var [lname, setLname] = react_1.default.useState("");
@@ -37090,56 +37091,83 @@ const Signup = () => {
     var [registerPasswd, setRegisterPasswd] = react_1.default.useState("");
     var [confirmPasswd, setConfirmPasswd] = react_1.default.useState("");
     var [registerEmail, setRegisterEmail] = react_1.default.useState("");
-    // these states are for validation
-    var [validFname, setValidFname] = react_1.default.useState("");
-    var [validLname, setValidLname] = react_1.default.useState("");
-    var [validUser, setValidUser] = react_1.default.useState("");
-    var [validPasswd, setvalidPasswd] = react_1.default.useState("");
-    var [validConfirm, setValidConfirm] = react_1.default.useState("");
-    var [validEmail, setValidEmail] = react_1.default.useState("");
-    // the element to show when you put an invalid password
-    var inValidPassword = (react_1.default.createElement("div", { className: "InvalidPasswd" },
-        react_1.default.createElement("p", { className: "Invalid" }, "Invalid Password"),
-        react_1.default.createElement("p", { className: "Invalid" }, "Your password must match the following:"),
-        react_1.default.createElement("p", { className: "Invalid" }, "Must be at least 8 characters long"),
-        react_1.default.createElement("p", { className: "Invalid" }, "Must be have at least one capital letter and number"),
-        react_1.default.createElement("p", { className: "Invalid" }, "Must contain a special character (e.g. ! ? $ @)")));
-    const register = () => {
-        let request = { firstName: fname, lastName: lname, username: registerUser,
-            password: registerPasswd, email: registerEmail };
+    const setForm = (validate) => {
+        // get the values from the form (initial state)
+        var [inputs, setInputs] = react_1.default.useState({
+            firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
+        });
+        const [formErrors, setFormErrors] = react_1.default.useState({
+            firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
+        }); //for handling form errors
+        // recognizes any change in the form
+        const changing = (e) => {
+            var { name, value } = e.target; // some destructuring
+            setInputs({ ...inputs, [name]: value }); //using spread syntax
+        };
+        // recognizes a form submission
+        const submission = () => {
+            // this will be for the form validation
+            setFormErrors(validate(inputs));
+            // This code below verifies that there are no form error messages
+            var valid = "";
+            var errorCount = 0;
+            let errorList = Object.values(formErrors); // turns the object into a list
+            if (errorList.includes("")) {
+                valid = false;
+                errorCount++;
+            }
+            for (let val of errorList) {
+                // checks to see if Please or Password is in one of the values from formError
+                // This will signify that the form is not valid and it won't send the request
+                if (val.includes("Please") || val.includes("Password")) {
+                    valid = false;
+                    errorCount++;
+                }
+            }
+            if (errorCount == 0) {
+                valid = true;
+            }
+            ;
+            if (valid) {
+                let request = { firstName: inputs.firstname, lastName: inputs.lastname,
+                    username: inputs.username, password: inputs.password, email: inputs.email };
+                alert(request);
+                alert("Form Validated!");
+            }
+            ;
+        };
+        return { changing, inputs, submission, formErrors };
     };
+    // using the custom hook that I made for form validation
+    const { changing, inputs, submission, formErrors } = setForm(formValidator_1.default);
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "Signup"),
         react_1.default.createElement("div", { className: "TheForm" },
             react_1.default.createElement("form", { id: "register" },
                 react_1.default.createElement("br", null),
-                validFname === true || validFname == "" ?
-                    null : react_1.default.createElement("p", { className: "Invalid" }, "Please Enter Your First Name"),
+                formErrors.firstname && react_1.default.createElement("p", { className: "Invalid" }, formErrors.firstname),
                 react_1.default.createElement("label", { htmlFor: "first-name", className: "FormLabel", id: "first-name-label" }, "First Name"),
-                react_1.default.createElement("input", { type: "text", name: "firstname", className: "FormInput", id: "first-name", value: fname, onChange: (e) => setFname(e.target.value) }),
-                validLname === true || validLname == "" ?
-                    null : react_1.default.createElement("p", { className: "Invalid" }, "Please Enter Your Last Name"),
+                react_1.default.createElement("input", { type: "text", name: "firstname", className: "FormInput", id: "first-name", value: inputs.firstname, onChange: changing }),
+                formErrors.lastname && react_1.default.createElement("p", { className: "Invalid" }, formErrors.lastname),
                 react_1.default.createElement("label", { htmlFor: "last-name", className: "FormLabel", id: "last-name-label" }, "Last Name"),
-                react_1.default.createElement("input", { type: "text", name: "lastname", className: "FormInput", id: "last-name", value: lname, onChange: (e) => setLname(e.target.value) }),
-                validEmail === true || validEmail == "" ?
-                    null : react_1.default.createElement("p", { className: "Invalid" }, "Please Enter a Valid Email"),
+                react_1.default.createElement("input", { type: "text", name: "lastname", className: "FormInput", id: "last-name", value: inputs.lastname, onChange: changing }),
+                formErrors.email && react_1.default.createElement("p", { className: "Invalid" }, formErrors.email),
                 react_1.default.createElement("label", { htmlFor: "new-email", className: "FormLabel", id: "email-label" }, "Email Address"),
-                react_1.default.createElement("input", { type: "text", name: "email", className: "FormInput", id: "new-email", value: registerEmail, onChange: (e) => setRegisterEmail(e.target.value) }),
-                validUser === true || validUser == "" ?
-                    null : react_1.default.createElement("p", { className: "Invalid" }, "Please Enter A Username"),
+                react_1.default.createElement("input", { type: "text", name: "email", className: "FormInput", id: "new-email", value: inputs.email, onChange: changing }),
+                formErrors.username && react_1.default.createElement("p", { className: "Invalid" }, formErrors.username),
                 react_1.default.createElement("label", { htmlFor: "register-user", className: "FormLabel", id: "new-user-label" }, "Username"),
-                react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "register-user", value: registerUser, onChange: (e) => setRegisterUser(e.target.value) }),
-                validPasswd === true || validPasswd == "" ? null : inValidPassword,
+                react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "register-user", value: inputs.username, onChange: changing }),
+                formErrors.password && react_1.default.createElement("p", { className: "Invalid", id: "invalid-pass" }, formErrors.password),
                 react_1.default.createElement("label", { htmlFor: "register-pass", className: "FormLabel", id: "new-pass-label" }, "Password"),
-                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "register-pass", value: registerPasswd, onChange: (e) => setRegisterPasswd(e.target.value) }),
-                validConfirm === true || validConfirm == "" ? null : react_1.default.createElement("p", { className: "Invalid" }, "Passwords do Not Match"),
+                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "register-pass", value: inputs.password, onChange: changing }),
+                formErrors.confirm && react_1.default.createElement("p", { className: "Invalid" }, formErrors.confirm),
                 react_1.default.createElement("label", { htmlFor: "confirm-pass", className: "FormLabel", id: "confirm-label" }, "Confirm Password"),
-                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "confirm-pass", value: confirmPasswd, onChange: (e) => setConfirmPasswd(e.target.value) })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: register }, "Signup!"))));
+                react_1.default.createElement("input", { type: "password", name: "confirm", className: "FormInput", id: "confirm-pass", value: inputs.confirm, onChange: changing })),
+            react_1.default.createElement("button", { className: "SubmitButton", id: "submit-register", onClick: submission }, "Signup!"))));
 };
 exports.Signup = Signup;
 
-},{"./Styles":90,"react":70}],90:[function(require,module,exports){
+},{"./Styles":90,"./formValidator":92,"react":70}],90:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -37397,6 +37425,50 @@ const MyAccount = () => {
 exports.MyAccount = MyAccount;
 
 },{"./Header":87,"./Styles":90,"axios":7,"react":70}],92:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+// This Typescript file will be used for form validation
+function validator(values) {
+    let formErrors = {
+        firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
+    }; // capture the form errors
+    if (values.firstname.length == 0) {
+        formErrors.firstname = "Please enter your first name";
+    }
+    if (values.lastname.length == 0) {
+        formErrors.lastname = "Please enter your last name";
+    }
+    if (values.email.length == 0) {
+        formErrors.email = "Please enter in your email";
+    }
+    else if (!values.email.includes("@")) {
+        formErrors.email = "Please Enter a valid email address";
+    }
+    if (values.username.length == 0) {
+        formErrors.username = "Please Enter a username";
+    }
+    if (values.password.length < 8 || !/[A-Z]/.test(values.password)) {
+        formErrors.password = "Invalid Password: It needs to be larger than 8 characters,\n";
+        formErrors.password += "it must have at least one number in it and at least one special\n";
+        formErrors.password += "character (e.g. !, ?, @, $, %)";
+    }
+    else if (!/[0-9]/.test(values.password) || !/[\! || \? || \@ || \$ || \%]/.test(values.password)) {
+        formErrors.password = "Invalid Password: It needs to be larger than 8 characters,\n";
+        formErrors.password += "it must have at least one number in it and at least one special\n";
+        formErrors.password += "character (e.g. !, ?, @, $, %)";
+    }
+    if (values.password != values.confirm) {
+        formErrors.confirm = "Passwords do not match";
+    }
+    else if (values.confirm.length == 0) {
+        formErrors.confirm = "Please enter your password again";
+    }
+    // return the form errors
+    return formErrors;
+}
+exports.default = validator;
+
+},{}],93:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -37548,9 +37620,9 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],93:[function(require,module,exports){
-
 },{}],94:[function(require,module,exports){
+
+},{}],95:[function(require,module,exports){
 (function (Buffer){(function (){
 /*!
  * The buffer module from node.js, for the browser.
@@ -39331,7 +39403,7 @@ function numberIsNaN (obj) {
 }
 
 }).call(this)}).call(this,require("buffer").Buffer)
-},{"base64-js":92,"buffer":94,"ieee754":98}],95:[function(require,module,exports){
+},{"base64-js":93,"buffer":95,"ieee754":99}],96:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -39397,7 +39469,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],96:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -39896,7 +39968,7 @@ function eventTargetAgnosticAddListener(emitter, name, listener, flags) {
   }
 }
 
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 var http = require('http')
 var url = require('url')
 
@@ -39929,7 +40001,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":106,"url":126}],98:[function(require,module,exports){
+},{"http":107,"url":127}],99:[function(require,module,exports){
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
@@ -40016,7 +40088,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],99:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -40045,7 +40117,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],100:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -40231,7 +40303,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 (function (global){(function (){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -40768,7 +40840,7 @@ process.umask = function() { return 0; };
 }(this));
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -40854,7 +40926,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -40941,13 +41013,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],104:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":102,"./encode":103}],105:[function(require,module,exports){
+},{"./decode":103,"./encode":104}],106:[function(require,module,exports){
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -41014,7 +41086,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":94}],106:[function(require,module,exports){
+},{"buffer":95}],107:[function(require,module,exports){
 (function (global){(function (){
 var ClientRequest = require('./lib/request')
 var response = require('./lib/response')
@@ -41102,7 +41174,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":108,"./lib/response":109,"builtin-status-codes":95,"url":126,"xtend":129}],107:[function(require,module,exports){
+},{"./lib/request":109,"./lib/response":110,"builtin-status-codes":96,"url":127,"xtend":130}],108:[function(require,module,exports){
 (function (global){(function (){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -41165,7 +41237,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],108:[function(require,module,exports){
+},{}],109:[function(require,module,exports){
 (function (process,global,Buffer){(function (){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -41521,7 +41593,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":107,"./response":109,"_process":100,"buffer":94,"inherits":99,"readable-stream":124}],109:[function(require,module,exports){
+},{"./capability":108,"./response":110,"_process":101,"buffer":95,"inherits":100,"readable-stream":125}],110:[function(require,module,exports){
 (function (process,global,Buffer){(function (){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -41736,7 +41808,7 @@ IncomingMessage.prototype._onXHRProgress = function (resetTimers) {
 }
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":107,"_process":100,"buffer":94,"inherits":99,"readable-stream":124}],110:[function(require,module,exports){
+},{"./capability":108,"_process":101,"buffer":95,"inherits":100,"readable-stream":125}],111:[function(require,module,exports){
 'use strict';
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
@@ -41865,7 +41937,7 @@ createErrorType('ERR_UNKNOWN_ENCODING', function (arg) {
 createErrorType('ERR_STREAM_UNSHIFT_AFTER_END_EVENT', 'stream.unshift() after end event');
 module.exports.codes = codes;
 
-},{}],111:[function(require,module,exports){
+},{}],112:[function(require,module,exports){
 (function (process){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -42007,7 +42079,7 @@ Object.defineProperty(Duplex.prototype, 'destroyed', {
   }
 });
 }).call(this)}).call(this,require('_process'))
-},{"./_stream_readable":113,"./_stream_writable":115,"_process":100,"inherits":99}],112:[function(require,module,exports){
+},{"./_stream_readable":114,"./_stream_writable":116,"_process":101,"inherits":100}],113:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -42047,7 +42119,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":114,"inherits":99}],113:[function(require,module,exports){
+},{"./_stream_transform":115,"inherits":100}],114:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -43174,7 +43246,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":110,"./_stream_duplex":111,"./internal/streams/async_iterator":116,"./internal/streams/buffer_list":117,"./internal/streams/destroy":118,"./internal/streams/from":120,"./internal/streams/state":122,"./internal/streams/stream":123,"_process":100,"buffer":94,"events":96,"inherits":99,"string_decoder/":125,"util":93}],114:[function(require,module,exports){
+},{"../errors":111,"./_stream_duplex":112,"./internal/streams/async_iterator":117,"./internal/streams/buffer_list":118,"./internal/streams/destroy":119,"./internal/streams/from":121,"./internal/streams/state":123,"./internal/streams/stream":124,"_process":101,"buffer":95,"events":97,"inherits":100,"string_decoder/":126,"util":94}],115:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -43376,7 +43448,7 @@ function done(stream, er, data) {
   if (stream._transformState.transforming) throw new ERR_TRANSFORM_ALREADY_TRANSFORMING();
   return stream.push(null);
 }
-},{"../errors":110,"./_stream_duplex":111,"inherits":99}],115:[function(require,module,exports){
+},{"../errors":111,"./_stream_duplex":112,"inherits":100}],116:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -44076,7 +44148,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":110,"./_stream_duplex":111,"./internal/streams/destroy":118,"./internal/streams/state":122,"./internal/streams/stream":123,"_process":100,"buffer":94,"inherits":99,"util-deprecate":128}],116:[function(require,module,exports){
+},{"../errors":111,"./_stream_duplex":112,"./internal/streams/destroy":119,"./internal/streams/state":123,"./internal/streams/stream":124,"_process":101,"buffer":95,"inherits":100,"util-deprecate":129}],117:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -44286,7 +44358,7 @@ var createReadableStreamAsyncIterator = function createReadableStreamAsyncIterat
 
 module.exports = createReadableStreamAsyncIterator;
 }).call(this)}).call(this,require('_process'))
-},{"./end-of-stream":119,"_process":100}],117:[function(require,module,exports){
+},{"./end-of-stream":120,"_process":101}],118:[function(require,module,exports){
 'use strict';
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -44497,7 +44569,7 @@ function () {
 
   return BufferList;
 }();
-},{"buffer":94,"util":93}],118:[function(require,module,exports){
+},{"buffer":95,"util":94}],119:[function(require,module,exports){
 (function (process){(function (){
 'use strict'; // undocumented cb() API, needed for core, not for public API
 
@@ -44605,7 +44677,7 @@ module.exports = {
   errorOrDestroy: errorOrDestroy
 };
 }).call(this)}).call(this,require('_process'))
-},{"_process":100}],119:[function(require,module,exports){
+},{"_process":101}],120:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/end-of-stream with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -44710,12 +44782,12 @@ function eos(stream, opts, callback) {
 }
 
 module.exports = eos;
-},{"../../../errors":110}],120:[function(require,module,exports){
+},{"../../../errors":111}],121:[function(require,module,exports){
 module.exports = function () {
   throw new Error('Readable.from is not available in the browser')
 };
 
-},{}],121:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/pump with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -44813,7 +44885,7 @@ function pipeline() {
 }
 
 module.exports = pipeline;
-},{"../../../errors":110,"./end-of-stream":119}],122:[function(require,module,exports){
+},{"../../../errors":111,"./end-of-stream":120}],123:[function(require,module,exports){
 'use strict';
 
 var ERR_INVALID_OPT_VALUE = require('../../../errors').codes.ERR_INVALID_OPT_VALUE;
@@ -44841,10 +44913,10 @@ function getHighWaterMark(state, options, duplexKey, isDuplex) {
 module.exports = {
   getHighWaterMark: getHighWaterMark
 };
-},{"../../../errors":110}],123:[function(require,module,exports){
+},{"../../../errors":111}],124:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":96}],124:[function(require,module,exports){
+},{"events":97}],125:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -44855,7 +44927,7 @@ exports.PassThrough = require('./lib/_stream_passthrough.js');
 exports.finished = require('./lib/internal/streams/end-of-stream.js');
 exports.pipeline = require('./lib/internal/streams/pipeline.js');
 
-},{"./lib/_stream_duplex.js":111,"./lib/_stream_passthrough.js":112,"./lib/_stream_readable.js":113,"./lib/_stream_transform.js":114,"./lib/_stream_writable.js":115,"./lib/internal/streams/end-of-stream.js":119,"./lib/internal/streams/pipeline.js":121}],125:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":112,"./lib/_stream_passthrough.js":113,"./lib/_stream_readable.js":114,"./lib/_stream_transform.js":115,"./lib/_stream_writable.js":116,"./lib/internal/streams/end-of-stream.js":120,"./lib/internal/streams/pipeline.js":122}],126:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -45152,7 +45224,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":105}],126:[function(require,module,exports){
+},{"safe-buffer":106}],127:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -45886,7 +45958,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":127,"punycode":101,"querystring":104}],127:[function(require,module,exports){
+},{"./util":128,"punycode":102,"querystring":105}],128:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -45904,7 +45976,7 @@ module.exports = {
   }
 };
 
-},{}],128:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 (function (global){(function (){
 
 /**
@@ -45975,7 +46047,7 @@ function config (name) {
 }
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],129:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
