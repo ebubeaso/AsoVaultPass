@@ -2,7 +2,10 @@ import React from 'react';
 import { httpsAgent } from './Header';
 import { Title } from './Styles';
 import validator from './formValidator';
+import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 export const Signup: React.FC = () => {
+    let history = useHistory();
     var [fname, setFname] = React.useState<string>("");
     var [lname, setLname] = React.useState<string>("");
     var [registerUser, setRegisterUser] = React.useState<string>("");
@@ -13,11 +16,12 @@ export const Signup: React.FC = () => {
     const setForm = (validate:any) => {
         // get the values from the form (initial state)
         var [inputs, setInputs] = React.useState({
-            firstname: "", lastname: "", username: "",password: "", confirm: "", email: ""
+            firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
         })
         const [formErrors, setFormErrors] = React.useState({
-            firstname: "", lastname: "", username: "",password: "", confirm: "", email: ""
-        }); //for handling form errors
+            //the initial state of the form errors
+            firstname: " ", lastname: " ", username: " ", password: "", confirm: "", email: " "
+        });
         // recognizes any change in the form
         const changing = (e: any) => {
             var {name, value} = e.target; // some destructuring
@@ -31,24 +35,38 @@ export const Signup: React.FC = () => {
             var valid: string | boolean = "";
             var errorCount: number = 0;
             let errorList = Object.values(formErrors); // turns the object into a list
-            if (errorList.includes("")) {
-                valid = false;
-                errorCount++;
-            }
+            let inputList = Object.values(inputs);
             for (let val of errorList) {
                 // checks to see if Please or Password is in one of the values from formError
                 // This will signify that the form is not valid and it won't send the request
-                if (val.includes("Please") || val.includes("Password")) {
+                if (val.includes("Please") || val.includes("Password") || val.includes(" ")) {
                     valid = false;
+                    console.log("Current valid: " + valid.toString())
                     errorCount++;
+                    break;
                 }
-            }
-            if (errorCount == 0) {valid = true};
+            };
+            if (errorCount == 0 || inputList.includes("") == false && inputs.password == inputs.confirm) {
+                valid = true
+            };
             if (valid) {
                 let request = {firstName: inputs.firstname, lastName: inputs.lastname, 
                     username: inputs.username, password: inputs.password, email: inputs.email};
-                alert(request);
-                alert("Form Validated!");
+                // send the data to the backend service to register
+                axios.post("https://192.168.1.103:9900/newuser", request,
+                {httpsAgent, headers : {"Content-Type": "application/json"}})
+                .then(response => {
+                    let result = response.data;
+                    if (result.Message == "Success!") {
+                        alert("Congrats! You have signed up successfully!");
+                        history.push("/login");
+                    } else {
+                        alert("Sorry, that username was taken");
+                    }
+                }).catch(err => {
+                    alert("Sorry, but we could not connect to the backend service. Try again later.");
+                    console.log(err);
+                });
             };
         }
         return {changing, inputs, submission, formErrors};
@@ -62,6 +80,7 @@ export const Signup: React.FC = () => {
         <div className="TheForm">
             <form id="register">
                 <br/>
+                
                 {formErrors.firstname && <p className="Invalid">{formErrors.firstname}</p>}
                 <label htmlFor="first-name" className="FormLabel" id="first-name-label">First Name</label>
                 <input type="text" name="firstname" className="FormInput" id="first-name" 

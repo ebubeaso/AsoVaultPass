@@ -12,6 +12,12 @@ export var httpsAgent: https.Agent;
 export var authenticate: string = "";
 
 export const VaultLogin: React.FC = () => {
+    let history = useHistory();
+    React.useEffect(() => {
+        window.onpopstate = (_e:any) => {
+            history.push("/login");
+        }
+    })
     var [login, setLogin] = React.useState<string | boolean>("");
     var [user, setUser] = React.useState<string>("");
     var [passwd, setPasswd] = React.useState<string>("");
@@ -38,7 +44,10 @@ export const VaultLogin: React.FC = () => {
                 alert("Sorry, you have entered incorrect credentials, please try again");
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
     }
     if (login == "") {
         return (
@@ -58,7 +67,8 @@ export const VaultLogin: React.FC = () => {
         </div>
         )
     }
-    return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
+    // return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
+    return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>;
 }
 export const TheHeader: React.FC = () => {
     var [session, setSession] = React.useState(false);

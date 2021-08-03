@@ -36970,6 +36970,12 @@ const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
 exports.authenticate = "";
 const VaultLogin = () => {
+    let history = react_router_dom_1.useHistory();
+    react_1.default.useEffect(() => {
+        window.onpopstate = (_e) => {
+            history.push("/login");
+        };
+    });
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
@@ -36995,7 +37001,10 @@ const VaultLogin = () => {
                 alert("Sorry, you have entered incorrect credentials, please try again");
             }
         })
-            .catch(err => console.log(err));
+            .catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
     };
     if (login == "") {
         return (react_1.default.createElement("div", null,
@@ -37008,6 +37017,7 @@ const VaultLogin = () => {
                     react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
                 react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
     }
+    // return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
     return login ? react_1.default.createElement("div", null,
         react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null,
         react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" }));
@@ -37082,9 +37092,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Signup = void 0;
 const react_1 = __importDefault(require("react"));
+const Header_1 = require("./Header");
 const Styles_1 = require("./Styles");
 const formValidator_1 = __importDefault(require("./formValidator"));
+const axios_1 = __importDefault(require("axios"));
+const react_router_dom_1 = require("react-router-dom");
 const Signup = () => {
+    let history = react_router_dom_1.useHistory();
     var [fname, setFname] = react_1.default.useState("");
     var [lname, setLname] = react_1.default.useState("");
     var [registerUser, setRegisterUser] = react_1.default.useState("");
@@ -37097,8 +37111,9 @@ const Signup = () => {
             firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
         });
         const [formErrors, setFormErrors] = react_1.default.useState({
-            firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
-        }); //for handling form errors
+            //the initial state of the form errors
+            firstname: " ", lastname: " ", username: " ", password: "", confirm: "", email: " "
+        });
         // recognizes any change in the form
         const changing = (e) => {
             var { name, value } = e.target; // some destructuring
@@ -37112,27 +37127,40 @@ const Signup = () => {
             var valid = "";
             var errorCount = 0;
             let errorList = Object.values(formErrors); // turns the object into a list
-            if (errorList.includes("")) {
-                valid = false;
-                errorCount++;
-            }
+            let inputList = Object.values(inputs);
             for (let val of errorList) {
                 // checks to see if Please or Password is in one of the values from formError
                 // This will signify that the form is not valid and it won't send the request
-                if (val.includes("Please") || val.includes("Password")) {
+                if (val.includes("Please") || val.includes("Password") || val.includes(" ")) {
                     valid = false;
+                    console.log("Current valid: " + valid.toString());
                     errorCount++;
+                    break;
                 }
             }
-            if (errorCount == 0) {
+            ;
+            if (errorCount == 0 || inputList.includes("") == false && inputs.password == inputs.confirm) {
                 valid = true;
             }
             ;
             if (valid) {
                 let request = { firstName: inputs.firstname, lastName: inputs.lastname,
                     username: inputs.username, password: inputs.password, email: inputs.email };
-                alert(request);
-                alert("Form Validated!");
+                // send the data to the backend service to register
+                axios_1.default.post("https://192.168.1.103:9900/newuser", request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                    .then(response => {
+                    let result = response.data;
+                    if (result.Message == "Success!") {
+                        alert("Congrats! You have signed up successfully!");
+                        history.push("/login");
+                    }
+                    else {
+                        alert("Sorry, that username was taken");
+                    }
+                }).catch(err => {
+                    alert("Sorry, but we could not connect to the backend service. Try again later.");
+                    console.log(err);
+                });
             }
             ;
         };
@@ -37167,7 +37195,7 @@ const Signup = () => {
 };
 exports.Signup = Signup;
 
-},{"./Styles":90,"./formValidator":92,"react":70}],90:[function(require,module,exports){
+},{"./Header":87,"./Styles":90,"./formValidator":92,"axios":7,"react":70,"react-router-dom":61}],90:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -37258,7 +37286,7 @@ exports.Nav1 = styled_components_1.default.div `
 exports.LoginNav = styled_components_1.default.div `
     margin-left: 55vw; ${flexDisplay};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
-        margin-left: 10vw;
+        margin-left: 20vw;
     }
     @media only screen and (min-width: 601px) and (max-width: 1280px) {
         margin-left: 25vw;
@@ -37369,7 +37397,10 @@ const VaultMain = () => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
             setTimeout(() => { alert(result.Result); window.location.reload(); }, 1000);
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
     };
     const editService = () => {
     };

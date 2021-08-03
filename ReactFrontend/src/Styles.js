@@ -88,7 +88,7 @@ exports.Nav1 = styled_components_1.default.div `
 exports.LoginNav = styled_components_1.default.div `
     margin-left: 55vw; ${flexDisplay};
     @media only screen and (min-width: 300px) and (max-width: 600px) {
-        margin-left: 10vw;
+        margin-left: 20vw;
     }
     @media only screen and (min-width: 601px) and (max-width: 1280px) {
         margin-left: 25vw;

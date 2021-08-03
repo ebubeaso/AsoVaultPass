@@ -84,7 +84,10 @@ const VaultMain = () => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
             setTimeout(() => { alert(result.Result); window.location.reload(); }, 1000);
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
     };
     const editService = () => {
     };

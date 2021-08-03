@@ -13,6 +13,12 @@ const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
 exports.authenticate = "";
 const VaultLogin = () => {
+    let history = react_router_dom_1.useHistory();
+    react_1.default.useEffect(() => {
+        window.onpopstate = (_e) => {
+            history.push("/login");
+        };
+    });
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
@@ -38,7 +44,10 @@ const VaultLogin = () => {
                 alert("Sorry, you have entered incorrect credentials, please try again");
             }
         })
-            .catch(err => console.log(err));
+            .catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
     };
     if (login == "") {
         return (react_1.default.createElement("div", null,
@@ -51,6 +60,7 @@ const VaultLogin = () => {
                     react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
                 react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
     }
+    // return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
     return login ? react_1.default.createElement("div", null,
         react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null,
         react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" }));

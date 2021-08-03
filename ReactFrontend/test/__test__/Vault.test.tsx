@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, getByText, screen } from '@testing-library/react';
 import {shallow, configure, mount} from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { VaultHome, VaultMain } from '../../src/Vault';
@@ -41,19 +41,15 @@ it("Test the login", () => {
     expect(wrapper.find("#password").html()).toContain(correctPasswd);
 
 })
-it("test the signup page", () => {
+it("test the signup page with no entries", () => {
     // testing the state
-    let wrapper = shallow(<Signup/>);
-    wrapper.find("button").simulate("click");
-    console.log(wrapper.find("submit-register"))
-    //expect(wrapper.find("#invalid-fname").html().toContain("Please Enter Your First Name"));
-    /*
-    const changeSize = jest.fn();
-   const wrapper = mount(<App onClick={changeSize} />);
-   const handleClick = jest.spyOn(React, "useState");
-   handleClick.mockImplementation(size => [size, changeSize]);
+    let wrapper = render(<Signup/>);
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByText("Please enter your first name")).toBeTruthy();
+    // now to enter in some text
+    fireEvent.change(screen.getByLabelText("First Name"), {target: {value: 'Ebube'}});
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByDisplayValue('Ebube')).toBeTruthy();
 
-   wrapper.find("#para1").simulate("click");
-   expect(changeSize).toBeTruthy();
-    */
 })
+it.todo("test the signup page with adding the last name");

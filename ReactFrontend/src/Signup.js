@@ -5,9 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Signup = void 0;
 const react_1 = __importDefault(require("react"));
+const Header_1 = require("./Header");
 const Styles_1 = require("./Styles");
 const formValidator_1 = __importDefault(require("./formValidator"));
+const axios_1 = __importDefault(require("axios"));
+const react_router_dom_1 = require("react-router-dom");
 const Signup = () => {
+    let history = react_router_dom_1.useHistory();
     var [fname, setFname] = react_1.default.useState("");
     var [lname, setLname] = react_1.default.useState("");
     var [registerUser, setRegisterUser] = react_1.default.useState("");
@@ -20,8 +24,9 @@ const Signup = () => {
             firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
         });
         const [formErrors, setFormErrors] = react_1.default.useState({
-            firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
-        }); //for handling form errors
+            //the initial state of the form errors
+            firstname: " ", lastname: " ", username: " ", password: "", confirm: "", email: " "
+        });
         // recognizes any change in the form
         const changing = (e) => {
             var { name, value } = e.target; // some destructuring
@@ -35,27 +40,40 @@ const Signup = () => {
             var valid = "";
             var errorCount = 0;
             let errorList = Object.values(formErrors); // turns the object into a list
-            if (errorList.includes("")) {
-                valid = false;
-                errorCount++;
-            }
+            let inputList = Object.values(inputs);
             for (let val of errorList) {
                 // checks to see if Please or Password is in one of the values from formError
                 // This will signify that the form is not valid and it won't send the request
-                if (val.includes("Please") || val.includes("Password")) {
+                if (val.includes("Please") || val.includes("Password") || val.includes(" ")) {
                     valid = false;
+                    console.log("Current valid: " + valid.toString());
                     errorCount++;
+                    break;
                 }
             }
-            if (errorCount == 0) {
+            ;
+            if (errorCount == 0 || inputList.includes("") == false && inputs.password == inputs.confirm) {
                 valid = true;
             }
             ;
             if (valid) {
                 let request = { firstName: inputs.firstname, lastName: inputs.lastname,
                     username: inputs.username, password: inputs.password, email: inputs.email };
-                alert(request);
-                alert("Form Validated!");
+                // send the data to the backend service to register
+                axios_1.default.post("https://192.168.1.103:9900/newuser", request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                    .then(response => {
+                    let result = response.data;
+                    if (result.Message == "Success!") {
+                        alert("Congrats! You have signed up successfully!");
+                        history.push("/login");
+                    }
+                    else {
+                        alert("Sorry, that username was taken");
+                    }
+                }).catch(err => {
+                    alert("Sorry, but we could not connect to the backend service. Try again later.");
+                    console.log(err);
+                });
             }
             ;
         };

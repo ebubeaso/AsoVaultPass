@@ -115,7 +115,7 @@ app.post("/newuser", (req, res) => {
             let theData = result;
             if (theData != null) {
                 // close the connection
-                res.json("Username is already taken");
+                res.json({Message: "Username is already taken"});
                 db.close();
                 sshTunnel.shutdown();
             } else {
@@ -124,12 +124,12 @@ app.post("/newuser", (req, res) => {
                     res.json({Message: "Success!", Result: "New user has been added!"});
                     db.close();
                     sshTunnel.shutdown();
+                    // send the info to the mariaDB database
+                    db2.connectDB(theBody.username, theBody.password, theBody.email);
                 })
             }
         })
     })
-    // send the info to the mariaDB database
-    db2.connectDB(theBody.username, theBody.password, theBody.email);
 });
 app.post("/takenuser", (req, res) => {
     let testUrl = `mongodb://${mongoUser}:${encodeURIComponent(mongoPass)}@192.168.1.104/${databaseName}`;
