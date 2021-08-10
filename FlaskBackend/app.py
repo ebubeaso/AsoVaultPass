@@ -83,8 +83,10 @@ class VaultTableUpdates(Resource):
             return {"Message": "Success!", "Result": "Your data has been updated!!"}, 200
         return {"Message": "Failed", 
             "Result": "You did not supply an update to the username and password"}, 200
-    def delete(self, name, ID):
-        pass
+    def delete(self, name, service):
+        Vault.query.filter_by(service=service).delete()
+        db.session.commit()
+        return {"Message": "Success!", "Result": "This data has been removed from your account"}, 200
 
 api.add_resource(VaultTable, "/vault/<string:name>")
 api.add_resource(VaultTableUpdates, "/vault/<string:name>/<string:service>")

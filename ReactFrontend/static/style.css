@@ -1,6 +1,15 @@
-.SiteGrid {
-    display: flex;
-}
+.SiteGrid {display: flex;}
+#login {margin: 2% 0%;}
+body {margin: 0%;}
+nav {margin-top: -1%;}
+.FormLabel {margin-top: 1%;}
+.FormLabel, .FormInput {font-size: 20pt;}
+p.Invalid#invalid-pass {margin-right: 10%;}
+#NewService {cursor: pointer;}
+.Service {font-size: 26pt; text-align: center;}
+.ServiceData {font-size: 26pt; margin-left: 30%}
+.Icon, .Service, .ServiceData {font-family: monospace;}
+.DataOptions {display: flex;}
 .UserData {
     background-color: darkgray;
     border: 2px solid darkcyan;
@@ -10,9 +19,9 @@
     display: grid;
     padding: 0% 1%;
     grid-template-columns: auto auto auto auto;
-    margin: 2% 0%;
-    grid-column-gap: 3%;
-    grid-row-gap: 2vw;
+    margin: 1% 0%;
+    grid-column-gap: 1%;
+    grid-row-gap: 2%;
     overflow: auto;
 }
 .SearchDiv {
@@ -26,8 +35,6 @@
     padding: 1%;
     cursor: pointer;
 }
-#login {margin: 2% 0%;}
-body {margin: 0%;}
 #search {
     width: 50%;
     margin-left: 25%;
@@ -36,7 +43,6 @@ body {margin: 0%;}
     font-size: 24pt;
     outline: 0px;
 }
-nav {margin-top: -1%;}
 .GridItem {
     justify-content: center;
     background-color: whitesmoke;
@@ -64,21 +70,18 @@ nav {margin-top: -1%;}
     padding: 1%;
     width: 35%;
 }
-.FormLabel {
-    margin-top: 1%;
-}
+
 .FormInput, .FormLabel, .Invalid {
     margin-left: 30%;
     font-family: Helvetica;
 }
-.FormLabel, .FormInput {font-size: 20pt;}
+
 .Invalid {
     color: red;
     font-size: 14pt;
     margin-top: 0%;
     margin-bottom: 0%;
 }
-p.Invalid#invalid-pass {margin-right: 10%;}
 .SubmitButton {
     width: 20%;
     margin: 0% 30% 2% 30%;
@@ -106,32 +109,32 @@ button#go-back.SubmitButton{
     padding: 1% 2%;
     margin: 0% 30%;
 }
-#NewService {cursor: pointer;}
-.Service {font-size: 26pt; text-align: center;}
-.ServiceData {font-size: 26pt; margin-left: 30%}
-.Icon, .Service, .ServiceData {font-family: monospace;}
-.DataOptions {display: flex;}
-
 @media screen and (min-width: 300px) and (max-width: 800px) {
-    .GridItem {
-        box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
-        width: 70%;
-        height: 50%;
-    }
     .SiteGrid {grid-template-columns: auto auto;}
-    .Service {font-size: 14pt;}
-    .Icon {width: 20%; margin: -4% 35%; font-size: 18pt;}
+    .Service {font-size: 10pt; margin: 12% 2%;}
     .SearchButton {font-size: 12pt;}
     #search {width: 67%;margin-left: 15%;}
+    #search, .SearchButton {border-radius: 15px}
     .FormLabel {font-size: 12pt;}
     .TheForm {margin: 1% 10%;}
     .FormInput {font-size: 11pt; width: 50%;}
+    .Sites {grid-row-gap: 3%;}
+    .Invalid {font-size: 10pt;}
+    .GridItem {
+        box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
+        width: 85%;
+        height: 80%;
+    }
     .SubmitButton {
         margin: 4% 30%;
         width: 35%;
         font-size: 11pt;
     }
-    .Invalid {font-size: 10pt;}
+    .Icon {
+        width: 30%; 
+        margin: 2% 0% -2% 33%; 
+        font-size: 18pt;
+    }
 }
 @media screen and (min-width: 801px) and (max-width: 1290px) {
     .SiteGrid {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Header, Ul, NavList, NavLinks, LoginNav, LogoDiv, Nav1, 
     Subtitle, Title } from "./Styles";
-import { HashRouter, Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
 import { VaultHome, VaultMain} from "./Vault";
 import { Signup } from "./Signup";
 import request from "superagent";
@@ -11,14 +11,7 @@ import { Service, MyAccount } from "./Services";
 // determine the login session
 export var httpsAgent: https.Agent;
 export var authenticate: string = "";
-
 export const VaultLogin: React.FC = () => {
-    let history = useHistory();
-    // React.useEffect(() => {
-    //     window.onpopstate = (_e:any) => {
-    //         history.push("/login");
-    //     }
-    // })
     var [login, setLogin] = React.useState<string | boolean>("");
     var [user, setUser] = React.useState<string>("");
     var [passwd, setPasswd] = React.useState<string>("");
@@ -75,7 +68,7 @@ export const TheHeader: React.FC = () => {
     React.useEffect(() => {
         // this will check every 1 second to see if you have logged in
         setInterval(() => {
-            if (authenticate.length > 0) {
+            if (window.sessionStorage.getItem("authenticated") != null) {
                 setSession(true);
             }
             if (session == true) {clearInterval()}
@@ -90,21 +83,20 @@ export const TheHeader: React.FC = () => {
                 <Ul>
                 <Nav1>
                     <NavList>
-                        {(window.sessionStorage.getItem("authenticated") != null ) ? 
+                        {(window.sessionStorage.getItem("authenticated") != null || session == true ) ? 
                         <NavLinks to="/main"><LogoDiv></LogoDiv></NavLinks> : <LogoDiv></LogoDiv>}
                     </NavList>
                 </Nav1>
                 <LoginNav>
                     <NavList>
-                        {(window.sessionStorage.getItem("authenticated") != null ) ? 
+                        {(window.sessionStorage.getItem("authenticated") != null || session == true) ? 
                         <NavLinks to="/account">Account</NavLinks> : <NavLinks to="/login">Login</NavLinks>}
                     </NavList>
                     <NavList>
-                        {(window.sessionStorage.getItem("authenticated") != null ) ? 
+                        {(window.sessionStorage.getItem("authenticated") != null ||session == true ) ? 
                         <NavLinks to="/logout" onClick={() => {
-                            window.sessionStorage.removeItem("authenticated"); setSession(false);
-                            setTimeout(() => alert("You have logged out"), 1500);}}>Logout
-                        </NavLinks> : <NavLinks to="/signup">Register</NavLinks>}
+                            alert("You have logged out"); window.sessionStorage.removeItem("authenticated"); 
+                            setSession(false);}}>Logout</NavLinks> : <NavLinks to="/signup">Register</NavLinks>}
                     </NavList>
                 </LoginNav>
                 </Ul>
@@ -117,7 +109,7 @@ export const TheHeader: React.FC = () => {
                 <Route exact path="/login" component={VaultLogin}/>
                 <Route exact path="/signup" component={Signup}/>
                 <Route exact path="/account" component={MyAccount}/>
-                <Route exact path="/logout" component={VaultLogin}/>
+                <Route exact path="/logout" component={VaultHome}/>
                 <Route exact path="/unauthorized" component={NotAuthorized}/>
                 <Route path="/service/:service" component={Service} />
             </Switch>

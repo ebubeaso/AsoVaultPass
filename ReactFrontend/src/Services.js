@@ -14,35 +14,63 @@ const Service = (props) => {
     var history = react_router_dom_1.useHistory();
     var [theData, setTheData] = react_1.default.useState([]);
     var [editPopup, setEditPopup] = react_1.default.useState(false);
-    var [deletePopup, setDeletePopup] = react_1.default.useState(false);
     var [editUser, setEditUser] = react_1.default.useState("");
     var [editPasswd, setEditPasswd] = react_1.default.useState("");
     react_1.default.useEffect(() => {
-        console.log("props");
-        console.log(props.match.params);
-        axios_1.default.get(`https://192.168.1.103:5500/vault/${Vault_1.currentUser}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-            .then(response => {
-            let result = response.data;
-            setTheData(result);
-            //console.log(result);
-        }).catch(err => {
-            console.log(err);
-            alert("Sorry, we could not connect to the resource. Try again later");
-        });
+        if (Vault_1.currentUser == null) {
+            axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                setTheData(result);
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
+        else {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios_1.default.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                setTheData(result);
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
     }, []);
     const editService = () => {
-        let request = { SessionUser: Header_1.authenticate, Username: editUser, Password: editPasswd };
-        axios_1.default.put(`https://192.168.1.103:5500/vault/${Vault_1.currentUser}/${props.match.params.service}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        let request = { SessionUser: Vault_1.currentUser, Username: editUser, Password: editPasswd };
+        let current = window.sessionStorage.getItem("authenticated");
+        axios_1.default.put(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             alert(result.Result);
             closeEditPopup();
             window.location.reload();
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
         });
+    };
+    const deleteService = () => {
+        let confirmation = confirm("This data will be removed. Are you sure you want to continue?");
+        if (confirmation) {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios_1.default.delete(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                alert(result.Result);
+                history.push("/main");
+                window.location.reload();
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
     };
     const showEditPopup = () => { setEditPopup(true); };
     const closeEditPopup = () => { setEditPopup(false); };
-    const showDeletePopup = () => { };
     const changePopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
             react_1.default.createElement("form", { id: "add-form" },
@@ -55,10 +83,10 @@ const Service = (props) => {
             react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info"))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "ServiceInfo" },
-            react_1.default.createElement("div", { className: "DataOptions" },
-                react_1.default.createElement("button", { className: "EditButton", onClick: showEditPopup }, "Edit Info"),
-                react_1.default.createElement("button", { className: "CloseButton", id: "close-details", onClick: showDeletePopup }, "Remove")),
             theData.map((d) => (react_1.default.createElement("div", { key: d["ID"] },
+                react_1.default.createElement("div", { className: "DataOptions" },
+                    react_1.default.createElement("button", { className: "EditButton", onClick: showEditPopup }, "Edit Info"),
+                    react_1.default.createElement("button", { className: "CloseButton", id: "close-details", onClick: deleteService }, "Remove")),
                 react_1.default.createElement(Styles_1.Subtitle, null,
                     "Service: ",
                     d.Service),

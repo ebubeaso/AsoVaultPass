@@ -54,11 +54,12 @@ const VaultMain = () => {
     const closeAddPopup = () => { setAddPopup(false); };
     // this sends the new service to the database
     const addService = () => {
+        let current = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: Header_1.authenticate, Username: newUser,
-            Password: newPasswd, Service: newService
+            SessionUser: current, Username: newUser, Password: newPasswd, Service: newService
         };
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        console.log(current);
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${current}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously

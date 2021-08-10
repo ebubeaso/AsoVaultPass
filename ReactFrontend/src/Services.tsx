@@ -8,37 +8,65 @@ export const Service: React.FC = (props: any) => {
     var history = useHistory();
     var [theData, setTheData] = React.useState<Array<any>>([]);
     var [editPopup, setEditPopup] = React.useState<boolean>(false);
-    var [deletePopup, setDeletePopup] = React.useState<boolean>(false);
     var [editUser, setEditUser] = React.useState<string>("");
     var [editPasswd, setEditPasswd] = React.useState<string>("");
     React.useEffect(() => {
-        console.log("props");
-        console.log(props.match.params)
-        axios.get(`https://192.168.1.103:5500/vault/${currentUser}/${props.match.params.service}`, 
+        if (currentUser == null) {
+            axios.get(`https://192.168.1.103:5500/vault/${authenticate}/${props.match.params.service}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
                 let result = response.data;
                 setTheData(result);
-                //console.log(result);
             }).catch(err => {
                 console.log(err); 
                 alert("Sorry, we could not connect to the resource. Try again later")
             })
+        } else {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, 
+            {httpsAgent, headers: {"Content-Type": "application/json"}})
+            .then(response => {
+                let result = response.data;
+                setTheData(result);
+            }).catch(err => {
+                console.log(err); 
+                alert("Sorry, we could not connect to the resource. Try again later")
+            })}
     }, [])
     const editService = () => {
-        let request = {SessionUser: authenticate, Username: editUser, Password: editPasswd}
-        axios.put(`https://192.168.1.103:5500/vault/${currentUser}/${props.match.params.service}`,
+        let request = {SessionUser: currentUser, Username: editUser, Password: editPasswd}
+        let current = window.sessionStorage.getItem("authenticated");
+        axios.put(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`,
         request, {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
             let result = response.data;
             alert(result.Result);
             closeEditPopup();
             window.location.reload();
+        }).catch(err => {
+            console.log(err); 
+            alert("Sorry, we could not connect to the resource. Try again later")
         })
     }    
+    const deleteService = () => {
+        let confirmation  = confirm("This data will be removed. Are you sure you want to continue?");
+        if (confirmation) {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios.delete(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, 
+            {httpsAgent, headers: {"Content-Type": "application/json"}})
+            .then(response => {
+                let result = response.data;
+                alert(result.Result);
+                history.push("/main");
+                window.location.reload();
+            }).catch(err => {
+                console.log(err); 
+                alert("Sorry, we could not connect to the resource. Try again later")
+            });
+        }
+    };
     const showEditPopup = () => {setEditPopup(true);}
     const closeEditPopup = () => {setEditPopup(false);}
-    const showDeletePopup = () => {}
     const changePopup: JSX.Element = (
         <div className="Popup">
             <div className="TheForm" id="add-service">
@@ -59,12 +87,12 @@ export const Service: React.FC = (props: any) => {
     return (
         <div>
         <div className="ServiceInfo">
-            <div className="DataOptions">
-                <button className="EditButton" onClick={showEditPopup}>Edit Info</button>
-                <button className="CloseButton" id="close-details" onClick={showDeletePopup}>Remove</button>
-            </div>
             {theData.map((d) => (
             <div key={d["ID"]}>
+                <div className="DataOptions">
+                    <button className="EditButton" onClick={showEditPopup}>Edit Info</button>
+                    <button className="CloseButton" id="close-details" onClick={deleteService}>Remove</button>
+                </div>
                 <Subtitle>Service: {d.Service}</Subtitle>
                 <p className="ServiceData">Username: {d.Username}</p>
                 <p className="ServiceData">Password: {d.Password}</p>

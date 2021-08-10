@@ -14,12 +14,6 @@ const axios_1 = __importDefault(require("axios"));
 const Services_1 = require("./Services");
 exports.authenticate = "";
 const VaultLogin = () => {
-    let history = react_router_dom_1.useHistory();
-    // React.useEffect(() => {
-    //     window.onpopstate = (_e:any) => {
-    //         history.push("/login");
-    //     }
-    // })
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
@@ -69,7 +63,7 @@ const TheHeader = () => {
     react_1.default.useEffect(() => {
         // this will check every 1 second to see if you have logged in
         setInterval(() => {
-            if (exports.authenticate.length > 0) {
+            if (window.sessionStorage.getItem("authenticated") != null) {
                 setSession(true);
             }
             if (session == true) {
@@ -84,17 +78,17 @@ const TheHeader = () => {
                     react_1.default.createElement("nav", null,
                         react_1.default.createElement(Styles_1.Ul, null,
                             react_1.default.createElement(Styles_1.Nav1, null,
-                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null || session == true) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/main" },
                                         react_1.default.createElement(Styles_1.LogoDiv, null)) : react_1.default.createElement(Styles_1.LogoDiv, null))),
                             react_1.default.createElement(Styles_1.LoginNav, null,
-                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null || session == true) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/account" }, "Account") : react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
-                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null || session == true) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
+                                            alert("You have logged out");
                                             window.sessionStorage.removeItem("authenticated");
                                             setSession(false);
-                                            setTimeout(() => alert("You have logged out"), 1500);
                                         } }, "Logout") : react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Vault_1.VaultHome }),
@@ -102,7 +96,7 @@ const TheHeader = () => {
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/login", component: exports.VaultLogin }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/signup", component: Signup_1.Signup }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/account", component: Services_1.MyAccount }),
-                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/logout", component: exports.VaultLogin }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/logout", component: Vault_1.VaultHome }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/service/:service", component: Services_1.Service })))));
 };

@@ -36971,12 +36971,6 @@ const axios_1 = __importDefault(require("axios"));
 const Services_1 = require("./Services");
 exports.authenticate = "";
 const VaultLogin = () => {
-    let history = react_router_dom_1.useHistory();
-    // React.useEffect(() => {
-    //     window.onpopstate = (_e:any) => {
-    //         history.push("/login");
-    //     }
-    // })
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
@@ -37026,7 +37020,7 @@ const TheHeader = () => {
     react_1.default.useEffect(() => {
         // this will check every 1 second to see if you have logged in
         setInterval(() => {
-            if (exports.authenticate.length > 0) {
+            if (window.sessionStorage.getItem("authenticated") != null) {
                 setSession(true);
             }
             if (session == true) {
@@ -37041,17 +37035,17 @@ const TheHeader = () => {
                     react_1.default.createElement("nav", null,
                         react_1.default.createElement(Styles_1.Ul, null,
                             react_1.default.createElement(Styles_1.Nav1, null,
-                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null || session == true) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/main" },
                                         react_1.default.createElement(Styles_1.LogoDiv, null)) : react_1.default.createElement(Styles_1.LogoDiv, null))),
                             react_1.default.createElement(Styles_1.LoginNav, null,
-                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null || session == true) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/account" }, "Account") : react_1.default.createElement(Styles_1.NavLinks, { to: "/login" }, "Login")),
-                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
+                                react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null || session == true) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
+                                            alert("You have logged out");
                                             window.sessionStorage.removeItem("authenticated");
                                             setSession(false);
-                                            setTimeout(() => alert("You have logged out"), 1500);
                                         } }, "Logout") : react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Vault_1.VaultHome }),
@@ -37059,7 +37053,7 @@ const TheHeader = () => {
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/login", component: exports.VaultLogin }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/signup", component: Signup_1.Signup }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/account", component: Services_1.MyAccount }),
-                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/logout", component: exports.VaultLogin }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/logout", component: Vault_1.VaultHome }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/service/:service", component: Services_1.Service })))));
 };
@@ -37098,35 +37092,63 @@ const Service = (props) => {
     var history = react_router_dom_1.useHistory();
     var [theData, setTheData] = react_1.default.useState([]);
     var [editPopup, setEditPopup] = react_1.default.useState(false);
-    var [deletePopup, setDeletePopup] = react_1.default.useState(false);
     var [editUser, setEditUser] = react_1.default.useState("");
     var [editPasswd, setEditPasswd] = react_1.default.useState("");
     react_1.default.useEffect(() => {
-        console.log("props");
-        console.log(props.match.params);
-        axios_1.default.get(`https://192.168.1.103:5500/vault/${Vault_1.currentUser}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-            .then(response => {
-            let result = response.data;
-            setTheData(result);
-            //console.log(result);
-        }).catch(err => {
-            console.log(err);
-            alert("Sorry, we could not connect to the resource. Try again later");
-        });
+        if (Vault_1.currentUser == null) {
+            axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                setTheData(result);
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
+        else {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios_1.default.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                setTheData(result);
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
     }, []);
     const editService = () => {
-        let request = { SessionUser: Header_1.authenticate, Username: editUser, Password: editPasswd };
-        axios_1.default.put(`https://192.168.1.103:5500/vault/${Vault_1.currentUser}/${props.match.params.service}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        let request = { SessionUser: Vault_1.currentUser, Username: editUser, Password: editPasswd };
+        let current = window.sessionStorage.getItem("authenticated");
+        axios_1.default.put(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             alert(result.Result);
             closeEditPopup();
             window.location.reload();
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
         });
+    };
+    const deleteService = () => {
+        let confirmation = confirm("This data will be removed. Are you sure you want to continue?");
+        if (confirmation) {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios_1.default.delete(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                alert(result.Result);
+                history.push("/main");
+                window.location.reload();
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
     };
     const showEditPopup = () => { setEditPopup(true); };
     const closeEditPopup = () => { setEditPopup(false); };
-    const showDeletePopup = () => { };
     const changePopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
             react_1.default.createElement("form", { id: "add-form" },
@@ -37139,10 +37161,10 @@ const Service = (props) => {
             react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info"))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "ServiceInfo" },
-            react_1.default.createElement("div", { className: "DataOptions" },
-                react_1.default.createElement("button", { className: "EditButton", onClick: showEditPopup }, "Edit Info"),
-                react_1.default.createElement("button", { className: "CloseButton", id: "close-details", onClick: showDeletePopup }, "Remove")),
             theData.map((d) => (react_1.default.createElement("div", { key: d["ID"] },
+                react_1.default.createElement("div", { className: "DataOptions" },
+                    react_1.default.createElement("button", { className: "EditButton", onClick: showEditPopup }, "Edit Info"),
+                    react_1.default.createElement("button", { className: "CloseButton", id: "close-details", onClick: deleteService }, "Remove")),
                 react_1.default.createElement(Styles_1.Subtitle, null,
                     "Service: ",
                     d.Service),
@@ -37443,11 +37465,12 @@ const VaultMain = () => {
     const closeAddPopup = () => { setAddPopup(false); };
     // this sends the new service to the database
     const addService = () => {
+        let current = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: Header_1.authenticate, Username: newUser,
-            Password: newPasswd, Service: newService
+            SessionUser: current, Username: newUser, Password: newPasswd, Service: newService
         };
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        console.log(current);
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${current}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
