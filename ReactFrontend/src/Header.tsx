@@ -7,17 +7,18 @@ import { Signup } from "./Signup";
 import request from "superagent";
 import https from 'https';
 import axios from 'axios';
+import { Service, MyAccount } from "./Services";
 // determine the login session
 export var httpsAgent: https.Agent;
 export var authenticate: string = "";
 
 export const VaultLogin: React.FC = () => {
     let history = useHistory();
-    React.useEffect(() => {
-        window.onpopstate = (_e:any) => {
-            history.push("/login");
-        }
-    })
+    // React.useEffect(() => {
+    //     window.onpopstate = (_e:any) => {
+    //         history.push("/login");
+    //     }
+    // })
     var [login, setLogin] = React.useState<string | boolean>("");
     var [user, setUser] = React.useState<string>("");
     var [passwd, setPasswd] = React.useState<string>("");
@@ -67,8 +68,7 @@ export const VaultLogin: React.FC = () => {
         </div>
         )
     }
-    // return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
-    return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>;
+    return login ? <Redirect to="/main" /> : <Redirect to="/unauthorized" />
 }
 export const TheHeader: React.FC = () => {
     var [session, setSession] = React.useState(false);
@@ -102,8 +102,8 @@ export const TheHeader: React.FC = () => {
                     <NavList>
                         {(window.sessionStorage.getItem("authenticated") != null ) ? 
                         <NavLinks to="/logout" onClick={() => {
-                            window.sessionStorage.removeItem("authenticated"); authenticate = ""; 
-                            alert("You have logged out"); setSession(false);}}>Logout
+                            window.sessionStorage.removeItem("authenticated"); setSession(false);
+                            setTimeout(() => alert("You have logged out"), 1500);}}>Logout
                         </NavLinks> : <NavLinks to="/signup">Register</NavLinks>}
                     </NavList>
                 </LoginNav>
@@ -115,10 +115,11 @@ export const TheHeader: React.FC = () => {
                 <Route exact path="/" component={VaultHome}/>
                 <Route exact path="/main" component={VaultMain}/>
                 <Route exact path="/login" component={VaultLogin}/>
-                <Route path="/signup"><Signup/></Route>
-                <Route path="/account"/>
-                <Route path="/logout" component={VaultLogin}/>
+                <Route exact path="/signup" component={Signup}/>
+                <Route exact path="/account" component={MyAccount}/>
+                <Route exact path="/logout" component={VaultLogin}/>
                 <Route exact path="/unauthorized" component={NotAuthorized}/>
+                <Route path="/service/:service" component={Service} />
             </Switch>
         </HashRouter>
         </div>

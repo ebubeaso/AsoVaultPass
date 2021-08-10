@@ -13,7 +13,7 @@
     margin: 2% 0%;
     grid-column-gap: 3%;
     grid-row-gap: 2vw;
-    height: 30vh;
+    overflow: auto;
 }
 .SearchDiv {
     display: flex;
@@ -101,10 +101,17 @@ p.Invalid#invalid-pass {margin-right: 10%;}
     border: 2px solid white;
     border-radius: 100px;
 }
+button#go-back.SubmitButton{
+    width: 20%;
+    padding: 1% 2%;
+    margin: 0% 30%;
+}
 #NewService {cursor: pointer;}
-.Service {font-size: 26pt;}
-.Icon, .Service {font-family: monospace;}
+.Service {font-size: 26pt; text-align: center;}
+.ServiceData {font-size: 26pt; margin-left: 30%}
+.Icon, .Service, .ServiceData {font-family: monospace;}
 .DataOptions {display: flex;}
+
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);

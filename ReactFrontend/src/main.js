@@ -1623,7 +1623,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 }).call(this)}).call(this,require('_process'))
-},{"./adapters/http":8,"./adapters/xhr":8,"./helpers/normalizeHeaderName":30,"./utils":33,"_process":101}],23:[function(require,module,exports){
+},{"./adapters/http":8,"./adapters/xhr":8,"./helpers/normalizeHeaderName":30,"./utils":33,"_process":102}],23:[function(require,module,exports){
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -3293,7 +3293,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/history.js":34,"./cjs/history.min.js":35,"_process":101}],37:[function(require,module,exports){
+},{"./cjs/history.js":34,"./cjs/history.min.js":35,"_process":102}],37:[function(require,module,exports){
 'use strict';
 
 var reactIs = require('react-is');
@@ -3583,7 +3583,7 @@ exports.typeOf = typeOf;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],39:[function(require,module,exports){
+},{"_process":102}],39:[function(require,module,exports){
 /** @license React v16.13.1
  * react-is.production.min.js
  *
@@ -3611,7 +3611,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-is.development.js":38,"./cjs/react-is.production.min.js":39,"_process":101}],41:[function(require,module,exports){
+},{"./cjs/react-is.development.js":38,"./cjs/react-is.production.min.js":39,"_process":102}],41:[function(require,module,exports){
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
@@ -3786,7 +3786,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
   };
 }var index = React__default['default'].createContext || createReactContext;module.exports=index;
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"@babel/runtime/helpers/inheritsLoose":1,"_process":101,"prop-types":48,"react":70,"tiny-warning":83}],43:[function(require,module,exports){
+},{"@babel/runtime/helpers/inheritsLoose":1,"_process":102,"prop-types":48,"react":70,"tiny-warning":83}],43:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -4412,7 +4412,7 @@ checkPropTypes.resetWarningCache = function() {
 module.exports = checkPropTypes;
 
 }).call(this)}).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":49,"_process":101}],46:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":49,"_process":102}],46:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -5073,7 +5073,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 };
 
 }).call(this)}).call(this,require('_process'))
-},{"./checkPropTypes":45,"./lib/ReactPropTypesSecret":49,"_process":101,"object-assign":43,"react-is":52}],48:[function(require,module,exports){
+},{"./checkPropTypes":45,"./lib/ReactPropTypesSecret":49,"_process":102,"object-assign":43,"react-is":52}],48:[function(require,module,exports){
 (function (process){(function (){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -5096,7 +5096,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./factoryWithThrowingShims":46,"./factoryWithTypeCheckers":47,"_process":101,"react-is":52}],49:[function(require,module,exports){
+},{"./factoryWithThrowingShims":46,"./factoryWithTypeCheckers":47,"_process":102,"react-is":52}],49:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -5112,11 +5112,11 @@ module.exports = ReactPropTypesSecret;
 
 },{}],50:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"_process":101,"dup":38}],51:[function(require,module,exports){
+},{"_process":102,"dup":38}],51:[function(require,module,exports){
 arguments[4][39][0].apply(exports,arguments)
 },{"dup":39}],52:[function(require,module,exports){
 arguments[4][40][0].apply(exports,arguments)
-},{"./cjs/react-is.development.js":50,"./cjs/react-is.production.min.js":51,"_process":101,"dup":40}],53:[function(require,module,exports){
+},{"./cjs/react-is.development.js":50,"./cjs/react-is.production.min.js":51,"_process":102,"dup":40}],53:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-dom.development.js
@@ -31382,7 +31382,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101,"object-assign":43,"react":70,"scheduler":78,"scheduler/tracing":79}],54:[function(require,module,exports){
+},{"_process":102,"object-assign":43,"react":70,"scheduler":78,"scheduler/tracing":79}],54:[function(require,module,exports){
 /** @license React v17.0.2
  * react-dom.production.min.js
  *
@@ -31723,7 +31723,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":53,"./cjs/react-dom.production.min.js":54,"_process":101}],56:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":53,"./cjs/react-dom.production.min.js":54,"_process":102}],56:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react-is.development.js
@@ -31953,7 +31953,7 @@ exports.typeOf = typeOf;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],57:[function(require,module,exports){
+},{"_process":102}],57:[function(require,module,exports){
 /** @license React v17.0.2
  * react-is.production.min.js
  *
@@ -31971,7 +31971,7 @@ exports.typeOf=y;
 
 },{}],58:[function(require,module,exports){
 arguments[4][40][0].apply(exports,arguments)
-},{"./cjs/react-is.development.js":56,"./cjs/react-is.production.min.js":57,"_process":101,"dup":40}],59:[function(require,module,exports){
+},{"./cjs/react-is.development.js":56,"./cjs/react-is.production.min.js":57,"_process":102,"dup":40}],59:[function(require,module,exports){
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -32431,7 +32431,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-router-dom.js":59,"./cjs/react-router-dom.min.js":60,"_process":101}],62:[function(require,module,exports){
+},{"./cjs/react-router-dom.js":59,"./cjs/react-router-dom.min.js":60,"_process":102}],62:[function(require,module,exports){
 'use strict';
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -33273,13 +33273,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react-router.js":62,"./cjs/react-router.min.js":63,"_process":101}],65:[function(require,module,exports){
+},{"./cjs/react-router.js":62,"./cjs/react-router.min.js":63,"_process":102}],65:[function(require,module,exports){
 arguments[4][38][0].apply(exports,arguments)
-},{"_process":101,"dup":38}],66:[function(require,module,exports){
+},{"_process":102,"dup":38}],66:[function(require,module,exports){
 arguments[4][39][0].apply(exports,arguments)
 },{"dup":39}],67:[function(require,module,exports){
 arguments[4][40][0].apply(exports,arguments)
-},{"./cjs/react-is.development.js":65,"./cjs/react-is.production.min.js":66,"_process":101,"dup":40}],68:[function(require,module,exports){
+},{"./cjs/react-is.development.js":65,"./cjs/react-is.production.min.js":66,"_process":102,"dup":40}],68:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v17.0.2
  * react.development.js
@@ -35616,7 +35616,7 @@ exports.version = ReactVersion;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101,"object-assign":43}],69:[function(require,module,exports){
+},{"_process":102,"object-assign":43}],69:[function(require,module,exports){
 /** @license React v17.0.2
  * react.production.min.js
  *
@@ -35652,7 +35652,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/react.development.js":68,"./cjs/react.production.min.js":69,"_process":101}],71:[function(require,module,exports){
+},{"./cjs/react.development.js":68,"./cjs/react.production.min.js":69,"_process":102}],71:[function(require,module,exports){
 'use strict';
 
 function isAbsolute(pathname) {
@@ -35745,7 +35745,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/resolve-pathname.js":71,"./cjs/resolve-pathname.min.js":72,"_process":101}],74:[function(require,module,exports){
+},{"./cjs/resolve-pathname.js":71,"./cjs/resolve-pathname.min.js":72,"_process":102}],74:[function(require,module,exports){
 (function (process){(function (){
 /** @license React v0.20.2
  * scheduler-tracing.development.js
@@ -36096,7 +36096,7 @@ exports.unstable_wrap = unstable_wrap;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],75:[function(require,module,exports){
+},{"_process":102}],75:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler-tracing.production.min.js
  *
@@ -36757,7 +36757,7 @@ exports.unstable_wrapCallback = unstable_wrapCallback;
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],77:[function(require,module,exports){
+},{"_process":102}],77:[function(require,module,exports){
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -36790,7 +36790,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":76,"./cjs/scheduler.production.min.js":77,"_process":101}],79:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":76,"./cjs/scheduler.production.min.js":77,"_process":102}],79:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -36801,7 +36801,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":74,"./cjs/scheduler-tracing.production.min.js":75,"_process":101}],80:[function(require,module,exports){
+},{"./cjs/scheduler-tracing.development.js":74,"./cjs/scheduler-tracing.production.min.js":75,"_process":102}],80:[function(require,module,exports){
 //
 
 module.exports = function shallowEqual(objA, objB, compare, compareContext) {
@@ -36855,7 +36855,7 @@ module.exports = function shallowEqual(objA, objB, compare, compareContext) {
 
 
 }).call(this)}).call(this,require('_process'))
-},{"@emotion/is-prop-valid":3,"@emotion/stylis":5,"@emotion/unitless":6,"_process":101,"hoist-non-react-statics":37,"react":70,"react-is":58,"shallowequal":80}],82:[function(require,module,exports){
+},{"@emotion/is-prop-valid":3,"@emotion/stylis":5,"@emotion/unitless":6,"_process":102,"hoist-non-react-statics":37,"react":70,"react-is":58,"shallowequal":80}],82:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -36874,7 +36874,7 @@ function invariant(condition, message) {
 exports.default = invariant;
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],83:[function(require,module,exports){
+},{"_process":102}],83:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -36900,7 +36900,7 @@ function warning(condition, message) {
 module.exports = warning;
 
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],84:[function(require,module,exports){
+},{"_process":102}],84:[function(require,module,exports){
 'use strict';
 
 function valueOf(obj) {
@@ -36954,7 +36954,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this)}).call(this,require('_process'))
-},{"./cjs/value-equal.js":84,"./cjs/value-equal.min.js":85,"_process":101}],87:[function(require,module,exports){
+},{"./cjs/value-equal.js":84,"./cjs/value-equal.min.js":85,"_process":102}],87:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -36968,14 +36968,15 @@ const Vault_1 = require("./Vault");
 const Signup_1 = require("./Signup");
 const https_1 = __importDefault(require("https"));
 const axios_1 = __importDefault(require("axios"));
+const Services_1 = require("./Services");
 exports.authenticate = "";
 const VaultLogin = () => {
     let history = react_router_dom_1.useHistory();
-    react_1.default.useEffect(() => {
-        window.onpopstate = (_e) => {
-            history.push("/login");
-        };
-    });
+    // React.useEffect(() => {
+    //     window.onpopstate = (_e:any) => {
+    //         history.push("/login");
+    //     }
+    // })
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
@@ -37017,10 +37018,7 @@ const VaultLogin = () => {
                     react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
                 react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
     }
-    // return login ? <div><Redirect to="/main"/></div> : <div><Redirect to="/unauthorized"/></div>
-    return login ? react_1.default.createElement("div", null,
-        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" })) : react_1.default.createElement("div", null,
-        react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" }));
+    return login ? react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" }) : react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" });
 };
 exports.VaultLogin = VaultLogin;
 const TheHeader = () => {
@@ -37052,19 +37050,18 @@ const TheHeader = () => {
                                 react_1.default.createElement(Styles_1.NavList, null, (window.sessionStorage.getItem("authenticated") != null) ?
                                     react_1.default.createElement(Styles_1.NavLinks, { to: "/logout", onClick: () => {
                                             window.sessionStorage.removeItem("authenticated");
-                                            exports.authenticate = "";
-                                            alert("You have logged out");
                                             setSession(false);
+                                            setTimeout(() => alert("You have logged out"), 1500);
                                         } }, "Logout") : react_1.default.createElement(Styles_1.NavLinks, { to: "/signup" }, "Register"))))))),
             react_1.default.createElement(react_router_dom_1.Switch, null,
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/", component: Vault_1.VaultHome }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/main", component: Vault_1.VaultMain }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/login", component: exports.VaultLogin }),
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/signup" },
-                    react_1.default.createElement(Signup_1.Signup, null)),
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/account" }),
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/logout", component: exports.VaultLogin }),
-                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized })))));
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/signup", component: Signup_1.Signup }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/account", component: Services_1.MyAccount }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/logout", component: exports.VaultLogin }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized }),
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/service/:service", component: Services_1.Service })))));
 };
 exports.TheHeader = TheHeader;
 const NotAuthorized = () => {
@@ -37073,7 +37070,7 @@ const NotAuthorized = () => {
         react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
 };
 
-},{"./Signup":89,"./Styles":90,"./Vault":91,"axios":7,"https":98,"react":70,"react-router-dom":61}],88:[function(require,module,exports){
+},{"./Services":89,"./Signup":90,"./Styles":91,"./Vault":92,"axios":7,"https":99,"react":70,"react-router-dom":61}],88:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -37085,6 +37082,86 @@ const Header_1 = require("./Header");
 react_dom_1.default.render(react_1.default.createElement(Header_1.TheHeader, null), document.getElementById("main"));
 
 },{"./Header":87,"react":70,"react-dom":55}],89:[function(require,module,exports){
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MyAccount = exports.Service = void 0;
+const react_1 = __importDefault(require("react"));
+const Styles_1 = require("./Styles");
+const Header_1 = require("./Header");
+const axios_1 = __importDefault(require("axios"));
+const Vault_1 = require("./Vault");
+const react_router_dom_1 = require("react-router-dom");
+const Service = (props) => {
+    var history = react_router_dom_1.useHistory();
+    var [theData, setTheData] = react_1.default.useState([]);
+    var [editPopup, setEditPopup] = react_1.default.useState(false);
+    var [deletePopup, setDeletePopup] = react_1.default.useState(false);
+    var [editUser, setEditUser] = react_1.default.useState("");
+    var [editPasswd, setEditPasswd] = react_1.default.useState("");
+    react_1.default.useEffect(() => {
+        console.log("props");
+        console.log(props.match.params);
+        axios_1.default.get(`https://192.168.1.103:5500/vault/${Vault_1.currentUser}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setTheData(result);
+            //console.log(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
+    }, []);
+    const editService = () => {
+        let request = { SessionUser: Header_1.authenticate, Username: editUser, Password: editPasswd };
+        axios_1.default.put(`https://192.168.1.103:5500/vault/${Vault_1.currentUser}/${props.match.params.service}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            alert(result.Result);
+            closeEditPopup();
+            window.location.reload();
+        });
+    };
+    const showEditPopup = () => { setEditPopup(true); };
+    const closeEditPopup = () => { setEditPopup(false); };
+    const showDeletePopup = () => { };
+    const changePopup = (react_1.default.createElement("div", { className: "Popup" },
+        react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
+            react_1.default.createElement("form", { id: "add-form" },
+                react_1.default.createElement("button", { className: "CloseButton", id: "close-edit", onClick: closeEditPopup }, " X "),
+                react_1.default.createElement(Styles_1.Subtitle, null, "Edit Credentials"),
+                react_1.default.createElement("label", { htmlFor: "edit-username", className: "FormLabel", id: "edit-user-label" }, "Username"),
+                react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "edit-username", value: editUser, onChange: (e) => setEditUser(e.target.value) }),
+                react_1.default.createElement("label", { htmlFor: "edit-password", className: "FormLabel", id: "edit-pass-label" }, "Password"),
+                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "edit-password", value: editPasswd, onChange: (e) => setEditPasswd(e.target.value) })),
+            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info"))));
+    return (react_1.default.createElement("div", null,
+        react_1.default.createElement("div", { className: "ServiceInfo" },
+            react_1.default.createElement("div", { className: "DataOptions" },
+                react_1.default.createElement("button", { className: "EditButton", onClick: showEditPopup }, "Edit Info"),
+                react_1.default.createElement("button", { className: "CloseButton", id: "close-details", onClick: showDeletePopup }, "Remove")),
+            theData.map((d) => (react_1.default.createElement("div", { key: d["ID"] },
+                react_1.default.createElement(Styles_1.Subtitle, null,
+                    "Service: ",
+                    d.Service),
+                react_1.default.createElement("p", { className: "ServiceData" },
+                    "Username: ",
+                    d.Username),
+                react_1.default.createElement("p", { className: "ServiceData" },
+                    "Password: ",
+                    d.Password)))),
+            react_1.default.createElement("button", { className: "SubmitButton", id: "go-back", onClick: () => history.push("/main") }, "Back to main")),
+        (editPopup) ? changePopup : null));
+};
+exports.Service = Service;
+const MyAccount = () => {
+    return (react_1.default.createElement("div", null));
+};
+exports.MyAccount = MyAccount;
+
+},{"./Header":87,"./Styles":91,"./Vault":92,"axios":7,"react":70,"react-router-dom":61}],90:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -37133,7 +37210,6 @@ const Signup = () => {
                 // This will signify that the form is not valid and it won't send the request
                 if (val.includes("Please") || val.includes("Password") || val.includes(" ")) {
                     valid = false;
-                    console.log("Current valid: " + valid.toString());
                     errorCount++;
                     break;
                 }
@@ -37195,7 +37271,7 @@ const Signup = () => {
 };
 exports.Signup = Signup;
 
-},{"./Header":87,"./Styles":90,"./formValidator":92,"axios":7,"react":70,"react-router-dom":61}],90:[function(require,module,exports){
+},{"./Header":87,"./Styles":91,"./formValidator":93,"axios":7,"react":70,"react-router-dom":61}],91:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -37310,18 +37386,19 @@ exports.LogoDiv = styled_components_1.default.div `
     }
 `;
 
-},{"react-router-dom":61,"styled-components":81}],91:[function(require,module,exports){
+},{"react-router-dom":61,"styled-components":81}],92:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MyAccount = exports.VaultMain = exports.VaultHome = void 0;
+exports.VaultMain = exports.VaultHome = exports.currentUser = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const Header_1 = require("./Header");
 const axios_1 = __importDefault(require("axios"));
-var currentUser = window.sessionStorage.getItem("authenticated");
+const react_router_dom_1 = require("react-router-dom");
+exports.currentUser = window.sessionStorage.getItem("authenticated");
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "Aso VaultPass"),
@@ -37333,14 +37410,11 @@ exports.VaultHome = VaultHome;
 const VaultMain = () => {
     var [buttonColor, setButtonColor] = react_1.default.useState("green");
     var [appData, setAppData] = react_1.default.useState([]);
-    var [details, setDetails] = react_1.default.useState(false);
     var [newUser, setNewUser] = react_1.default.useState("");
     var [newPasswd, setNewPasswd] = react_1.default.useState("");
     var [newService, setNewService] = react_1.default.useState("");
-    var [editUser, setEditUser] = react_1.default.useState("");
-    var [editPasswd, setEditPasswd] = react_1.default.useState("");
     var [addPopup, setAddPopup] = react_1.default.useState(false);
-    var [editPopup, setEditPopup] = react_1.default.useState(false);
+    var history = react_router_dom_1.useHistory();
     let buttonCss = { backgroundColor: buttonColor };
     react_1.default.useEffect(() => {
         if (Header_1.authenticate.length > 0) {
@@ -37354,7 +37428,7 @@ const VaultMain = () => {
             });
         }
         else {
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${currentUser}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            axios_1.default.get(`https://192.168.1.103:5500/vault/${exports.currentUser}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
                 .then(response => {
                 let result = response.data;
                 setAppData(result);
@@ -37367,32 +37441,13 @@ const VaultMain = () => {
     // These functions are used to display or hide the popup screen that adds a new service.
     const showAddPopup = () => { setAddPopup(true); };
     const closeAddPopup = () => { setAddPopup(false); };
-    // These functions are used to display or hide the popup screen that edits information.
-    const showEditPopup = () => { setEditPopup(true); };
-    const closeEditPopup = () => { setEditPopup(false); };
-    const showDetails = () => { setDetails(true); };
-    // this function shows the details of the account
-    const showData = (user, passwd) => {
-        const TheDetails = (react_1.default.createElement("div", null,
-            react_1.default.createElement("div", { className: "DataOptions" },
-                react_1.default.createElement("button", { className: "EditButton", onClick: showEditPopup }, "Edit Info"),
-                react_1.default.createElement("button", { className: "CloseButton", id: "close-details", onClick: closeDetails }, " X ")),
-            react_1.default.createElement("p", { className: "Service" },
-                "Username: ",
-                user),
-            react_1.default.createElement("p", { className: "Service" },
-                "Password: ",
-                passwd)));
-        return TheDetails;
-    };
-    const closeDetails = () => { setDetails(false); };
     // this sends the new service to the database
     const addService = () => {
         let request = {
             SessionUser: Header_1.authenticate, Username: newUser,
             Password: newPasswd, Service: newService
         };
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
@@ -37401,8 +37456,6 @@ const VaultMain = () => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
         });
-    };
-    const editService = () => {
     };
     const addingPopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
@@ -37416,28 +37469,17 @@ const VaultMain = () => {
                 react_1.default.createElement("label", { htmlFor: "add-password", className: "FormLabel", id: "add-pass-label" }, "Password"),
                 react_1.default.createElement("input", { type: "password", name: "add-password", className: "FormInput", id: "add-password", value: newPasswd, onChange: (e) => setNewPasswd(e.target.value) })),
             react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: addService }, "Add Service"))));
-    const changePopup = (react_1.default.createElement("div", { className: "Popup" },
-        react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
-            react_1.default.createElement("form", { id: "add-form" },
-                react_1.default.createElement("button", { className: "CloseButton", id: "close-edit", onClick: closeEditPopup }, " X "),
-                react_1.default.createElement(Styles_1.Subtitle, null, "Edit Credentials"),
-                react_1.default.createElement("label", { htmlFor: "edit-username", className: "FormLabel", id: "edit-user-label" }, "Username"),
-                react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "edit-username", value: editUser, onChange: (e) => setEditUser(e.target.value) }),
-                react_1.default.createElement("label", { htmlFor: "edit-password", className: "FormLabel", id: "edit-pass-label" }, "Password"),
-                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "edit-password", value: editPasswd, onChange: (e) => setEditPasswd(e.target.value) })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info"))));
     const mappings = appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d["ID"] },
         react_1.default.createElement("div", { className: "GridItem" },
             react_1.default.createElement("p", { className: "Icon" }, ` ${d.Service[0]} `),
-            react_1.default.createElement("p", { className: "Service", id: "ServiceName", onClick: showDetails }, d.Service),
-            details ? showData(d.Username, d.Password) : null))));
+            react_1.default.createElement("p", { className: "Service", id: "ServiceName", onClick: () => history.push(`/service/${d.Service}`) }, d.Service)))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
             react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null,
             "Hello ",
-            (Header_1.authenticate.length > 0) ? Header_1.authenticate : currentUser,
+            (Header_1.authenticate.length > 0) ? Header_1.authenticate : exports.currentUser,
             "!"),
         react_1.default.createElement("div", { className: "UserData" },
             react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used Sites"),
@@ -37446,16 +37488,11 @@ const VaultMain = () => {
                 react_1.default.createElement("div", { className: "GridItem", id: "service-button" },
                     react_1.default.createElement("p", { className: "Icon", id: "NewService", onClick: showAddPopup }, "+"),
                     react_1.default.createElement("p", { className: "Service" }, "Add Service"))),
-            (addPopup) ? addingPopup : null,
-            (editPopup) ? changePopup : null)));
+            (addPopup) ? addingPopup : null)));
 };
 exports.VaultMain = VaultMain;
-const MyAccount = () => {
-    return (react_1.default.createElement("div", null));
-};
-exports.MyAccount = MyAccount;
 
-},{"./Header":87,"./Styles":90,"axios":7,"react":70}],92:[function(require,module,exports){
+},{"./Header":87,"./Styles":91,"axios":7,"react":70,"react-router-dom":61}],93:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // This Typescript file will be used for form validation
@@ -37499,7 +37536,7 @@ function validator(values) {
 }
 exports.default = validator;
 
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -37651,9 +37688,9 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
-},{}],94:[function(require,module,exports){
-
 },{}],95:[function(require,module,exports){
+
+},{}],96:[function(require,module,exports){
 (function (Buffer){(function (){
 /*!
  * The buffer module from node.js, for the browser.
@@ -39434,7 +39471,7 @@ function numberIsNaN (obj) {
 }
 
 }).call(this)}).call(this,require("buffer").Buffer)
-},{"base64-js":93,"buffer":95,"ieee754":99}],96:[function(require,module,exports){
+},{"base64-js":94,"buffer":96,"ieee754":100}],97:[function(require,module,exports){
 module.exports = {
   "100": "Continue",
   "101": "Switching Protocols",
@@ -39500,7 +39537,7 @@ module.exports = {
   "511": "Network Authentication Required"
 }
 
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -39999,7 +40036,7 @@ function eventTargetAgnosticAddListener(emitter, name, listener, flags) {
   }
 }
 
-},{}],98:[function(require,module,exports){
+},{}],99:[function(require,module,exports){
 var http = require('http')
 var url = require('url')
 
@@ -40032,7 +40069,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":107,"url":127}],99:[function(require,module,exports){
+},{"http":108,"url":128}],100:[function(require,module,exports){
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
@@ -40119,7 +40156,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],100:[function(require,module,exports){
+},{}],101:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -40148,7 +40185,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -40334,7 +40371,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 (function (global){(function (){
 /*! https://mths.be/punycode v1.4.1 by @mathias */
 ;(function(root) {
@@ -40871,7 +40908,7 @@ process.umask = function() { return 0; };
 }(this));
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -40957,7 +40994,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],104:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -41044,13 +41081,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],105:[function(require,module,exports){
+},{}],106:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":103,"./encode":104}],106:[function(require,module,exports){
+},{"./decode":104,"./encode":105}],107:[function(require,module,exports){
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -41117,7 +41154,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":95}],107:[function(require,module,exports){
+},{"buffer":96}],108:[function(require,module,exports){
 (function (global){(function (){
 var ClientRequest = require('./lib/request')
 var response = require('./lib/response')
@@ -41205,7 +41242,7 @@ http.METHODS = [
 	'UNSUBSCRIBE'
 ]
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/request":109,"./lib/response":110,"builtin-status-codes":96,"url":127,"xtend":130}],108:[function(require,module,exports){
+},{"./lib/request":110,"./lib/response":111,"builtin-status-codes":97,"url":128,"xtend":131}],109:[function(require,module,exports){
 (function (global){(function (){
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -41268,7 +41305,7 @@ function isFunction (value) {
 xhr = null // Help gc
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 (function (process,global,Buffer){(function (){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -41624,7 +41661,7 @@ var unsafeHeaders = [
 ]
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":108,"./response":110,"_process":101,"buffer":95,"inherits":100,"readable-stream":125}],110:[function(require,module,exports){
+},{"./capability":109,"./response":111,"_process":102,"buffer":96,"inherits":101,"readable-stream":126}],111:[function(require,module,exports){
 (function (process,global,Buffer){(function (){
 var capability = require('./capability')
 var inherits = require('inherits')
@@ -41839,7 +41876,7 @@ IncomingMessage.prototype._onXHRProgress = function (resetTimers) {
 }
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer)
-},{"./capability":108,"_process":101,"buffer":95,"inherits":100,"readable-stream":125}],111:[function(require,module,exports){
+},{"./capability":109,"_process":102,"buffer":96,"inherits":101,"readable-stream":126}],112:[function(require,module,exports){
 'use strict';
 
 function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
@@ -41968,7 +42005,7 @@ createErrorType('ERR_UNKNOWN_ENCODING', function (arg) {
 createErrorType('ERR_STREAM_UNSHIFT_AFTER_END_EVENT', 'stream.unshift() after end event');
 module.exports.codes = codes;
 
-},{}],112:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 (function (process){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -42110,7 +42147,7 @@ Object.defineProperty(Duplex.prototype, 'destroyed', {
   }
 });
 }).call(this)}).call(this,require('_process'))
-},{"./_stream_readable":114,"./_stream_writable":116,"_process":101,"inherits":100}],113:[function(require,module,exports){
+},{"./_stream_readable":115,"./_stream_writable":117,"_process":102,"inherits":101}],114:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -42150,7 +42187,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":115,"inherits":100}],114:[function(require,module,exports){
+},{"./_stream_transform":116,"inherits":101}],115:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -43277,7 +43314,7 @@ function indexOf(xs, x) {
   return -1;
 }
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":111,"./_stream_duplex":112,"./internal/streams/async_iterator":117,"./internal/streams/buffer_list":118,"./internal/streams/destroy":119,"./internal/streams/from":121,"./internal/streams/state":123,"./internal/streams/stream":124,"_process":101,"buffer":95,"events":97,"inherits":100,"string_decoder/":126,"util":94}],115:[function(require,module,exports){
+},{"../errors":112,"./_stream_duplex":113,"./internal/streams/async_iterator":118,"./internal/streams/buffer_list":119,"./internal/streams/destroy":120,"./internal/streams/from":122,"./internal/streams/state":124,"./internal/streams/stream":125,"_process":102,"buffer":96,"events":98,"inherits":101,"string_decoder/":127,"util":95}],116:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -43479,7 +43516,7 @@ function done(stream, er, data) {
   if (stream._transformState.transforming) throw new ERR_TRANSFORM_ALREADY_TRANSFORMING();
   return stream.push(null);
 }
-},{"../errors":111,"./_stream_duplex":112,"inherits":100}],116:[function(require,module,exports){
+},{"../errors":112,"./_stream_duplex":113,"inherits":101}],117:[function(require,module,exports){
 (function (process,global){(function (){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -44179,7 +44216,7 @@ Writable.prototype._destroy = function (err, cb) {
   cb(err);
 };
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../errors":111,"./_stream_duplex":112,"./internal/streams/destroy":119,"./internal/streams/state":123,"./internal/streams/stream":124,"_process":101,"buffer":95,"inherits":100,"util-deprecate":129}],117:[function(require,module,exports){
+},{"../errors":112,"./_stream_duplex":113,"./internal/streams/destroy":120,"./internal/streams/state":124,"./internal/streams/stream":125,"_process":102,"buffer":96,"inherits":101,"util-deprecate":130}],118:[function(require,module,exports){
 (function (process){(function (){
 'use strict';
 
@@ -44389,7 +44426,7 @@ var createReadableStreamAsyncIterator = function createReadableStreamAsyncIterat
 
 module.exports = createReadableStreamAsyncIterator;
 }).call(this)}).call(this,require('_process'))
-},{"./end-of-stream":120,"_process":101}],118:[function(require,module,exports){
+},{"./end-of-stream":121,"_process":102}],119:[function(require,module,exports){
 'use strict';
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -44600,7 +44637,7 @@ function () {
 
   return BufferList;
 }();
-},{"buffer":95,"util":94}],119:[function(require,module,exports){
+},{"buffer":96,"util":95}],120:[function(require,module,exports){
 (function (process){(function (){
 'use strict'; // undocumented cb() API, needed for core, not for public API
 
@@ -44708,7 +44745,7 @@ module.exports = {
   errorOrDestroy: errorOrDestroy
 };
 }).call(this)}).call(this,require('_process'))
-},{"_process":101}],120:[function(require,module,exports){
+},{"_process":102}],121:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/end-of-stream with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -44813,12 +44850,12 @@ function eos(stream, opts, callback) {
 }
 
 module.exports = eos;
-},{"../../../errors":111}],121:[function(require,module,exports){
+},{"../../../errors":112}],122:[function(require,module,exports){
 module.exports = function () {
   throw new Error('Readable.from is not available in the browser')
 };
 
-},{}],122:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 // Ported from https://github.com/mafintosh/pump with
 // permission from the author, Mathias Buus (@mafintosh).
 'use strict';
@@ -44916,7 +44953,7 @@ function pipeline() {
 }
 
 module.exports = pipeline;
-},{"../../../errors":111,"./end-of-stream":120}],123:[function(require,module,exports){
+},{"../../../errors":112,"./end-of-stream":121}],124:[function(require,module,exports){
 'use strict';
 
 var ERR_INVALID_OPT_VALUE = require('../../../errors').codes.ERR_INVALID_OPT_VALUE;
@@ -44944,10 +44981,10 @@ function getHighWaterMark(state, options, duplexKey, isDuplex) {
 module.exports = {
   getHighWaterMark: getHighWaterMark
 };
-},{"../../../errors":111}],124:[function(require,module,exports){
+},{"../../../errors":112}],125:[function(require,module,exports){
 module.exports = require('events').EventEmitter;
 
-},{"events":97}],125:[function(require,module,exports){
+},{"events":98}],126:[function(require,module,exports){
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -44958,7 +44995,7 @@ exports.PassThrough = require('./lib/_stream_passthrough.js');
 exports.finished = require('./lib/internal/streams/end-of-stream.js');
 exports.pipeline = require('./lib/internal/streams/pipeline.js');
 
-},{"./lib/_stream_duplex.js":112,"./lib/_stream_passthrough.js":113,"./lib/_stream_readable.js":114,"./lib/_stream_transform.js":115,"./lib/_stream_writable.js":116,"./lib/internal/streams/end-of-stream.js":120,"./lib/internal/streams/pipeline.js":122}],126:[function(require,module,exports){
+},{"./lib/_stream_duplex.js":113,"./lib/_stream_passthrough.js":114,"./lib/_stream_readable.js":115,"./lib/_stream_transform.js":116,"./lib/_stream_writable.js":117,"./lib/internal/streams/end-of-stream.js":121,"./lib/internal/streams/pipeline.js":123}],127:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -45255,7 +45292,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":106}],127:[function(require,module,exports){
+},{"safe-buffer":107}],128:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -45989,7 +46026,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"./util":128,"punycode":102,"querystring":105}],128:[function(require,module,exports){
+},{"./util":129,"punycode":103,"querystring":106}],129:[function(require,module,exports){
 'use strict';
 
 module.exports = {
@@ -46007,7 +46044,7 @@ module.exports = {
   }
 };
 
-},{}],129:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 (function (global){(function (){
 
 /**
@@ -46078,7 +46115,7 @@ function config (name) {
 }
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],130:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;

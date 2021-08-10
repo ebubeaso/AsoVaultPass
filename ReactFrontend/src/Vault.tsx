@@ -1,8 +1,9 @@
 import React from 'react';
-import { Title, Subtitle, IntroParagraph } from './Styles';
+import { Title, Subtitle, IntroParagraph, NavLinks } from './Styles';
 import { authenticate, httpsAgent } from './Header';
 import axios from 'axios';
-var currentUser = window.sessionStorage.getItem("authenticated");
+import {useHistory} from 'react-router-dom';
+export var currentUser = window.sessionStorage.getItem("authenticated");
 export const VaultHome: React.FC = () => {
     return (
         <div>
@@ -30,14 +31,11 @@ export const VaultHome: React.FC = () => {
 export const VaultMain: React.FC = () => {
     var [buttonColor, setButtonColor] = React.useState<string>("green");
     var [appData, setAppData] = React.useState<Array<any>>([]);
-    var [details, setDetails] = React.useState<boolean>(false);
     var [newUser, setNewUser] = React.useState<string>("");
     var [newPasswd, setNewPasswd] = React.useState<string>("");
     var [newService, setNewService] = React.useState<string>("");
-    var [editUser, setEditUser] = React.useState<string>("");
-    var [editPasswd, setEditPasswd] = React.useState<string>("");
     var [addPopup, setAddPopup] = React.useState<boolean>(false);
-    var [editPopup, setEditPopup] = React.useState<boolean>(false);
+    var history = useHistory();
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
         if (authenticate.length > 0) { 
@@ -65,25 +63,6 @@ export const VaultMain: React.FC = () => {
     // These functions are used to display or hide the popup screen that adds a new service.
     const showAddPopup = () => {setAddPopup(true);}
     const closeAddPopup = () => {setAddPopup(false);}
-    // These functions are used to display or hide the popup screen that edits information.
-    const showEditPopup = () => {setEditPopup(true);}
-    const closeEditPopup = () => {setEditPopup(false);}
-    const showDetails = () => {setDetails(true)};
-    // this function shows the details of the account
-    const showData = (user: any, passwd: any): JSX.Element => {
-        const TheDetails: JSX.Element =  (
-            <div>
-                <div className="DataOptions">
-                <button className="EditButton" onClick={showEditPopup}>Edit Info</button>
-                <button className="CloseButton" id="close-details" onClick={closeDetails}> X </button>
-                </div>
-                <p className="Service">Username: {user}</p>
-                <p className="Service">Password: {passwd}</p>
-            </div>
-        )
-        return TheDetails;
-    }
-    const closeDetails = () => {setDetails(false);}
     // this sends the new service to the database
     const addService = () => {
         let request = {
@@ -101,9 +80,6 @@ export const VaultMain: React.FC = () => {
             console.log(err);
         });
     };
-    const editService = () => {
-
-    }
     const addingPopup: JSX.Element = (
         <div className="Popup">
             <div className="TheForm" id="add-service">
@@ -124,30 +100,13 @@ export const VaultMain: React.FC = () => {
             </div>
         </div>
     )
-    const changePopup: JSX.Element = (
-        <div className="Popup">
-            <div className="TheForm" id="add-service">
-            <form id="add-form">
-                <button className="CloseButton" id="close-edit" onClick={closeEditPopup}> X </button>
-                <Subtitle>Edit Credentials</Subtitle>
-                <label htmlFor="edit-username" className="FormLabel" id="edit-user-label">Username</label>
-                <input type="text" name="username" className="FormInput" id="edit-username" value={editUser}
-                    onChange={(e) => setEditUser(e.target.value)} />
-                <label htmlFor="edit-password" className="FormLabel" id="edit-pass-label">Password</label>
-                <input type="password" name="password" className="FormInput" id="edit-password" 
-                    value={editPasswd} onChange={(e) => setEditPasswd(e.target.value)} />
-            </form>
-            <button className="SubmitButton" id="add-service" onClick={editService}>Update Info</button>
-            </div>
-        </div>
-    )
     const mappings = appData.map((d) => (
         <div className="SiteGrid" key={d["ID"]}>
             <div className="GridItem">
                 <p className="Icon">{` ${d.Service[0]} `}</p>
-                <p className="Service" id="ServiceName" 
-                onClick={showDetails}>{d.Service}</p>
-                {details ? showData(d.Username, d.Password) : null}
+                <p className="Service" id="ServiceName" onClick={() => history.push(`/service/${d.Service}`)}>
+                    {d.Service}
+                </p>
             </div>
         </div>))
     return (
@@ -169,11 +128,7 @@ export const VaultMain: React.FC = () => {
                 </div>
             </div>
                 {(addPopup) ? addingPopup : null}
-                {(editPopup) ? changePopup : null}
             </div>
         </div>
     )
-}
-export const MyAccount: React.FC = () => {
-    return (<div></div>)
 }

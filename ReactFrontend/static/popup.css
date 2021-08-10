@@ -18,15 +18,22 @@
     padding: 1%;
     background-color: red;
     cursor: pointer;
+    width: 6%;
     color: whitesmoke;
     font-size: 16pt;
     font-weight: bold;
-    width: 80px;
     border: 2px solid black;
     border-radius: 15px;
 }
+.ServiceInfo {
+    padding: 1%;
+    margin: 4% 25%;
+    background: linear-gradient(215deg, gray, transparent);
+    border: 2px solid black;
+}
 button#close-details.CloseButton {
-    margin-left: 4%;
+    margin-left: 2%;
+    width: 12%;
 }
 button#close-details, button.EditButton, p#ServiceName {
     cursor: pointer;

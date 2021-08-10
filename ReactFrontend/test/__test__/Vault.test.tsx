@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, getByText, screen } from '@testing-library/react';
-import {shallow, configure, mount} from 'enzyme';
+import {shallow, configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { VaultHome, VaultMain } from '../../src/Vault';
 import { VaultLogin, TheHeader } from '../../src/Header';
@@ -52,4 +52,30 @@ it("test the signup page with no entries", () => {
     expect(screen.getByDisplayValue('Ebube')).toBeTruthy();
 
 })
-it.todo("test the signup page with adding the last name");
+it("test the signup page with adding the last name", () => {
+    render(<Signup/>);
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByText("Please enter your last name")).toBeTruthy();
+    fireEvent.change(screen.getByLabelText("Last Name"), {target: {value: "Aso"}});
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByDisplayValue("Aso")).toBeTruthy();
+});
+it("test the signup page with adding the username", () => {
+    render(<Signup/>);
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByText("Please Enter a username")).toBeTruthy();
+    fireEvent.change(screen.getByLabelText("Username"), {target: {value: "easo"}});
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByDisplayValue("easo")).toBeTruthy();
+});
+it("test the signup page with adding the email", () => {
+    render(<Signup/>);
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByText("Please enter in your email")).toBeTruthy();
+    fireEvent.change(screen.getByLabelText("Email Address"), {target: {value: "asoebube1.com"}});
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByText("Please Enter a valid email address")).toBeTruthy();
+    fireEvent.change(screen.getByLabelText("Email Address"), {target: {value: "escalade938@gmail.com"}});
+    fireEvent.click(screen.getByText("Signup!"));
+    expect(screen.getByDisplayValue("escalade938@gmail.com")).toBeTruthy();
+});

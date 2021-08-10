@@ -69,12 +69,24 @@ class VaultTable(Resource):
         db.session.commit()
         return {"Message": "Success!", "Result": "The new entry has been added!!"}, 201
 class VaultTableUpdates(Resource):
-    def put(self, name, ID):
-        pass
+    def get(self, name, service):
+        data = Vault.query.filter_by(user=name, service=service)
+        result = [res.serializer() for res in data]
+        return result, 200
+    def put(self, name, service):
+        req = request.json
+        if len(req["Username"]) > 0 and len(req["Password"]) > 0:
+            data_query = Vault.query.filter_by(service=service).first()
+            data_query.username = req["Username"]
+            data_query.password = req["Password"]
+            db.session.commit()
+            return {"Message": "Success!", "Result": "Your data has been updated!!"}, 200
+        return {"Message": "Failed", 
+            "Result": "You did not supply an update to the username and password"}, 200
     def delete(self, name, ID):
         pass
 
 api.add_resource(VaultTable, "/vault/<string:name>")
-api.add_resource(VaultTableUpdates, "/vault/<string:name>/<string:ID>")
+api.add_resource(VaultTableUpdates, "/vault/<string:name>/<string:service>")
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

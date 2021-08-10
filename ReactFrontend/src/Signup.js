@@ -46,7 +46,6 @@ const Signup = () => {
                 // This will signify that the form is not valid and it won't send the request
                 if (val.includes("Please") || val.includes("Password") || val.includes(" ")) {
                     valid = false;
-                    console.log("Current valid: " + valid.toString());
                     errorCount++;
                     break;
                 }
