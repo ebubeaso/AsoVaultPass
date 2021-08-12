@@ -80,7 +80,9 @@ export const Service: React.FC = (props: any) => {
                 <input type="password" name="password" className="FormInput" id="edit-password" 
                     value={editPasswd} onChange={(e) => setEditPasswd(e.target.value)} />
             </form>
+            <div className="Send">
             <button className="SubmitButton" id="add-service" onClick={editService}>Update Info</button>
+            </div>
             </div>
         </div>
     )

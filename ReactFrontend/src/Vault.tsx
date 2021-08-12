@@ -96,7 +96,9 @@ export const VaultMain: React.FC = () => {
                 <input type="password" name="add-password" className="FormInput" id="add-password" 
                     value={newPasswd} onChange={(e) => setNewPasswd(e.target.value)} />
             </form>
+            <div className="Send">
             <button className="SubmitButton" id="add-service" onClick={addService}>Add Service</button>
+            </div>
             </div>
         </div>
     )

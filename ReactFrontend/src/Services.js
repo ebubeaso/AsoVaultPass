@@ -80,7 +80,8 @@ const Service = (props) => {
                 react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "edit-username", value: editUser, onChange: (e) => setEditUser(e.target.value) }),
                 react_1.default.createElement("label", { htmlFor: "edit-password", className: "FormLabel", id: "edit-pass-label" }, "Password"),
                 react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "edit-password", value: editPasswd, onChange: (e) => setEditPasswd(e.target.value) })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info"))));
+            react_1.default.createElement("div", { className: "Send" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info")))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "ServiceInfo" },
             theData.map((d) => (react_1.default.createElement("div", { key: d["ID"] },

@@ -1,4 +1,5 @@
-.SiteGrid {display: flex;}
+.SiteGrid, .SearchDiv, .Login, .Send, .GridItem, .TheForm, .InvalidPasswd, #register {display: flex;}
+.Login, .Send {margin-left: 30%;}
 #login {margin: 2% 0%;}
 body {margin: 0%;}
 nav {margin-top: -1%;}
@@ -25,7 +26,6 @@ p.Invalid#invalid-pass {margin-right: 10%;}
     overflow: auto;
 }
 .SearchDiv {
-    display: flex;
     margin-top: 2%;
 }
 .SearchButton {
@@ -55,8 +55,6 @@ p.Invalid#invalid-pass {margin-right: 10%;}
 }
 /* This is for the login page */
 .TheForm {
-    display: flex;
-    flex-direction: column;
     margin: 1% 20%;
     background-color: gray;
     border: 2px solid black;
@@ -84,7 +82,7 @@ p.Invalid#invalid-pass {margin-right: 10%;}
 }
 .SubmitButton {
     width: 20%;
-    margin: 0% 30% 2% 30%;
+    margin: 0% 0% 2% 1%;
     padding: 1% 5%;
     font-size: 18pt;
     cursor: pointer;
@@ -120,15 +118,16 @@ button#go-back.SubmitButton{
     .FormInput {font-size: 11pt; width: 50%;}
     .Sites {grid-row-gap: 3%;}
     .Invalid {font-size: 10pt;}
+    .Login, .Send {margin-left: 28%;}
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
         width: 85%;
         height: 80%;
     }
     .SubmitButton {
-        margin: 4% 30%;
+        margin: 4% 2%;
         width: 35%;
-        font-size: 11pt;
+        font-size: 10pt;
     }
     .Icon {
         width: 30%; 

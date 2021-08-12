@@ -20,7 +20,7 @@ export const Signup: React.FC = () => {
         })
         const [formErrors, setFormErrors] = React.useState({
             //the initial state of the form errors
-            firstname: " ", lastname: " ", username: " ", password: "", confirm: "", email: " "
+            firstname: " ", lastname: " ", username: " ", password: " ", confirm: "", email: " "
         });
         // recognizes any change in the form
         const changing = (e: any) => {
@@ -46,9 +46,13 @@ export const Signup: React.FC = () => {
                 }
             };
             if (errorCount == 0 || inputList.includes("") == false && inputs.password == inputs.confirm) {
-                valid = true
+                if (inputs.password.length >= 8 && /[A-Z]/.test(inputs.password) && 
+                /[0-9]/.test(inputs.password) && /[\! || \? || \@ || \$ || \%]/.test(inputs.password)) {
+                    valid = true
+                }
             };
             if (valid) {
+                alert("Congrats! You have signed up successfully!");
                 let request = {firstName: inputs.firstname, lastName: inputs.lastname, 
                     username: inputs.username, password: inputs.password, email: inputs.email};
                 // send the data to the backend service to register

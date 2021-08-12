@@ -54,12 +54,11 @@ const VaultMain = () => {
     const closeAddPopup = () => { setAddPopup(false); };
     // this sends the new service to the database
     const addService = () => {
-        let current = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: current, Username: newUser, Password: newPasswd, Service: newService
+            SessionUser: Header_1.authenticate, Username: newUser,
+            Password: newPasswd, Service: newService
         };
-        console.log(current);
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${current}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
@@ -80,7 +79,8 @@ const VaultMain = () => {
                 react_1.default.createElement("input", { type: "text", name: "add-username", className: "FormInput", id: "add-username", value: newUser, onChange: (e) => setNewUser(e.target.value) }),
                 react_1.default.createElement("label", { htmlFor: "add-password", className: "FormLabel", id: "add-pass-label" }, "Password"),
                 react_1.default.createElement("input", { type: "password", name: "add-password", className: "FormInput", id: "add-password", value: newPasswd, onChange: (e) => setNewPasswd(e.target.value) })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: addService }, "Add Service"))));
+            react_1.default.createElement("div", { className: "Send" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: addService }, "Add Service")))));
     const mappings = appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d["ID"] },
         react_1.default.createElement("div", { className: "GridItem" },
             react_1.default.createElement("p", { className: "Icon" }, ` ${d.Service[0]} `),

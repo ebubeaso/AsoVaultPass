@@ -53,7 +53,9 @@ const VaultLogin = () => {
                     react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
                     react_1.default.createElement("label", { htmlFor: "password", className: "FormLabel", id: "password-label" }, "Password"),
                     react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
-                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
+                react_1.default.createElement("div", { className: "Login" },
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"),
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "forgot" }, "Forgot Password")))));
     }
     return login ? react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" }) : react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" });
 };

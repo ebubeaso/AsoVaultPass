@@ -56,7 +56,10 @@ export const VaultLogin: React.FC = () => {
                 <input type="password" name="password" className="FormInput" id="password" value={passwd}
                 onChange={(e) => setPasswd(e.target.value)} />
             </form>
-            <button className="SubmitButton" id="submit-login" onClick={sendAuth}>Login</button>
+            <div className="Login">
+                <button className="SubmitButton" id="submit-login" onClick={sendAuth}>Login</button>
+                <button className="SubmitButton" id="forgot">Forgot Password</button>
+            </div>
         </div>
         </div>
         )

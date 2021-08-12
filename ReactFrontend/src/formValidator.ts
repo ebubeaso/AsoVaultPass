@@ -32,5 +32,5 @@ export default function validator(values: any) {
         formErrors.confirm = "Please enter your password again";
     }
     // return the form errors
-    return formErrors;
+    return formErrors; 
 }

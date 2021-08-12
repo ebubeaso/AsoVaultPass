@@ -37010,7 +37010,9 @@ const VaultLogin = () => {
                     react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
                     react_1.default.createElement("label", { htmlFor: "password", className: "FormLabel", id: "password-label" }, "Password"),
                     react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
-                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"))));
+                react_1.default.createElement("div", { className: "Login" },
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"),
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "forgot" }, "Forgot Password")))));
     }
     return login ? react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" }) : react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" });
 };
@@ -37158,7 +37160,8 @@ const Service = (props) => {
                 react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "edit-username", value: editUser, onChange: (e) => setEditUser(e.target.value) }),
                 react_1.default.createElement("label", { htmlFor: "edit-password", className: "FormLabel", id: "edit-pass-label" }, "Password"),
                 react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "edit-password", value: editPasswd, onChange: (e) => setEditPasswd(e.target.value) })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info"))));
+            react_1.default.createElement("div", { className: "Send" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: editService }, "Update Info")))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "ServiceInfo" },
             theData.map((d) => (react_1.default.createElement("div", { key: d["ID"] },
@@ -37211,7 +37214,7 @@ const Signup = () => {
         });
         const [formErrors, setFormErrors] = react_1.default.useState({
             //the initial state of the form errors
-            firstname: " ", lastname: " ", username: " ", password: "", confirm: "", email: " "
+            firstname: " ", lastname: " ", username: " ", password: " ", confirm: "", email: " "
         });
         // recognizes any change in the form
         const changing = (e) => {
@@ -37238,10 +37241,14 @@ const Signup = () => {
             }
             ;
             if (errorCount == 0 || inputList.includes("") == false && inputs.password == inputs.confirm) {
-                valid = true;
+                if (inputs.password.length >= 8 && /[A-Z]/.test(inputs.password) &&
+                    /[0-9]/.test(inputs.password) && /[\! || \? || \@ || \$ || \%]/.test(inputs.password)) {
+                    valid = true;
+                }
             }
             ;
             if (valid) {
+                alert("Congrats! You have signed up successfully!");
                 let request = { firstName: inputs.firstname, lastName: inputs.lastname,
                     username: inputs.username, password: inputs.password, email: inputs.email };
                 // send the data to the backend service to register
@@ -37465,12 +37472,11 @@ const VaultMain = () => {
     const closeAddPopup = () => { setAddPopup(false); };
     // this sends the new service to the database
     const addService = () => {
-        let current = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: current, Username: newUser, Password: newPasswd, Service: newService
+            SessionUser: Header_1.authenticate, Username: newUser,
+            Password: newPasswd, Service: newService
         };
-        console.log(current);
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${current}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
@@ -37491,7 +37497,8 @@ const VaultMain = () => {
                 react_1.default.createElement("input", { type: "text", name: "add-username", className: "FormInput", id: "add-username", value: newUser, onChange: (e) => setNewUser(e.target.value) }),
                 react_1.default.createElement("label", { htmlFor: "add-password", className: "FormLabel", id: "add-pass-label" }, "Password"),
                 react_1.default.createElement("input", { type: "password", name: "add-password", className: "FormInput", id: "add-password", value: newPasswd, onChange: (e) => setNewPasswd(e.target.value) })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: addService }, "Add Service"))));
+            react_1.default.createElement("div", { className: "Send" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "add-service", onClick: addService }, "Add Service")))));
     const mappings = appData.map((d) => (react_1.default.createElement("div", { className: "SiteGrid", key: d["ID"] },
         react_1.default.createElement("div", { className: "GridItem" },
             react_1.default.createElement("p", { className: "Icon" }, ` ${d.Service[0]} `),
