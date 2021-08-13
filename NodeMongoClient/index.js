@@ -104,14 +104,14 @@ app.post("/newuser", (req, res) => {
         password: passwd, email: theEmail}
     // start the SSH connection
     sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
-    .catch(err => {console.log("oof"); throw err;});
+    .catch(err => {throw err;});
     client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
-        if (err) {console.log("Nyx"); throw err};
+        if (err) {throw err};
         let dbObject = db.db(databaseName);
         let vaultUsers = dbObject.collection("vaultusers");
         // this code will see if the user exists in the database
         vaultUsers.findOne({username: user}, (err, result) => {
-            if (err) {console.log("Jojo"); throw err};
+            if (err) {throw err};
             let theData = result;
             if (theData != null) {
                 // close the connection
@@ -151,6 +151,47 @@ app.post("/takenuser", (req, res) => {
                 res.json({Message: "That username is available!"});
                 db.close();
             }
+        })
+    })
+});
+app.get("/account/:user", (req, res) => {
+    let theUser = req.params.user;
+    // Setup the tunnel
+    sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
+    .catch(err => {console.log("oof"); throw err;});
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        let dbObject = db.db(databaseName);
+        let vaultUsers = dbObject.collection("vaultusers");
+        vaultUsers.findOne({username: theUser}, (err, results) => {
+            if (err) throw err;
+            let theData = results;
+            if (theData != null) {
+                res.json(theData);
+                db.close();
+                sshTunnel.shutdown();
+            }
+        })
+    })
+});
+app.put("/account", (req, res) => {
+    let theBody = req.body;
+    let update = {$set: {firstName: theBody.firstName, lastName: theBody.lastName,
+        username: theBody.username, password: theBody.password, email: theBody.email} }
+    sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
+    .catch(err => {console.log("oof"); throw err;});
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        let theDB = db.db(databaseName);
+        let vaultUsers = theDB.collection("vaultusers");
+        vaultUsers.updateOne({username: theBody.username}, update, (err, result) => {
+            if (err) {
+                res.json({Message: "That username is available!"});
+                throw err;
+            }
+            res.json({Message: "Your account data has been updated successfully!"});
+            db.close();
+            sshTunnel.shutdown();
         })
     })
 })

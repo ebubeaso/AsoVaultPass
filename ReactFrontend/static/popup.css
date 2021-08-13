@@ -52,6 +52,13 @@ button.EditButton:hover {
     border: 2px solid white;
     color: white;
 }
+#add-form, #edit-form {
+    background-color: gray;
+    margin: 5% 5% 0% 5%;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+}
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .Popup {padding-right: 8%;}
     button.EditButton, button#go-back.SubmitButton {background-color: white;}
@@ -84,4 +91,34 @@ button.EditButton:hover {
         margin: 0% 0% 4% 10%;
         border-radius: 20px;
     }
+}
+* {
+    animation: fade 1s forwards;
+    -moz-animation: fade 1s forwards;
+    -webkit-animation: fade 1s forwards;
+    -o-animation: fade 1s forwards;
+}
+@keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-moz-keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-o-keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-moz-keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-o-keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
 }

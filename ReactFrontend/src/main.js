@@ -37004,7 +37004,7 @@ const VaultLogin = () => {
     if (login == "") {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(Styles_1.Subtitle, null, "VaultPass Login"),
-            react_1.default.createElement("div", { className: "TheForm" },
+            react_1.default.createElement("div", { className: "TheForm", id: "form-login" },
                 react_1.default.createElement("form", { id: "login" },
                     react_1.default.createElement("label", { htmlFor: "username", className: "FormLabel", id: "username-label" }, "Username"),
                     react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),
@@ -37088,7 +37088,6 @@ const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const Header_1 = require("./Header");
 const axios_1 = __importDefault(require("axios"));
-const Vault_1 = require("./Vault");
 const react_router_dom_1 = require("react-router-dom");
 const Service = (props) => {
     var history = react_router_dom_1.useHistory();
@@ -37097,31 +37096,19 @@ const Service = (props) => {
     var [editUser, setEditUser] = react_1.default.useState("");
     var [editPasswd, setEditPasswd] = react_1.default.useState("");
     react_1.default.useEffect(() => {
-        if (Vault_1.currentUser == null) {
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-                .then(response => {
-                let result = response.data;
-                setTheData(result);
-            }).catch(err => {
-                console.log(err);
-                alert("Sorry, we could not connect to the resource. Try again later");
-            });
-        }
-        else {
-            let current = window.sessionStorage.getItem("authenticated");
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-                .then(response => {
-                let result = response.data;
-                setTheData(result);
-            }).catch(err => {
-                console.log(err);
-                alert("Sorry, we could not connect to the resource. Try again later");
-            });
-        }
+        let current = window.sessionStorage.getItem("authenticated");
+        axios_1.default.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setTheData(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
     }, []);
     const editService = () => {
-        let request = { SessionUser: Vault_1.currentUser, Username: editUser, Password: editPasswd };
         let current = window.sessionStorage.getItem("authenticated");
+        let request = { SessionUser: current, Username: editUser, Password: editPasswd };
         axios_1.default.put(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
@@ -37152,8 +37139,8 @@ const Service = (props) => {
     const showEditPopup = () => { setEditPopup(true); };
     const closeEditPopup = () => { setEditPopup(false); };
     const changePopup = (react_1.default.createElement("div", { className: "Popup" },
-        react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
-            react_1.default.createElement("form", { id: "add-form" },
+        react_1.default.createElement("div", { className: "TheForm" },
+            react_1.default.createElement("form", { id: "edit-form" },
                 react_1.default.createElement("button", { className: "CloseButton", id: "close-edit", onClick: closeEditPopup }, " X "),
                 react_1.default.createElement(Styles_1.Subtitle, null, "Edit Credentials"),
                 react_1.default.createElement("label", { htmlFor: "edit-username", className: "FormLabel", id: "edit-user-label" }, "Username"),
@@ -37182,11 +37169,53 @@ const Service = (props) => {
 };
 exports.Service = Service;
 const MyAccount = () => {
-    return (react_1.default.createElement("div", null));
+    var history = react_router_dom_1.useHistory();
+    var [accountData, setAccountData] = react_1.default.useState([]);
+    var [accountFname, setAccountFname] = react_1.default.useState("");
+    var [accountLname, setAccountLname] = react_1.default.useState("");
+    var [accountEmail, setAccountEmail] = react_1.default.useState("");
+    react_1.default.useEffect(() => {
+        let current = window.sessionStorage.getItem("authenticated");
+        axios_1.default.get(`https://192.168.1.103:9900/account/${current}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = [response.data];
+            setAccountData(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
+    }, []);
+    const updateInfo = (user, passwd) => {
+        let request = { firstName: accountFname, lastName: accountLname,
+            username: user, password: passwd, email: accountEmail };
+        axios_1.default.put(`https://192.168.1.103:9900/account`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            alert(result.Message);
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
+    };
+    return (react_1.default.createElement("div", null,
+        react_1.default.createElement(Styles_1.Title, null, "My Account"),
+        accountData.map((account) => (react_1.default.createElement("div", { key: account["_id"] },
+            react_1.default.createElement("div", { className: "TheForm", id: "my-account" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "go-back2", onClick: () => history.push("/main") }, "Back to main"),
+                react_1.default.createElement("form", { id: "account-form" },
+                    react_1.default.createElement("label", { htmlFor: "account-fname", className: "FormLabel", id: "acc-fname-label" }, "First Name"),
+                    react_1.default.createElement("input", { type: "text", name: "account-fname", className: "FormInput", id: "account-fname", placeholder: account.firstName, onChange: (e) => { setAccountFname(e.target.value); } }),
+                    react_1.default.createElement("label", { htmlFor: "account-lname", className: "FormLabel", id: "acc-lname-label" }, "Last Name"),
+                    react_1.default.createElement("input", { type: "text", name: "account-username", className: "FormInput", id: "account-lname", placeholder: account.lastName, onChange: (e) => { setAccountLname(e.target.value); } }),
+                    react_1.default.createElement("label", { htmlFor: "account-email", className: "FormLabel", id: "acc-email-label" }, "Email Address"),
+                    react_1.default.createElement("input", { type: "text", name: "account-email", className: "FormInput", id: "account-email", placeholder: account.email, onChange: (e) => { setAccountEmail(e.target.value); } })),
+                react_1.default.createElement("div", { className: "Send", id: "modify-account" },
+                    react_1.default.createElement("button", { className: "SubmitButton", onClick: () => updateInfo(account.username, account.password) }, "Update Info!"))))))));
 };
 exports.MyAccount = MyAccount;
 
-},{"./Header":87,"./Styles":91,"./Vault":92,"axios":7,"react":70,"react-router-dom":61}],90:[function(require,module,exports){
+},{"./Header":87,"./Styles":91,"axios":7,"react":70,"react-router-dom":61}],90:[function(require,module,exports){
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -37296,7 +37325,8 @@ const Signup = () => {
                 formErrors.confirm && react_1.default.createElement("p", { className: "Invalid" }, formErrors.confirm),
                 react_1.default.createElement("label", { htmlFor: "confirm-pass", className: "FormLabel", id: "confirm-label" }, "Confirm Password"),
                 react_1.default.createElement("input", { type: "password", name: "confirm", className: "FormInput", id: "confirm-pass", value: inputs.confirm, onChange: changing })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "submit-register", onClick: submission }, "Signup!"))));
+            react_1.default.createElement("div", { className: "Send", id: "signup" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-register", onClick: submission }, "Signup!")))));
 };
 exports.Signup = Signup;
 
@@ -37421,13 +37451,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultMain = exports.VaultHome = exports.currentUser = void 0;
+exports.VaultMain = exports.VaultHome = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const Header_1 = require("./Header");
 const axios_1 = __importDefault(require("axios"));
 const react_router_dom_1 = require("react-router-dom");
-exports.currentUser = window.sessionStorage.getItem("authenticated");
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "Aso VaultPass"),
@@ -37446,37 +37475,27 @@ const VaultMain = () => {
     var history = react_router_dom_1.useHistory();
     let buttonCss = { backgroundColor: buttonColor };
     react_1.default.useEffect(() => {
-        if (Header_1.authenticate.length > 0) {
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-                .then(response => {
-                let result = response.data;
-                setAppData(result);
-            }).catch(err => {
-                console.log(err);
-                alert("Sorry, we could not connect to the resource. Try again later");
-            });
-        }
-        else {
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${exports.currentUser}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-                .then(response => {
-                let result = response.data;
-                setAppData(result);
-            }).catch(err => {
-                console.log(err);
-                alert("Sorry, we could not connect to the resource. Try again later");
-            });
-        }
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios_1.default.get(`https://192.168.1.103:5500/vault/${currentUser}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setAppData(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
     }, []);
     // These functions are used to display or hide the popup screen that adds a new service.
     const showAddPopup = () => { setAddPopup(true); };
     const closeAddPopup = () => { setAddPopup(false); };
     // this sends the new service to the database
     const addService = () => {
+        let currentUser = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: Header_1.authenticate, Username: newUser,
+            SessionUser: currentUser, Username: newUser,
             Password: newPasswd, Service: newService
         };
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
@@ -37485,6 +37504,8 @@ const VaultMain = () => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
         });
+    };
+    const runQuery = () => {
     };
     const addingPopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
@@ -37506,10 +37527,10 @@ const VaultMain = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
-            react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
+            react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onClick: runQuery, onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null,
             "Hello ",
-            (Header_1.authenticate.length > 0) ? Header_1.authenticate : exports.currentUser,
+            window.sessionStorage.getItem("authenticated"),
             "!"),
         react_1.default.createElement("div", { className: "UserData" },
             react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used Sites"),

@@ -47,7 +47,7 @@ export const VaultLogin: React.FC = () => {
         return (
         <div>
         <Subtitle>VaultPass Login</Subtitle>
-        <div className="TheForm">
+        <div className="TheForm" id="form-login">
             <form id="login">
                 <label htmlFor="username" className="FormLabel" id="username-label">Username</label>
                 <input type="text" name="username" className="FormInput" id="username" value={user}

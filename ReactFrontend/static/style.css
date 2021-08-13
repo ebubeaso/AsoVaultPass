@@ -1,5 +1,4 @@
 .SiteGrid, .SearchDiv, .Login, .Send, .GridItem, .TheForm, .InvalidPasswd, #register {display: flex;}
-.Login, .Send {margin-left: 30%;}
 #login {margin: 2% 0%;}
 body {margin: 0%;}
 nav {margin-top: -1%;}
@@ -11,6 +10,17 @@ p.Invalid#invalid-pass {margin-right: 10%;}
 .ServiceData {font-size: 26pt; margin-left: 30%}
 .Icon, .Service, .ServiceData {font-family: monospace;}
 .DataOptions {display: flex;}
+div#form-login.TheForm, form#register, .Send, #my-account {background-color: gray;}
+.Login, .Send {margin: 0% 5% 2% 5%;}
+button#submit-login.SubmitButton, button#forgot.SubmitButton {margin: 0% 0% 2% 2%;}
+#account-form {margin-top: 2%;}
+div#modify-account.Send {border: none;}
+.Login {padding-left: 24%;}
+.Send {
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+}
 .UserData {
     background-color: darkgray;
     border: 2px solid darkcyan;
@@ -53,10 +63,14 @@ p.Invalid#invalid-pass {margin-right: 10%;}
     margin: 5% 0%;
     overflow: scroll;
 }
+div#signup.Send {
+    margin: 0;
+    border: none;
+}
 /* This is for the login page */
 .TheForm {
     margin: 1% 20%;
-    background-color: gray;
+    background-color: whitesmoke;
     border: 2px solid black;
 }
 .GridItem, .TheForm, .InvalidPasswd, #register {
@@ -81,8 +95,8 @@ p.Invalid#invalid-pass {margin-right: 10%;}
     margin-bottom: 0%;
 }
 .SubmitButton {
-    width: 20%;
-    margin: 0% 0% 2% 1%;
+    width: 25%;
+    margin: 1% 0% 2% 30%;
     padding: 1% 5%;
     font-size: 18pt;
     cursor: pointer;
@@ -102,10 +116,10 @@ p.Invalid#invalid-pass {margin-right: 10%;}
     border: 2px solid white;
     border-radius: 100px;
 }
-button#go-back.SubmitButton{
+button#go-back.SubmitButton, button#go-back2.SubmitButton{
     width: 20%;
     padding: 1% 2%;
-    margin: 0% 30%;
+    margin: 2% 0% 0% 30%;
 }
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .SiteGrid {grid-template-columns: auto auto;}
@@ -118,16 +132,18 @@ button#go-back.SubmitButton{
     .FormInput {font-size: 11pt; width: 50%;}
     .Sites {grid-row-gap: 3%;}
     .Invalid {font-size: 10pt;}
-    .Login, .Send {margin-left: 28%;}
+    .Login, .Send {margin: 0% 5% 4% 5%}
+    .Login {padding-left: 17%;}
+    button#submit-login.SubmitButton, button#forgot.SubmitButton {margin: 3%;}
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
         width: 85%;
         height: 80%;
     }
     .SubmitButton {
-        margin: 4% 2%;
+        margin: 4% 30%;
         width: 35%;
-        font-size: 10pt;
+        font-size: 8pt;
     }
     .Icon {
         width: 30%; 
@@ -139,4 +155,22 @@ button#go-back.SubmitButton{
     .SiteGrid {
         grid-template-columns: auto auto auto;
     }
+}
+* {
+    animation: fade 0.5s forwards;
+    -moz-animation: fade 0.5s forwards;
+    -webkit-animation: fade 0.5s forwards;
+    -o-animation: fade 0.5s forwards;
+}
+@keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-moz-keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@-o-keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }

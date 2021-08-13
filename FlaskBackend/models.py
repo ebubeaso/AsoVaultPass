@@ -1,5 +1,5 @@
 from db import db
-
+from typing import Dict
 # set the model
 class Vault(db.Model):
     __tablename__ = "vault"
@@ -9,13 +9,13 @@ class Vault(db.Model):
     password = db.Column(db.Text)
     service = db.Column(db.String(100))
 
-    def __init__(self, ID, user, username, password, service):
+    def __init__(self, ID: int, user: str, username: str, password: str, service: str):
         self.ID = ID
         self.user = user
         self.username = username
         self.password = password
         self.service = service
-    def serializer(self):
+    def serializer(self) -> Dict:
         return {
             "ID": self.ID,
             "SessionUser": self.user,

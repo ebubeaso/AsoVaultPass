@@ -47,7 +47,7 @@ const VaultLogin = () => {
     if (login == "") {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(Styles_1.Subtitle, null, "VaultPass Login"),
-            react_1.default.createElement("div", { className: "TheForm" },
+            react_1.default.createElement("div", { className: "TheForm", id: "form-login" },
                 react_1.default.createElement("form", { id: "login" },
                     react_1.default.createElement("label", { htmlFor: "username", className: "FormLabel", id: "username-label" }, "Username"),
                     react_1.default.createElement("input", { type: "text", name: "username", className: "FormInput", id: "username", value: user, onChange: (e) => setUser(e.target.value) }),

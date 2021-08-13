@@ -83,7 +83,6 @@ export const Signup: React.FC = () => {
         <div className="TheForm">
             <form id="register">
                 <br/>
-                
                 {formErrors.firstname && <p className="Invalid">{formErrors.firstname}</p>}
                 <label htmlFor="first-name" className="FormLabel" id="first-name-label">First Name</label>
                 <input type="text" name="firstname" className="FormInput" id="first-name" 
@@ -114,7 +113,9 @@ export const Signup: React.FC = () => {
                 <input type="password" name="confirm" className="FormInput" id="confirm-pass" 
                 value={inputs.confirm} onChange={changing} />
             </form>
+            <div className="Send" id="signup">
             <button className="SubmitButton" id="submit-register" onClick={submission}>Signup!</button>
+            </div>
         </div>
         </div>
     )

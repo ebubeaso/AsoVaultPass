@@ -1,8 +1,7 @@
 import React from 'react';
-import { Subtitle } from './Styles';
+import { Subtitle, Title } from './Styles';
 import { httpsAgent, authenticate } from './Header';
 import axios from 'axios';
-import { currentUser } from './Vault';
 import { useHistory } from 'react-router-dom';
 export const Service: React.FC = (props: any) => {
     var history = useHistory();
@@ -11,8 +10,8 @@ export const Service: React.FC = (props: any) => {
     var [editUser, setEditUser] = React.useState<string>("");
     var [editPasswd, setEditPasswd] = React.useState<string>("");
     React.useEffect(() => {
-        if (currentUser == null) {
-            axios.get(`https://192.168.1.103:5500/vault/${authenticate}/${props.match.params.service}`, 
+        let current = window.sessionStorage.getItem("authenticated");
+        axios.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
                 let result = response.data;
@@ -21,21 +20,10 @@ export const Service: React.FC = (props: any) => {
                 console.log(err); 
                 alert("Sorry, we could not connect to the resource. Try again later")
             })
-        } else {
-            let current = window.sessionStorage.getItem("authenticated");
-            axios.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, 
-            {httpsAgent, headers: {"Content-Type": "application/json"}})
-            .then(response => {
-                let result = response.data;
-                setTheData(result);
-            }).catch(err => {
-                console.log(err); 
-                alert("Sorry, we could not connect to the resource. Try again later")
-            })}
     }, [])
     const editService = () => {
-        let request = {SessionUser: currentUser, Username: editUser, Password: editPasswd}
         let current = window.sessionStorage.getItem("authenticated");
+        let request = {SessionUser: current, Username: editUser, Password: editPasswd}
         axios.put(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`,
         request, {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
@@ -69,8 +57,8 @@ export const Service: React.FC = (props: any) => {
     const closeEditPopup = () => {setEditPopup(false);}
     const changePopup: JSX.Element = (
         <div className="Popup">
-            <div className="TheForm" id="add-service">
-            <form id="add-form">
+            <div className="TheForm">
+            <form id="edit-form">
                 <button className="CloseButton" id="close-edit" onClick={closeEditPopup}> X </button>
                 <Subtitle>Edit Credentials</Subtitle>
                 <label htmlFor="edit-username" className="FormLabel" id="edit-user-label">Username</label>
@@ -108,5 +96,61 @@ export const Service: React.FC = (props: any) => {
     )
 }
 export const MyAccount: React.FC = () => {
-    return (<div></div>)
+    var history = useHistory();
+    var [accountData, setAccountData] = React.useState<Array<any>>([]);
+    var [accountFname, setAccountFname] = React.useState<string>("");
+    var [accountLname, setAccountLname] = React.useState<string>("");
+    var [accountEmail, setAccountEmail] = React.useState<string>("");
+    React.useEffect(() => {
+        let current = window.sessionStorage.getItem("authenticated");
+        axios.get(`https://192.168.1.103:9900/account/${current}`,
+        {httpsAgent, headers: {"Content-Type": "application/json"}})
+        .then(response => {
+            let result = [response.data];
+            setAccountData(result);
+        }).catch(err => {
+            console.log(err); 
+            alert("Sorry, we could not connect to the resource. Try again later")
+        });
+    }, []);
+    const updateInfo = (user: string, passwd: string) => {
+        let request = {firstName: accountFname, lastName: accountLname,
+        username: user, password: passwd, email: accountEmail}
+        axios.put(`https://192.168.1.103:9900/account`, request,
+        {httpsAgent, headers: {"Content-Type": "application/json"}})
+        .then(response => {
+            let result = response.data;
+            alert(result.Message);
+            window.location.reload();
+        }).catch(err => {
+            console.log(err); 
+            alert("Sorry, we could not connect to the resource. Try again later")
+        });
+    }
+    return (
+        <div>
+        <Title>My Account</Title>
+        {accountData.map( (account) => (
+            <div key={account["_id"]}>
+            <div className="TheForm" id="my-account">
+            <button className="SubmitButton" id="go-back2" 
+                onClick={() => history.push("/main")}>Back to main</button>
+                <form id="account-form">
+                    <label htmlFor="account-fname" className="FormLabel" id="acc-fname-label">First Name</label>
+                    <input type="text" name="account-fname" className="FormInput" id="account-fname" 
+                    placeholder={account.firstName} onChange={(e) => {setAccountFname(e.target.value)}} />
+                    <label htmlFor="account-lname" className="FormLabel" id="acc-lname-label">Last Name</label>
+                    <input type="text" name="account-username" className="FormInput" id="account-lname" 
+                    placeholder={account.lastName} onChange={(e) => {setAccountLname(e.target.value)}} />
+                    <label htmlFor="account-email" className="FormLabel" id="acc-email-label">Email Address</label>
+                    <input type="text" name="account-email" className="FormInput" id="account-email" 
+                    placeholder={account.email} onChange={(e) => {setAccountEmail(e.target.value)}} />
+                </form>
+                <div className="Send" id="modify-account">
+                <button className="SubmitButton" onClick={() => updateInfo(account.username, account.password)}>Update Info!</button>
+                </div>
+            </div>
+            </div>))}
+        </div>
+    )
 }

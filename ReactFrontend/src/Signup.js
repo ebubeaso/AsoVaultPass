@@ -107,6 +107,7 @@ const Signup = () => {
                 formErrors.confirm && react_1.default.createElement("p", { className: "Invalid" }, formErrors.confirm),
                 react_1.default.createElement("label", { htmlFor: "confirm-pass", className: "FormLabel", id: "confirm-label" }, "Confirm Password"),
                 react_1.default.createElement("input", { type: "password", name: "confirm", className: "FormInput", id: "confirm-pass", value: inputs.confirm, onChange: changing })),
-            react_1.default.createElement("button", { className: "SubmitButton", id: "submit-register", onClick: submission }, "Signup!"))));
+            react_1.default.createElement("div", { className: "Send", id: "signup" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-register", onClick: submission }, "Signup!")))));
 };
 exports.Signup = Signup;

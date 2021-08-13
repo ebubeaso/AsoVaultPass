@@ -3,13 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VaultMain = exports.VaultHome = exports.currentUser = void 0;
+exports.VaultMain = exports.VaultHome = void 0;
 const react_1 = __importDefault(require("react"));
 const Styles_1 = require("./Styles");
 const Header_1 = require("./Header");
 const axios_1 = __importDefault(require("axios"));
 const react_router_dom_1 = require("react-router-dom");
-exports.currentUser = window.sessionStorage.getItem("authenticated");
 const VaultHome = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "Aso VaultPass"),
@@ -28,37 +27,27 @@ const VaultMain = () => {
     var history = react_router_dom_1.useHistory();
     let buttonCss = { backgroundColor: buttonColor };
     react_1.default.useEffect(() => {
-        if (Header_1.authenticate.length > 0) {
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${Header_1.authenticate}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-                .then(response => {
-                let result = response.data;
-                setAppData(result);
-            }).catch(err => {
-                console.log(err);
-                alert("Sorry, we could not connect to the resource. Try again later");
-            });
-        }
-        else {
-            axios_1.default.get(`https://192.168.1.103:5500/vault/${exports.currentUser}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
-                .then(response => {
-                let result = response.data;
-                setAppData(result);
-            }).catch(err => {
-                console.log(err);
-                alert("Sorry, we could not connect to the resource. Try again later");
-            });
-        }
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios_1.default.get(`https://192.168.1.103:5500/vault/${currentUser}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setAppData(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
     }, []);
     // These functions are used to display or hide the popup screen that adds a new service.
     const showAddPopup = () => { setAddPopup(true); };
     const closeAddPopup = () => { setAddPopup(false); };
     // this sends the new service to the database
     const addService = () => {
+        let currentUser = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: Header_1.authenticate, Username: newUser,
+            SessionUser: currentUser, Username: newUser,
             Password: newPasswd, Service: newService
         };
-        axios_1.default.post(`https://192.168.1.103:5500/vault/${exports.currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+        axios_1.default.post(`https://192.168.1.103:5500/vault/${currentUser}`, request, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
             // I am using setTimeout to run the alert since "setRequestStatus" runs asynchronously
@@ -67,6 +56,8 @@ const VaultMain = () => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
         });
+    };
+    const runQuery = () => {
     };
     const addingPopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
@@ -88,10 +79,10 @@ const VaultMain = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
             react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
-            react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
+            react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onClick: runQuery, onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null,
             "Hello ",
-            (Header_1.authenticate.length > 0) ? Header_1.authenticate : exports.currentUser,
+            window.sessionStorage.getItem("authenticated"),
             "!"),
         react_1.default.createElement("div", { className: "UserData" },
             react_1.default.createElement(Styles_1.Subtitle, null, "Frequently Used Sites"),

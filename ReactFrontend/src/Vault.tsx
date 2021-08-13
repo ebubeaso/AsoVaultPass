@@ -3,7 +3,6 @@ import { Title, Subtitle, IntroParagraph, NavLinks } from './Styles';
 import { authenticate, httpsAgent } from './Header';
 import axios from 'axios';
 import {useHistory} from 'react-router-dom';
-export var currentUser = window.sessionStorage.getItem("authenticated");
 export const VaultHome: React.FC = () => {
     return (
         <div>
@@ -38,18 +37,8 @@ export const VaultMain: React.FC = () => {
     var history = useHistory();
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
-        if (authenticate.length > 0) { 
-            axios.get(`https://192.168.1.103:5500/vault/${authenticate}`, 
-            {httpsAgent, headers: {"Content-Type": "application/json"}})
-            .then(response => {
-                let result = response.data;
-                setAppData(result);
-            }).catch(err => {
-                console.log(err); 
-                alert("Sorry, we could not connect to the resource. Try again later")
-            }) 
-        } else {
-            axios.get(`https://192.168.1.103:5500/vault/${currentUser}`, 
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios.get(`https://192.168.1.103:5500/vault/${currentUser}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
                 let result = response.data;
@@ -58,15 +47,15 @@ export const VaultMain: React.FC = () => {
                 console.log(err); 
                 alert("Sorry, we could not connect to the resource. Try again later")
             })
-        }
     }, [])
     // These functions are used to display or hide the popup screen that adds a new service.
     const showAddPopup = () => {setAddPopup(true);}
     const closeAddPopup = () => {setAddPopup(false);}
     // this sends the new service to the database
     const addService = () => {
+        let currentUser = window.sessionStorage.getItem("authenticated");
         let request = {
-            SessionUser: authenticate, Username: newUser, 
+            SessionUser: currentUser, Username: newUser, 
             Password: newPasswd, Service: newService
         }
         axios.post(`https://192.168.1.103:5500/vault/${currentUser}`, request,
@@ -80,6 +69,9 @@ export const VaultMain: React.FC = () => {
             console.log(err);
         });
     };
+    const runQuery = () => {
+
+    }
     const addingPopup: JSX.Element = (
         <div className="Popup">
             <div className="TheForm" id="add-service">
@@ -115,11 +107,11 @@ export const VaultMain: React.FC = () => {
         <div>
         <div className="SearchDiv">
             <input type="search" name="search" id="search" placeholder="Search"/>
-            <button style={buttonCss} className="SearchButton" 
+            <button style={buttonCss} className="SearchButton" onClick={runQuery}
                 onMouseOver={() => setButtonColor("#2ddc2d")}
                 onMouseOut={() => setButtonColor("green")}>Search</button>
         </div>
-        <Title>Hello {(authenticate.length > 0)? authenticate : currentUser}!</Title>
+        <Title>Hello {window.sessionStorage.getItem("authenticated")}!</Title>
             <div className="UserData">
             <Subtitle>Frequently Used Sites</Subtitle>
             <div className="Sites">
