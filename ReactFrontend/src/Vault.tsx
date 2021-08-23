@@ -34,6 +34,7 @@ export const VaultMain: React.FC = () => {
     var [newPasswd, setNewPasswd] = React.useState<string>("");
     var [newService, setNewService] = React.useState<string>("");
     var [addPopup, setAddPopup] = React.useState<boolean>(false);
+    var [search, setSearch] = React.useState<string>("");
     var history = useHistory();
     let buttonCss: React.CSSProperties = {backgroundColor: buttonColor};
     React.useEffect(() => {
@@ -70,7 +71,17 @@ export const VaultMain: React.FC = () => {
         });
     };
     const runQuery = () => {
-
+        let request = search;
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios.get(`https://192.168.1.103:5500/query/${currentUser}/${request}`, 
+            {httpsAgent, headers: {"Content-Type": "application/json"}})
+            .then(response => {
+                let result = response.data;
+                setAppData(result);
+            }).catch(err => {
+                console.log(err); 
+                alert("Sorry, we could not connect to the resource. Try again later")
+            });
     }
     const addingPopup: JSX.Element = (
         <div className="Popup">
@@ -106,7 +117,8 @@ export const VaultMain: React.FC = () => {
     return (
         <div>
         <div className="SearchDiv">
-            <input type="search" name="search" id="search" placeholder="Search"/>
+            <input type="search" name="search" id="search" placeholder="Search" value={search}
+            onChange={(e) => setSearch(e.target.value)}/>
             <button style={buttonCss} className="SearchButton" onClick={runQuery}
                 onMouseOver={() => setButtonColor("#2ddc2d")}
                 onMouseOut={() => setButtonColor("green")}>Search</button>

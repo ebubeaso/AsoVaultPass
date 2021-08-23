@@ -24,6 +24,7 @@ const VaultMain = () => {
     var [newPasswd, setNewPasswd] = react_1.default.useState("");
     var [newService, setNewService] = react_1.default.useState("");
     var [addPopup, setAddPopup] = react_1.default.useState(false);
+    var [search, setSearch] = react_1.default.useState("");
     var history = react_router_dom_1.useHistory();
     let buttonCss = { backgroundColor: buttonColor };
     react_1.default.useEffect(() => {
@@ -58,6 +59,16 @@ const VaultMain = () => {
         });
     };
     const runQuery = () => {
+        let request = search;
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios_1.default.get(`https://192.168.1.103:5500/query/${currentUser}/${request}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setAppData(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
     };
     const addingPopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
@@ -78,7 +89,7 @@ const VaultMain = () => {
             react_1.default.createElement("p", { className: "Service", id: "ServiceName", onClick: () => history.push(`/service/${d.Service}`) }, d.Service)))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
-            react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
+            react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search", value: search, onChange: (e) => setSearch(e.target.value) }),
             react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onClick: runQuery, onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null,
             "Hello ",

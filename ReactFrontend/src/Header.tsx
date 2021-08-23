@@ -15,6 +15,10 @@ export const VaultLogin: React.FC = () => {
     var [login, setLogin] = React.useState<string | boolean>("");
     var [user, setUser] = React.useState<string>("");
     var [passwd, setPasswd] = React.useState<string>("");
+    var [forgot, setForgot] = React.useState<boolean>(false);
+    var [recoverEmail, setRecoverEmail] = React.useState<string>("");
+    var [enterCode, setEnterCode] = React.useState<boolean>(false);
+    var [code, setCode] = React.useState<string>("");
     // this is used to send the account credentials
     var auth = {username: user, password: passwd}
     const sendAuth = () => {
@@ -43,6 +47,64 @@ export const VaultLogin: React.FC = () => {
             console.log(err);
         });
     }
+    const closeForgotPopup = () => setForgot(false);
+    const showForgotPopup = () => setForgot(true);
+    const sendEmail = () => {
+        let request = {recipients: recoverEmail, code: Math.floor(Math.random() * (999999 - 100000)+100000)};
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios.post(`https://192.168.1.103:5500/recover/${currentUser}`, request,
+        {httpsAgent, headers: {"Content-Type": "application/json"}})
+        .then(response => {
+            let result = response.data;
+            setEnterCode(true);
+        }).catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        })
+    };
+    const sendCode = () => {
+        let request = {recoveryCode: code};
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios.put(`https://192.168.1.103:5500/recover/${currentUser}`, request,
+        {httpsAgent, headers: {"Content-Type": "application/json"}})
+        .then(response => {
+            let result = response.data;
+        }).catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        })
+    }
+    const forgotPopup = (enterCode) ? 
+    (
+        <div className="Popup">
+        <div className="TheForm" id="recovery">
+            <form id="enter-code">
+            <button className="CloseButton" onClick={closeForgotPopup}> X </button>
+                <label htmlFor="email-recover" className="FormLabel" id="forgot-label">Recovery Code</label>
+                <input type="text" name="forgot" className="FormInput" id="forgot-password" value={code}
+                    onChange={(e) => setCode(e.target.value)} />
+            </form>
+            <div className="Send">
+            <button className="SubmitButton" onClick={sendEmail}>Submit</button>
+            </div>
+        </div>
+        </div>
+    ) : 
+    (
+        <div className="Popup">
+        <div className="TheForm" id="forgot">
+            <form id="forgot-form">
+                <button className="CloseButton" onClick={closeForgotPopup}> X </button>
+                <label htmlFor="email-recover" className="FormLabel" id="forgot-label">Enter your Email Address:</label>
+                <input type="text" name="forgot" className="FormInput" id="forgot-password" value={recoverEmail}
+                    onChange={(e) => setRecoverEmail(e.target.value)} />
+            </form>
+            <div className="Send">
+            <button className="SubmitButton" id="send-email" onClick={sendEmail}>Submit</button>
+            </div>
+        </div>
+        </div>
+    )
     if (login == "") {
         return (
         <div>
@@ -58,9 +120,10 @@ export const VaultLogin: React.FC = () => {
             </form>
             <div className="Login">
                 <button className="SubmitButton" id="submit-login" onClick={sendAuth}>Login</button>
-                <button className="SubmitButton" id="forgot">Forgot Password</button>
+                <button className="SubmitButton" id="forgot" onClick={showForgotPopup}>Forgot Password</button>
             </div>
         </div>
+        {(forgot) ? forgotPopup: null}
         </div>
         )
     }

@@ -36974,6 +36974,10 @@ const VaultLogin = () => {
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
+    var [forgot, setForgot] = react_1.default.useState(false);
+    var [recoverEmail, setRecoverEmail] = react_1.default.useState("");
+    var [enterCode, setEnterCode] = react_1.default.useState(false);
+    var [code, setCode] = react_1.default.useState("");
     // this is used to send the account credentials
     var auth = { username: user, password: passwd };
     const sendAuth = () => {
@@ -37001,6 +37005,48 @@ const VaultLogin = () => {
             console.log(err);
         });
     };
+    const closeForgotPopup = () => setForgot(false);
+    const showForgotPopup = () => setForgot(true);
+    const sendEmail = () => {
+        let request = { recipients: recoverEmail, code: Math.floor(Math.random() * (999999 - 100000) + 100000) };
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios_1.default.post(`https://192.168.1.103:5500/recover/${currentUser}`, request, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setEnterCode(true);
+        }).catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
+    };
+    const sendCode = () => {
+        let request = { recoveryCode: code };
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios_1.default.put(`https://192.168.1.103:5500/recover/${currentUser}`, request, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+        }).catch(err => {
+            alert("Sorry, but we could not connect to the backend service. Try again later.");
+            console.log(err);
+        });
+    };
+    const forgotPopup = (enterCode) ?
+        (react_1.default.createElement("div", { className: "Popup" },
+            react_1.default.createElement("div", { className: "TheForm", id: "recovery" },
+                react_1.default.createElement("form", { id: "enter-code" },
+                    react_1.default.createElement("button", { className: "CloseButton", onClick: closeForgotPopup }, " X "),
+                    react_1.default.createElement("label", { htmlFor: "email-recover", className: "FormLabel", id: "forgot-label" }, "Recovery Code"),
+                    react_1.default.createElement("input", { type: "text", name: "forgot", className: "FormInput", id: "forgot-password", value: code, onChange: (e) => setCode(e.target.value) })),
+                react_1.default.createElement("div", { className: "Send" },
+                    react_1.default.createElement("button", { className: "SubmitButton", onClick: sendEmail }, "Submit"))))) :
+        (react_1.default.createElement("div", { className: "Popup" },
+            react_1.default.createElement("div", { className: "TheForm", id: "forgot" },
+                react_1.default.createElement("form", { id: "forgot-form" },
+                    react_1.default.createElement("button", { className: "CloseButton", onClick: closeForgotPopup }, " X "),
+                    react_1.default.createElement("label", { htmlFor: "email-recover", className: "FormLabel", id: "forgot-label" }, "Enter your Email Address:"),
+                    react_1.default.createElement("input", { type: "text", name: "forgot", className: "FormInput", id: "forgot-password", value: recoverEmail, onChange: (e) => setRecoverEmail(e.target.value) })),
+                react_1.default.createElement("div", { className: "Send" },
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "send-email", onClick: sendEmail }, "Submit")))));
     if (login == "") {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(Styles_1.Subtitle, null, "VaultPass Login"),
@@ -37012,7 +37058,8 @@ const VaultLogin = () => {
                     react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "password", value: passwd, onChange: (e) => setPasswd(e.target.value) })),
                 react_1.default.createElement("div", { className: "Login" },
                     react_1.default.createElement("button", { className: "SubmitButton", id: "submit-login", onClick: sendAuth }, "Login"),
-                    react_1.default.createElement("button", { className: "SubmitButton", id: "forgot" }, "Forgot Password")))));
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "forgot", onClick: showForgotPopup }, "Forgot Password"))),
+            (forgot) ? forgotPopup : null));
     }
     return login ? react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" }) : react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" });
 };
@@ -37472,6 +37519,7 @@ const VaultMain = () => {
     var [newPasswd, setNewPasswd] = react_1.default.useState("");
     var [newService, setNewService] = react_1.default.useState("");
     var [addPopup, setAddPopup] = react_1.default.useState(false);
+    var [search, setSearch] = react_1.default.useState("");
     var history = react_router_dom_1.useHistory();
     let buttonCss = { backgroundColor: buttonColor };
     react_1.default.useEffect(() => {
@@ -37506,6 +37554,16 @@ const VaultMain = () => {
         });
     };
     const runQuery = () => {
+        let request = search;
+        let currentUser = window.sessionStorage.getItem("authenticated");
+        axios_1.default.get(`https://192.168.1.103:5500/query/${currentUser}/${request}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+            .then(response => {
+            let result = response.data;
+            setAppData(result);
+        }).catch(err => {
+            console.log(err);
+            alert("Sorry, we could not connect to the resource. Try again later");
+        });
     };
     const addingPopup = (react_1.default.createElement("div", { className: "Popup" },
         react_1.default.createElement("div", { className: "TheForm", id: "add-service" },
@@ -37526,7 +37584,7 @@ const VaultMain = () => {
             react_1.default.createElement("p", { className: "Service", id: "ServiceName", onClick: () => history.push(`/service/${d.Service}`) }, d.Service)))));
     return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { className: "SearchDiv" },
-            react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search" }),
+            react_1.default.createElement("input", { type: "search", name: "search", id: "search", placeholder: "Search", value: search, onChange: (e) => setSearch(e.target.value) }),
             react_1.default.createElement("button", { style: buttonCss, className: "SearchButton", onClick: runQuery, onMouseOver: () => setButtonColor("#2ddc2d"), onMouseOut: () => setButtonColor("green") }, "Search")),
         react_1.default.createElement(Styles_1.Title, null,
             "Hello ",
@@ -37552,35 +37610,35 @@ function validator(values) {
         firstname: "", lastname: "", username: "", password: "", confirm: "", email: ""
     }; // capture the form errors
     if (values.firstname.length == 0) {
-        formErrors.firstname = "Please enter your first name";
+        formErrors.firstname = " * Please enter your first name";
     }
     if (values.lastname.length == 0) {
-        formErrors.lastname = "Please enter your last name";
+        formErrors.lastname = " * Please enter your last name";
     }
     if (values.email.length == 0) {
-        formErrors.email = "Please enter in your email";
+        formErrors.email = " * Please enter in your email";
     }
     else if (!values.email.includes("@")) {
-        formErrors.email = "Please Enter a valid email address";
+        formErrors.email = " * Please Enter a valid email address";
     }
     if (values.username.length == 0) {
-        formErrors.username = "Please Enter a username";
+        formErrors.username = " * Please Enter a username";
     }
     if (values.password.length < 8 || !/[A-Z]/.test(values.password)) {
-        formErrors.password = "Invalid Password: It needs to be larger than 8 characters,\n";
+        formErrors.password = " * Invalid Password: It needs to be larger than 8 characters,\n";
         formErrors.password += "it must have at least one number in it and at least one special\n";
         formErrors.password += "character (e.g. !, ?, @, $, %)";
     }
     else if (!/[0-9]/.test(values.password) || !/[\! || \? || \@ || \$ || \%]/.test(values.password)) {
-        formErrors.password = "Invalid Password: It needs to be larger than 8 characters,\n";
+        formErrors.password = " * Invalid Password: It needs to be larger than 8 characters,\n";
         formErrors.password += "it must have at least one number in it and at least one special\n";
         formErrors.password += "character (e.g. !, ?, @, $, %)";
     }
     if (values.password != values.confirm) {
-        formErrors.confirm = "Passwords do not match";
+        formErrors.confirm = " * Passwords do not match";
     }
     else if (values.confirm.length == 0) {
-        formErrors.confirm = "Please enter your password again";
+        formErrors.confirm = " * Please enter your password again";
     }
     // return the form errors
     return formErrors;

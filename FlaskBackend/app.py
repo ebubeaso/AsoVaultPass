@@ -6,17 +6,22 @@ from flask_restful import Resource, Api
 from flask_jwt_extended import (JWTManager, create_access_token, get_jwt_identity, 
 create_refresh_token, jwt_required)
 from db import db, get_credentials
+from parse_mail import get_mail_creds
 from werkzeug.security import safe_str_cmp
 import os
 from datetime import timedelta
-from models import Vault
+from models import Vault, VaultLogin, fernet_key
 import random
+from cryptography.fernet import Fernet
+from flask_mail import Mail, Message
+VAULTPASS_EMAIL = "aso.vaultpass@gmail.com"
 # initialize the variables
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
 app.secret_key = "EbubeAsoYoungCloudPro2021!!"
 jwt = JWTManager(app)
+mail = Mail(app)
 # Get the username and password for the database
 credentials = get_credentials()
 db_user = credentials[0]
@@ -27,6 +32,14 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{db_user}:{db_pass}@192.168.1.
 # Turns off the flask SQLAlchemy tracker to save resources
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
+# This is the mail configuration
+mailpasswd = get_mail_creds()
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = VAULTPASS_EMAIL
+app.config["MAIL_PASSWORD"] = mailpasswd
 # We have this list to store the array of IDs that were already taken when adding a new data entry 
 # The ID values must be unique for each data point
 taken_id_list = []
@@ -61,9 +74,12 @@ class VaultTable(Resource):
         data = Vault.query.filter_by(user=name)
         result = [entry.serializer() for entry in data]
         id_number = id_checker(result)
+        # encode the password
+        passwd_encoded = fernet_key.encrypt(the_data["Password"].encode("utf-8"))
+        passwd = passwd_encoded.decode("utf-8")
         # construct the new entry
         new_entry = Vault(id_number, the_data["SessionUser"], the_data["Username"], 
-        the_data["Password"], the_data["Service"])
+        passwd, the_data["Service"])
         # add the entry
         db.session.add(new_entry)
         db.session.commit()
@@ -78,7 +94,8 @@ class VaultTableUpdates(Resource):
         if len(req["Username"]) > 0 and len(req["Password"]) > 0:
             data_query = Vault.query.filter_by(service=service).first()
             data_query.username = req["Username"]
-            data_query.password = req["Password"]
+            passwd_encoded = fernet_key.encrypt(req["Password"].encode("utf-8"))
+            data_query.password = passwd_encoded.decode("utf-8")
             db.session.commit()
             return {"Message": "Success!", "Result": "Your data has been updated!!"}, 200
         return {"Message": "Failed", 
@@ -88,7 +105,27 @@ class VaultTableUpdates(Resource):
         db.session.commit()
         return {"Message": "Success!", "Result": "This data has been removed from your account"}, 200
 
+class VaultSearch(Resource):
+    def get(self, name, service):
+        data = Vault.query.filter_by(user=name, service=service)
+        result = [res.serializer() for res in data]
+        return result, 200
+
+class Recovery(Resource):
+    def post(self, name):
+        req = request.json
+        recipients = req["recipients"]
+        subject = "Aso VaultPass Recovery information"
+        email = f"Here is your recovery code: {request.json['code']}"
+        message = Message(subject, sender=VAULTPASS_EMAIL, recipients=recipients)
+        mail.send(message)
+        return {"Message": "The recovery code has been sent! Please enter the code below to continue"}, 200
+    def put(self, name):
+        pass
+
 api.add_resource(VaultTable, "/vault/<string:name>")
 api.add_resource(VaultTableUpdates, "/vault/<string:name>/<string:service>")
+api.add_resource(Recovery, "/recover/<string:name>")
+api.add_resource(VaultSearch, "/query/<string:name>/<string:service>")
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

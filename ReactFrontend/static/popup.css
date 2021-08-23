@@ -52,13 +52,24 @@ button.EditButton:hover {
     border: 2px solid white;
     color: white;
 }
-#add-form, #edit-form {
+#add-form, #edit-form, #forgot-form {
     background-color: gray;
     margin: 5% 5% 0% 5%;
     border-left: 2px solid black;
     border-top: 2px solid black;
     border-right: 2px solid black;
 }
+div#forgot.TheForm {
+    border: none;
+    background-color: transparent;
+}
+input#forgot-password {
+    width: 55%;
+    font-size: 14pt;
+}
+#forgot-label, #forgot-password {margin-left: 29%;}
+#forgot-form {padding: 2%;}
+#forgot-label {margin-top: 2%;}
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .Popup {padding-right: 8%;}
     button.EditButton, button#go-back.SubmitButton {background-color: white;}
