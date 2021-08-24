@@ -56,7 +56,7 @@ export const VaultLogin: React.FC = () => {
         {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
             let result = response.data;
-            setEnterCode(true);
+            result.Message == "Success" ? setEnterCode(true) : alert(result.Result);
         }).catch(err => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
@@ -69,6 +69,7 @@ export const VaultLogin: React.FC = () => {
         {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
             let result = response.data;
+            alert(result.Message);
         }).catch(err => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
@@ -85,7 +86,7 @@ export const VaultLogin: React.FC = () => {
                     onChange={(e) => setCode(e.target.value)} />
             </form>
             <div className="Send">
-            <button className="SubmitButton" onClick={sendEmail}>Submit</button>
+            <button className="SubmitButton" id="the-code" onClick={sendCode}>Submit</button>
             </div>
         </div>
         </div>

@@ -15,12 +15,21 @@ import random
 from cryptography.fernet import Fernet
 from flask_mail import Mail, Message
 VAULTPASS_EMAIL = "aso.vaultpass@gmail.com"
+RECOVERY_CODE = 0
 # initialize the variables
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
 app.secret_key = "EbubeAsoYoungCloudPro2021!!"
 jwt = JWTManager(app)
+# This is the mail configuration
+mailpasswd = get_mail_creds()
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = VAULTPASS_EMAIL
+app.config["MAIL_PASSWORD"] = mailpasswd
 mail = Mail(app)
 # Get the username and password for the database
 credentials = get_credentials()
@@ -32,14 +41,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{db_user}:{db_pass}@192.168.1.
 # Turns off the flask SQLAlchemy tracker to save resources
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
-# This is the mail configuration
-mailpasswd = get_mail_creds()
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_TLS"] = False
-app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = VAULTPASS_EMAIL
-app.config["MAIL_PASSWORD"] = mailpasswd
 # We have this list to store the array of IDs that were already taken when adding a new data entry 
 # The ID values must be unique for each data point
 taken_id_list = []
@@ -114,13 +115,27 @@ class VaultSearch(Resource):
 class Recovery(Resource):
     def post(self, name):
         req = request.json
-        recipients = req["recipients"]
-        subject = "Aso VaultPass Recovery information"
-        email = f"Here is your recovery code: {request.json['code']}"
-        message = Message(subject, sender=VAULTPASS_EMAIL, recipients=recipients)
-        mail.send(message)
-        return {"Message": "The recovery code has been sent! Please enter the code below to continue"}, 200
+        check_email = VaultLogin.query.filter_by(email=req["recipients"]).first()
+        if check_email is not None:
+            global RECOVERY_CODE # using the global keyword so that I can edit it
+            RECOVERY_CODE = req["code"]
+            recipients = req["recipients"]
+            subject = "Aso VaultPass Recovery information"
+            email = f"Here is your recovery code: {req['code']}"
+            message = Message(subject, sender=VAULTPASS_EMAIL, recipients=[recipients])
+            message.body = email
+            mail.send(message)
+            return {"Message": "Success", 
+            "Result":"The recovery code has been sent! Please enter the code below to continue"}, 200
+        return {"Message": "Failed", "Result": "That email does not exist in our records. Please try again."}, 200
     def put(self, name):
+        req = request.json
+        global RECOVERY_CODE
+        recovery = RECOVERY_CODE
+        if int(req["recoveryCode"]) == recovery:
+            return {"Message": "That is the correct code!"}, 200
+        return {"Message": "The code that you entered is invalid"}, 200
+    def patch(self, name):
         pass
 
 api.add_resource(VaultTable, "/vault/<string:name>")

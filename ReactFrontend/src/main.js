@@ -37013,7 +37013,7 @@ const VaultLogin = () => {
         axios_1.default.post(`https://192.168.1.103:5500/recover/${currentUser}`, request, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
-            setEnterCode(true);
+            result.Message == "Success" ? setEnterCode(true) : alert(result.Result);
         }).catch(err => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
@@ -37025,6 +37025,7 @@ const VaultLogin = () => {
         axios_1.default.put(`https://192.168.1.103:5500/recover/${currentUser}`, request, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
+            alert(result.Message);
         }).catch(err => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
@@ -37038,7 +37039,7 @@ const VaultLogin = () => {
                     react_1.default.createElement("label", { htmlFor: "email-recover", className: "FormLabel", id: "forgot-label" }, "Recovery Code"),
                     react_1.default.createElement("input", { type: "text", name: "forgot", className: "FormInput", id: "forgot-password", value: code, onChange: (e) => setCode(e.target.value) })),
                 react_1.default.createElement("div", { className: "Send" },
-                    react_1.default.createElement("button", { className: "SubmitButton", onClick: sendEmail }, "Submit"))))) :
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "the-code", onClick: sendCode }, "Submit"))))) :
         (react_1.default.createElement("div", { className: "Popup" },
             react_1.default.createElement("div", { className: "TheForm", id: "forgot" },
                 react_1.default.createElement("form", { id: "forgot-form" },

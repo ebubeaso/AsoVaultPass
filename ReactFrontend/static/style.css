@@ -16,6 +16,7 @@ button#submit-login.SubmitButton, button#forgot.SubmitButton {margin: 0% 0% 2% 2
 #account-form {margin-top: 2%;}
 div#modify-account.Send {border: none;}
 .Login {padding-left: 24%;}
+button#the-code.SubmitButton {width: 35%;}
 .Send {
     border-left: 2px solid black;
     border-bottom: 2px solid black;

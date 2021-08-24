@@ -1,3 +1,4 @@
 **/node_modules
 **/creds
 testCreds.ts
+**.pyc

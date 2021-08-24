@@ -18,7 +18,7 @@
     padding: 1%;
     background-color: red;
     cursor: pointer;
-    width: 6%;
+    width: 9%;
     color: whitesmoke;
     font-size: 16pt;
     font-weight: bold;
@@ -52,7 +52,7 @@ button.EditButton:hover {
     border: 2px solid white;
     color: white;
 }
-#add-form, #edit-form, #forgot-form {
+#add-form, #edit-form, #forgot-form, #enter-code {
     background-color: gray;
     margin: 5% 5% 0% 5%;
     border-left: 2px solid black;
