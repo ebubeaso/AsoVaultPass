@@ -52,7 +52,6 @@ export const Signup: React.FC = () => {
                 }
             };
             if (valid) {
-                alert("Congrats! You have signed up successfully!");
                 let request = {firstName: inputs.firstname, lastName: inputs.lastname, 
                     username: inputs.username, password: inputs.password, email: inputs.email};
                 // send the data to the backend service to register

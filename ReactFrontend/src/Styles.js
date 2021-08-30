@@ -23,7 +23,7 @@ exports.LogoDiv = exports.LoginNav = exports.Nav1 = exports.NavList = exports.Na
 const styled_components_1 = __importStar(require("styled-components"));
 const react_router_dom_1 = require("react-router-dom");
 // generalized styling variables
-const fontStyle = styled_components_1.css `font-family: Helvetica`;
+const fontStyle = styled_components_1.css `font-family: monospace`;
 const flexDisplay = styled_components_1.css `display: flex`;
 const centerAlign = styled_components_1.css `text-align: center;`;
 // const mainTextColor = css`color: darkcyan`;

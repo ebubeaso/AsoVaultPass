@@ -2,7 +2,7 @@ import styled, {css, keyframes} from "styled-components";
 import { Link } from "react-router-dom";
 
 // generalized styling variables
-const fontStyle = css`font-family: Helvetica`;
+const fontStyle = css`font-family: monospace`;
 const flexDisplay = css`display: flex`;
 const centerAlign = css`text-align: center;`;
 // const mainTextColor = css`color: darkcyan`;

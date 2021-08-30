@@ -9,6 +9,7 @@ const app = express();
 const port = 9900;
 const reader = require("./readCredentials");
 const db2 = require("./dbBackup");
+const { default: axios } = require("axios");
 // some middleware
 app.use(cors());
 app.use(express.json());
@@ -30,7 +31,7 @@ for (let cred of credentials) {
 var sshTunnel = new ssh.SSHConnection({
     endHost: process.env.MONGO_HOST,
     username: "ubuntu",
-    password: sshPass
+    privateKey: fs.readFileSync("../creds/ubuntuonyx", "utf-8")
 });
 /*
 The MongoDB database name, URL and client instance. I use the "encodeURIComponent" in the 
@@ -69,7 +70,6 @@ app.post("/vaultuser", (req, res) => {
         })      
     });
 });
-
 // test endpoint
 app.post("/testvault", (req, res) => {
     // get the request parameters
@@ -192,6 +192,54 @@ app.put("/account", (req, res) => {
             res.json({Message: "Your account data has been updated successfully!"});
             db.close();
             sshTunnel.shutdown();
+        })
+    })
+});
+app.put("/recovery", (req, res) => {
+    let theInput = req.body;
+    sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
+    .catch(err => {console.log("oof"); throw err;});
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        let theDB = db.db(databaseName);
+        let vaultUsers = theDB.collection("vaultusers");
+        vaultUsers.findOne({username: theInput.user}, (err, results) => {
+            if (err) throw err;
+            let data = results;
+            if (data != null) {
+                let passwd = crypto.createHash("sha512").update(theInput.passwd).digest("hex").substr(0, 20);
+                theUpdate = { $set: {firstName: data.firstName, lastName: data.lastName, 
+                username: theInput.user, password: passwd, email: data.email}};
+                vaultUsers.updateOne({username: theInput.user}, theUpdate, (err, result) => {
+                    if (err) throw err;
+                    res.json({Message: "Your password was updated successfully!"});
+                    db.close();
+                    sshTunnel.shutdown();
+                })
+            } else {
+                res.json({Message: "Sorry, that username does not exist"});
+                db.close();
+                sshTunnel.shutdown();
+            }
+        })
+    })
+});
+app.delete("/account/:user", (req, res) => {
+    let theUser = req.params.user;
+    // Setup the tunnel
+    sshTunnel.forward({fromPort: 27017, toPort: 27017, toHost: "localhost"})
+    .catch(err => {console.log("oof"); throw err;});
+    client.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        let DB = db.db(databaseName);
+        let vaultUsers = DB.collection("vaultusers");
+        let theQuery = {username: theUser};
+        vaultUsers.deleteOne(theQuery, (err, obj) => {
+            if (err) throw err;
+            res.json({Message: "Your account and data has been successfully deleted"});
+            db.close();
+            sshTunnel.shutdown();
+            db2.removeData(theUser);
         })
     })
 })

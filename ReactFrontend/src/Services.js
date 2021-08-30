@@ -118,11 +118,31 @@ const MyAccount = () => {
             alert("Sorry, we could not connect to the resource. Try again later");
         });
     };
+    const deleteAccount = () => {
+        let warning = "Your account and data will be completely removed. Are you sure you want to continue?";
+        let confirmation = confirm(warning);
+        if (confirmation) {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios_1.default.delete(`https://192.168.1.103:9900/account/${current}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                alert(result.Message);
+                window.sessionStorage.removeItem("authenticated");
+                history.push("/");
+                window.location.reload();
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
+    };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "My Account"),
         accountData.map((account) => (react_1.default.createElement("div", { key: account["_id"] },
             react_1.default.createElement("div", { className: "TheForm", id: "my-account" },
-                react_1.default.createElement("button", { className: "SubmitButton", id: "go-back2", onClick: () => history.push("/main") }, "Back to main"),
+                react_1.default.createElement("div", { className: "AccountButtons" },
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "go-back2", onClick: () => history.push("/main") }, "Back to main"),
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "close-account", onClick: deleteAccount }, "Delete Account")),
                 react_1.default.createElement("form", { id: "account-form" },
                     react_1.default.createElement("label", { htmlFor: "account-fname", className: "FormLabel", id: "acc-fname-label" }, "First Name"),
                     react_1.default.createElement("input", { type: "text", name: "account-fname", className: "FormInput", id: "account-fname", placeholder: account.firstName, onChange: (e) => { setAccountFname(e.target.value); } }),
@@ -131,6 +151,7 @@ const MyAccount = () => {
                     react_1.default.createElement("label", { htmlFor: "account-email", className: "FormLabel", id: "acc-email-label" }, "Email Address"),
                     react_1.default.createElement("input", { type: "text", name: "account-email", className: "FormInput", id: "account-email", placeholder: account.email, onChange: (e) => { setAccountEmail(e.target.value); } })),
                 react_1.default.createElement("div", { className: "Send", id: "modify-account" },
-                    react_1.default.createElement("button", { className: "SubmitButton", onClick: () => updateInfo(account.username, account.password) }, "Update Info!"))))))));
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "update-info", onClick: () => updateInfo(account.username, account.password) }, "Update Info!"),
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "new-password", onClick: () => { history.push("/password/update"); } }, "Change Password"))))))));
 };
 exports.MyAccount = MyAccount;

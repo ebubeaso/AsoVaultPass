@@ -42,8 +42,7 @@ export const VaultMain: React.FC = () => {
         axios.get(`https://192.168.1.103:5500/vault/${currentUser}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
-                let result = response.data;
-                setAppData(result);
+                let result = response.data; setAppData(result);
             }).catch(err => {
                 console.log(err); 
                 alert("Sorry, we could not connect to the resource. Try again later")
@@ -76,8 +75,7 @@ export const VaultMain: React.FC = () => {
         axios.get(`https://192.168.1.103:5500/query/${currentUser}/${request}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
-                let result = response.data;
-                setAppData(result);
+                let result = response.data; setAppData(result);
             }).catch(err => {
                 console.log(err); 
                 alert("Sorry, we could not connect to the resource. Try again later")
@@ -132,9 +130,7 @@ export const VaultMain: React.FC = () => {
                     <p className="Icon" id="NewService" onClick={showAddPopup}>+</p>
                     <p className="Service">Add Service</p>
                 </div>
-            </div>
-                {(addPopup) ? addingPopup : null}
-            </div>
+            </div>{(addPopup) ? addingPopup : null}</div>
         </div>
     )
 }

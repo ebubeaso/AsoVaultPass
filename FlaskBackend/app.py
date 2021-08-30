@@ -85,6 +85,7 @@ class VaultTable(Resource):
         db.session.add(new_entry)
         db.session.commit()
         return {"Message": "Success!", "Result": "The new entry has been added!!"}, 201
+
 class VaultTableUpdates(Resource):
     def get(self, name, service):
         data = Vault.query.filter_by(user=name, service=service)
@@ -112,16 +113,26 @@ class VaultSearch(Resource):
         result = [res.serializer() for res in data]
         return result, 200
 
+class SetPasswd(Resource):
+    def put(self, name):
+        req = request.json
+        the_query = VaultLogin.query.filter_by(username=name).first()
+        passwd_encoded = fernet_key.encrypt(req["passwd"].encode("utf-8"))
+        the_query.password = passwd_encoded.decode("utf-8")
+        db.session.commit()
+        return {"Message": "update successful!"}, 200
+
 class Recovery(Resource):
     def post(self, name):
         req = request.json
         check_email = VaultLogin.query.filter_by(email=req["recipients"]).first()
         if check_email is not None:
-            global RECOVERY_CODE # using the global keyword so that I can edit it
-            RECOVERY_CODE = req["code"]
+            global_list = globals()
+            global_list["RECOVERY_CODE"] = req["code"]
+            the_code = global_list["RECOVERY_CODE"]
             recipients = req["recipients"]
             subject = "Aso VaultPass Recovery information"
-            email = f"Here is your recovery code: {req['code']}"
+            email = f"Here is your recovery code: {the_code}"
             message = Message(subject, sender=VAULTPASS_EMAIL, recipients=[recipients])
             message.body = email
             mail.send(message)
@@ -130,17 +141,25 @@ class Recovery(Resource):
         return {"Message": "Failed", "Result": "That email does not exist in our records. Please try again."}, 200
     def put(self, name):
         req = request.json
-        global RECOVERY_CODE
-        recovery = RECOVERY_CODE
+        global_list = globals()
+        recovery = global_list["RECOVERY_CODE"]
         if int(req["recoveryCode"]) == recovery:
             return {"Message": "That is the correct code!"}, 200
         return {"Message": "The code that you entered is invalid"}, 200
-    def patch(self, name):
-        pass
+
+class DeleteAccount(Resource):
+    def delete(self, name):
+        Vault.query.filter_by(user=name).delete()
+        db.session.commit()
+        VaultLogin.query.filter_by(username=name).delete()
+        db.session.commit()
+        return {"Message": "All the data has been removed!"}, 200
 
 api.add_resource(VaultTable, "/vault/<string:name>")
 api.add_resource(VaultTableUpdates, "/vault/<string:name>/<string:service>")
-api.add_resource(Recovery, "/recover/<string:name>")
 api.add_resource(VaultSearch, "/query/<string:name>/<string:service>")
+api.add_resource(Recovery, "/recover/<string:name>")
+api.add_resource(SetPasswd, "/setpass/<string:name>")
+api.add_resource(DeleteAccount, "/remove/<string:name>")
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

@@ -36971,6 +36971,7 @@ const axios_1 = __importDefault(require("axios"));
 const Services_1 = require("./Services");
 exports.authenticate = "";
 const VaultLogin = () => {
+    var history = react_router_dom_1.useHistory();
     var [login, setLogin] = react_1.default.useState("");
     var [user, setUser] = react_1.default.useState("");
     var [passwd, setPasswd] = react_1.default.useState("");
@@ -37025,7 +37026,13 @@ const VaultLogin = () => {
         axios_1.default.put(`https://192.168.1.103:5500/recover/${currentUser}`, request, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
             .then(response => {
             let result = response.data;
-            alert(result.Message);
+            if (result.Message.includes("invalid")) {
+                alert(result.Message);
+            }
+            else {
+                alert(result.Message);
+                history.push("/password/update");
+            }
         }).catch(err => {
             alert("Sorry, but we could not connect to the backend service. Try again later.");
             console.log(err);
@@ -37036,6 +37043,8 @@ const VaultLogin = () => {
             react_1.default.createElement("div", { className: "TheForm", id: "recovery" },
                 react_1.default.createElement("form", { id: "enter-code" },
                     react_1.default.createElement("button", { className: "CloseButton", onClick: closeForgotPopup }, " X "),
+                    react_1.default.createElement(Styles_1.Subtitle, null, "Recovery Email Sent!"),
+                    react_1.default.createElement(Styles_1.Subtitle, null, "Check your email for the recovery code"),
                     react_1.default.createElement("label", { htmlFor: "email-recover", className: "FormLabel", id: "forgot-label" }, "Recovery Code"),
                     react_1.default.createElement("input", { type: "text", name: "forgot", className: "FormInput", id: "forgot-password", value: code, onChange: (e) => setCode(e.target.value) })),
                 react_1.default.createElement("div", { className: "Send" },
@@ -37043,7 +37052,7 @@ const VaultLogin = () => {
         (react_1.default.createElement("div", { className: "Popup" },
             react_1.default.createElement("div", { className: "TheForm", id: "forgot" },
                 react_1.default.createElement("form", { id: "forgot-form" },
-                    react_1.default.createElement("button", { className: "CloseButton", onClick: closeForgotPopup }, " X "),
+                    react_1.default.createElement("button", { className: "CloseButton", id: "close-forgot", onClick: closeForgotPopup }, " X "),
                     react_1.default.createElement("label", { htmlFor: "email-recover", className: "FormLabel", id: "forgot-label" }, "Enter your Email Address:"),
                     react_1.default.createElement("input", { type: "text", name: "forgot", className: "FormInput", id: "forgot-password", value: recoverEmail, onChange: (e) => setRecoverEmail(e.target.value) })),
                 react_1.default.createElement("div", { className: "Send" },
@@ -37062,7 +37071,7 @@ const VaultLogin = () => {
                     react_1.default.createElement("button", { className: "SubmitButton", id: "forgot", onClick: showForgotPopup }, "Forgot Password"))),
             (forgot) ? forgotPopup : null));
     }
-    return login ? react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" }) : react_1.default.createElement(react_router_dom_1.Redirect, { to: "/unauthorized" });
+    return login ? react_1.default.createElement(react_router_dom_1.Redirect, { to: "/main" }) : null;
 };
 exports.VaultLogin = VaultLogin;
 const TheHeader = () => {
@@ -37104,14 +37113,81 @@ const TheHeader = () => {
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/signup", component: Signup_1.Signup }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/account", component: Services_1.MyAccount }),
                 react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/logout", component: Vault_1.VaultHome }),
-                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/unauthorized", component: NotAuthorized }),
+                react_1.default.createElement(react_router_dom_1.Route, { exact: true, path: "/password/update", component: UpdatePassword }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/service/:service", component: Services_1.Service })))));
 };
 exports.TheHeader = TheHeader;
-const NotAuthorized = () => {
+const UpdatePassword = () => {
+    var theHistory = react_router_dom_1.useHistory();
+    var [accountUser, setAccountUser] = react_1.default.useState("");
+    var [password, setPassword] = react_1.default.useState("");
+    var [confirm, setConfirm] = react_1.default.useState("");
+    var [userError, setUserError] = react_1.default.useState(false);
+    var [passwdError, setPasswdError] = react_1.default.useState(false);
+    var [confirmError, setConfirmError] = react_1.default.useState(false);
+    const newPassword = () => {
+        if (accountUser.length < 1) {
+            setUserError(true);
+        }
+        else {
+            setUserError(false);
+        }
+        ;
+        if (password.length >= 8 && /[A-Z]/.test(password) &&
+            /[0-9]/.test(password) && /[\! || \? || \@ || \$ || \%]/.test(password)) {
+            if (password == confirm) {
+                setPasswdError(false);
+                setConfirmError(false);
+                let request = { user: accountUser, passwd: password };
+                axios_1.default.put(`https://192.168.1.103:9900/recovery`, request, { httpsAgent: exports.httpsAgent, headers: { "Content-Type": "application/json" } })
+                    .then(response => {
+                    let result = response.data;
+                    if (result.Message.includes("Sorry")) {
+                        alert(result.Message);
+                        window.location.reload();
+                    }
+                    else {
+                        if (window.sessionStorage.getItem("authenticated") != null) {
+                            window.sessionStorage.removeItem("authenticated");
+                            alert(result.Message);
+                            theHistory.push("/login");
+                            window.location.reload();
+                        }
+                        else {
+                            alert(result.Message);
+                            theHistory.push("/login");
+                        }
+                    }
+                });
+            }
+            else {
+                setConfirmError(true);
+            }
+        }
+        else {
+            setPasswdError(true);
+        }
+    };
+    let badUsername = "* Please enter in your account username";
+    let badPassword = " * Invalid Password: It needs to be larger than 8 characters,\n";
+    badPassword += "it must have at least one number in it and at least one special\n";
+    badPassword += "character (e.g. !, ?, @, $, %)";
+    let badConfirm = "* Passwords do not match";
     return (react_1.default.createElement("div", null,
-        react_1.default.createElement(Styles_1.Title, null, "You are not authorized"),
-        react_1.default.createElement(Styles_1.Subtitle, null, "Either login with the right credentials or create a new account")));
+        react_1.default.createElement(Styles_1.Subtitle, null, "Update Your Account Password"),
+        react_1.default.createElement("div", { className: "TheForm", id: "update-password" },
+            react_1.default.createElement("form", { id: "update-password-form" },
+                (userError) ? react_1.default.createElement("p", { className: "Invalid" }, badUsername) : null,
+                react_1.default.createElement("label", { htmlFor: "your-username", className: "FormLabel", id: "your-username-label" }, "Your Account Username"),
+                react_1.default.createElement("input", { type: "text", name: "your-username", className: "FormInput", id: "your-username", value: accountUser, onChange: (e) => setAccountUser(e.target.value) }),
+                (passwdError) ? react_1.default.createElement("p", { className: "Invalid" }, badPassword) : null,
+                react_1.default.createElement("label", { htmlFor: "set-password", className: "FormLabel", id: "set-password-label" }, "New Password"),
+                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "set-password", value: password, onChange: (e) => setPassword(e.target.value) }),
+                (confirmError) ? react_1.default.createElement("p", { className: "Invalid" }, badConfirm) : null,
+                react_1.default.createElement("label", { htmlFor: "set-confirmation", className: "FormLabel", id: "set-confirmation-label" }, "Confirm Password"),
+                react_1.default.createElement("input", { type: "password", name: "password", className: "FormInput", id: "set-confirm", value: confirm, onChange: (e) => setConfirm(e.target.value) })),
+            react_1.default.createElement("div", { className: "Login" },
+                react_1.default.createElement("button", { className: "SubmitButton", id: "submit-passwd", onClick: newPassword }, "Submit")))));
 };
 
 },{"./Services":89,"./Signup":90,"./Styles":91,"./Vault":92,"axios":7,"https":99,"react":70,"react-router-dom":61}],88:[function(require,module,exports){
@@ -37246,11 +37322,31 @@ const MyAccount = () => {
             alert("Sorry, we could not connect to the resource. Try again later");
         });
     };
+    const deleteAccount = () => {
+        let warning = "Your account and data will be completely removed. Are you sure you want to continue?";
+        let confirmation = confirm(warning);
+        if (confirmation) {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios_1.default.delete(`https://192.168.1.103:9900/account/${current}`, { httpsAgent: Header_1.httpsAgent, headers: { "Content-Type": "application/json" } })
+                .then(response => {
+                let result = response.data;
+                alert(result.Message);
+                window.sessionStorage.removeItem("authenticated");
+                history.push("/");
+                window.location.reload();
+            }).catch(err => {
+                console.log(err);
+                alert("Sorry, we could not connect to the resource. Try again later");
+            });
+        }
+    };
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(Styles_1.Title, null, "My Account"),
         accountData.map((account) => (react_1.default.createElement("div", { key: account["_id"] },
             react_1.default.createElement("div", { className: "TheForm", id: "my-account" },
-                react_1.default.createElement("button", { className: "SubmitButton", id: "go-back2", onClick: () => history.push("/main") }, "Back to main"),
+                react_1.default.createElement("div", { className: "AccountButtons" },
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "go-back2", onClick: () => history.push("/main") }, "Back to main"),
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "close-account", onClick: deleteAccount }, "Delete Account")),
                 react_1.default.createElement("form", { id: "account-form" },
                     react_1.default.createElement("label", { htmlFor: "account-fname", className: "FormLabel", id: "acc-fname-label" }, "First Name"),
                     react_1.default.createElement("input", { type: "text", name: "account-fname", className: "FormInput", id: "account-fname", placeholder: account.firstName, onChange: (e) => { setAccountFname(e.target.value); } }),
@@ -37259,7 +37355,8 @@ const MyAccount = () => {
                     react_1.default.createElement("label", { htmlFor: "account-email", className: "FormLabel", id: "acc-email-label" }, "Email Address"),
                     react_1.default.createElement("input", { type: "text", name: "account-email", className: "FormInput", id: "account-email", placeholder: account.email, onChange: (e) => { setAccountEmail(e.target.value); } })),
                 react_1.default.createElement("div", { className: "Send", id: "modify-account" },
-                    react_1.default.createElement("button", { className: "SubmitButton", onClick: () => updateInfo(account.username, account.password) }, "Update Info!"))))))));
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "update-info", onClick: () => updateInfo(account.username, account.password) }, "Update Info!"),
+                    react_1.default.createElement("button", { className: "SubmitButton", id: "new-password", onClick: () => { history.push("/password/update"); } }, "Change Password"))))))));
 };
 exports.MyAccount = MyAccount;
 
@@ -37325,7 +37422,6 @@ const Signup = () => {
             }
             ;
             if (valid) {
-                alert("Congrats! You have signed up successfully!");
                 let request = { firstName: inputs.firstname, lastName: inputs.lastname,
                     username: inputs.username, password: inputs.password, email: inputs.email };
                 // send the data to the backend service to register
@@ -37404,7 +37500,7 @@ exports.LogoDiv = exports.LoginNav = exports.Nav1 = exports.NavList = exports.Na
 const styled_components_1 = __importStar(require("styled-components"));
 const react_router_dom_1 = require("react-router-dom");
 // generalized styling variables
-const fontStyle = styled_components_1.css `font-family: Helvetica`;
+const fontStyle = styled_components_1.css `font-family: monospace`;
 const flexDisplay = styled_components_1.css `display: flex`;
 const centerAlign = styled_components_1.css `text-align: center;`;
 // const mainTextColor = css`color: darkcyan`;

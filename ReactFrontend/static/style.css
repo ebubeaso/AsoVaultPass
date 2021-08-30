@@ -1,4 +1,5 @@
-.SiteGrid, .SearchDiv, .Login, .Send, .GridItem, .TheForm, .InvalidPasswd, #register {display: flex;}
+.SiteGrid, .SearchDiv, .Login, .Send, .GridItem, .TheForm, .InvalidPasswd, 
+#register, .AccountButtons {display: flex;}
 #login {margin: 2% 0%;}
 body {margin: 0%;}
 nav {margin-top: -1%;}
@@ -8,7 +9,7 @@ p.Invalid#invalid-pass {margin-right: 10%;}
 #NewService {cursor: pointer;}
 .Service {font-size: 26pt; text-align: center;}
 .ServiceData {font-size: 26pt; margin-left: 30%}
-.Icon, .Service, .ServiceData {font-family: monospace;}
+.Icon, .Service, .ServiceData, input, label, button {font-family: monospace;}
 .DataOptions {display: flex;}
 div#form-login.TheForm, form#register, .Send, #my-account {background-color: gray;}
 .Login, .Send {margin: 0% 5% 2% 5%;}
@@ -17,6 +18,12 @@ button#submit-login.SubmitButton, button#forgot.SubmitButton {margin: 0% 0% 2% 2
 div#modify-account.Send {border: none;}
 .Login {padding-left: 24%;}
 button#the-code.SubmitButton {width: 35%;}
+button#update-info.SubmitButton {margin-left: 28%;}
+button#submit-passwd.SubmitButton {margin: 1% 0% 2% 2%;}
+button#new-password.SubmitButton {margin-left: 1%;}
+button#new-password.SubmitButton, button#update-info.SubmitButton {width: 20%;}
+form#update-password-form {margin-top: 5%;}
+.Invalid {margin-right: 25%; margin-bottom: 1%;}
 .Send {
     border-left: 2px solid black;
     border-bottom: 2px solid black;
@@ -58,11 +65,12 @@ button#the-code.SubmitButton {width: 35%;}
     justify-content: center;
     background-color: whitesmoke;
     box-shadow: -4px 6px 4px rgb(0 0 0 / 80%);
+    border-radius: 15px;
     padding: 2% 0%;
     text-align: center;
     width: 75%;
     margin: 5% 0%;
-    overflow: scroll;
+    overflow: auto;
 }
 div#signup.Send {
     margin: 0;
@@ -82,7 +90,6 @@ div#signup.Send {
     padding: 1%;
     width: 35%;
 }
-
 .FormInput, .FormLabel, .Invalid {
     margin-left: 30%;
     font-family: Helvetica;
@@ -111,7 +118,7 @@ div#signup.Send {
     background-color: green;
     padding: 1% 5%;
     width: 11%;
-    margin: -1% 42%;
+    margin: -1% 38%;
     color: white;
     border: 2px solid white;
     border-radius: 100px;
@@ -120,6 +127,10 @@ button#go-back.SubmitButton, button#go-back2.SubmitButton{
     width: 20%;
     padding: 1% 2%;
     margin: 2% 0% 0% 30%;
+}
+div#update-password.TheForm {
+    background-color: gray;
+    border: 2px solid darkcyan;
 }
 @media screen and (min-width: 300px) and (max-width: 800px) {
     .SiteGrid {grid-template-columns: auto auto;}
@@ -133,22 +144,35 @@ button#go-back.SubmitButton, button#go-back2.SubmitButton{
     .Sites {grid-row-gap: 3%;}
     .Invalid {font-size: 10pt;}
     .Login, .Send {margin: 0% 5% 4% 5%}
-    .Login {padding-left: 17%;}
+    .Login {padding-left: 20%;}
     button#submit-login.SubmitButton, button#forgot.SubmitButton {margin: 3%;}
+    button#the-code.SubmitButton {margin-left: 29%;}
+    button#submit-passwd.SubmitButton {margin: 4% 3%;}
+    button#new-password.SubmitButton, button#update-info.SubmitButton {width: 30%;}
+    .FormInput, .FormLabel, .Invalid {margin-left: 27%;}
+    input {font-size: 11pt;}
     .GridItem {
         box-shadow: -3px 5px 3px rgba(0, 0, 0, 0.9);
         width: 85%;
         height: 80%;
     }
     .SubmitButton {
-        margin: 4% 30%;
+        margin: 4% 27%;
         width: 35%;
         font-size: 8pt;
     }
+    button#update-info.SubmitButton {
+        margin-left: 25%;
+        margin-right: 2%;
+    }
     .Icon {
         width: 30%; 
-        margin: 2% 0% -2% 33%; 
+        margin: 2% 0% -2% 28%; 
         font-size: 18pt;
+    }
+    button#go-back2.SubmitButton {
+        width: 25%;
+        margin-left: 27%;
     }
 }
 @media screen and (min-width: 801px) and (max-width: 1290px) {

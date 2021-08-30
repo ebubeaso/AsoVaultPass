@@ -14,8 +14,7 @@ export const Service: React.FC = (props: any) => {
         axios.get(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
-                let result = response.data;
-                setTheData(result);
+                let result = response.data; setTheData(result);
             }).catch(err => {
                 console.log(err); 
                 alert("Sorry, we could not connect to the resource. Try again later")
@@ -27,9 +26,7 @@ export const Service: React.FC = (props: any) => {
         axios.put(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`,
         request, {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
-            let result = response.data;
-            alert(result.Result);
-            closeEditPopup();
+            let result = response.data; alert(result.Result); closeEditPopup();
             window.location.reload();
         }).catch(err => {
             console.log(err); 
@@ -43,9 +40,7 @@ export const Service: React.FC = (props: any) => {
             axios.delete(`https://192.168.1.103:5500/vault/${current}/${props.match.params.service}`, 
             {httpsAgent, headers: {"Content-Type": "application/json"}})
             .then(response => {
-                let result = response.data;
-                alert(result.Result);
-                history.push("/main");
+                let result = response.data; alert(result.Result); history.push("/main");
                 window.location.reload();
             }).catch(err => {
                 console.log(err); 
@@ -106,8 +101,7 @@ export const MyAccount: React.FC = () => {
         axios.get(`https://192.168.1.103:9900/account/${current}`,
         {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
-            let result = [response.data];
-            setAccountData(result);
+            let result = [response.data]; setAccountData(result);
         }).catch(err => {
             console.log(err); 
             alert("Sorry, we could not connect to the resource. Try again later")
@@ -119,13 +113,28 @@ export const MyAccount: React.FC = () => {
         axios.put(`https://192.168.1.103:9900/account`, request,
         {httpsAgent, headers: {"Content-Type": "application/json"}})
         .then(response => {
-            let result = response.data;
-            alert(result.Message);
-            window.location.reload();
+            let result = response.data; alert(result.Message); window.location.reload();
         }).catch(err => {
             console.log(err); 
             alert("Sorry, we could not connect to the resource. Try again later")
         });
+    }
+    const deleteAccount = () => {
+        let warning = "Your account and data will be completely removed. Are you sure you want to continue?"
+        let confirmation: boolean = confirm(warning);
+        if (confirmation) {
+            let current = window.sessionStorage.getItem("authenticated");
+            axios.delete(`https://192.168.1.103:9900/account/${current}`,
+            {httpsAgent, headers: {"Content-Type": "application/json"}})
+            .then(response => {
+                let result = response.data; alert(result.Message); 
+                window.sessionStorage.removeItem("authenticated"); history.push("/");
+                window.location.reload();
+            }).catch(err => {
+                console.log(err); 
+                alert("Sorry, we could not connect to the resource. Try again later")
+            })
+        }
     }
     return (
         <div>
@@ -133,8 +142,12 @@ export const MyAccount: React.FC = () => {
         {accountData.map( (account) => (
             <div key={account["_id"]}>
             <div className="TheForm" id="my-account">
+            <div className="AccountButtons">
             <button className="SubmitButton" id="go-back2" 
                 onClick={() => history.push("/main")}>Back to main</button>
+            <button className="SubmitButton" id="close-account" 
+                onClick={deleteAccount}>Delete Account</button>
+            </div>
                 <form id="account-form">
                     <label htmlFor="account-fname" className="FormLabel" id="acc-fname-label">First Name</label>
                     <input type="text" name="account-fname" className="FormInput" id="account-fname" 
@@ -147,7 +160,10 @@ export const MyAccount: React.FC = () => {
                     placeholder={account.email} onChange={(e) => {setAccountEmail(e.target.value)}} />
                 </form>
                 <div className="Send" id="modify-account">
-                <button className="SubmitButton" onClick={() => updateInfo(account.username, account.password)}>Update Info!</button>
+                <button className="SubmitButton" id="update-info" 
+                    onClick={() => updateInfo(account.username, account.password)}>Update Info!</button>
+                <button className="SubmitButton" id="new-password" 
+                    onClick={() => {history.push("/password/update")}}>Change Password</button>
                 </div>
             </div>
             </div>))}

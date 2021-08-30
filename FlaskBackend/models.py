@@ -2,7 +2,6 @@ from db import db
 from typing import Dict
 from cryptography.fernet import Fernet
 # Set up the fernet key
-theKey = ''
 with open("../creds/fernkey", "rb") as f:
     the_key = f.read()
 fernet_key = Fernet(the_key)

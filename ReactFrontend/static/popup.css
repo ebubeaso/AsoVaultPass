@@ -67,6 +67,14 @@ input#forgot-password {
     width: 55%;
     font-size: 14pt;
 }
+button#close-account.SubmitButton {
+    background-color: red; 
+    color: white;
+    border: 2px solid white;
+    border-radius: 20px;
+    margin: 2% 0% 0% 2%;
+    width: 20%;
+}
 #forgot-label, #forgot-password {margin-left: 29%;}
 #forgot-form {padding: 2%;}
 #forgot-label {margin-top: 2%;}
@@ -74,6 +82,10 @@ input#forgot-password {
     .Popup {padding-right: 8%;}
     button.EditButton, button#go-back.SubmitButton {background-color: white;}
     .CloseButton {margin-left: 70%; width: 20%;}
+    input#forgot-label, input#forgot-password {font-size: 11pt;}
+    button#close-forgot.CloseButton {font-size: 12pt; padding: 0%;}
+    button#send-email.SubmitButton {font-size: 14pt; padding: 2% 0%;}
+    button#close-account.SubmitButton {width: 25%;}
     button.EditButton {
         font-size: 10pt;
         padding: 3%;
@@ -85,9 +97,9 @@ input#forgot-password {
         margin-left: 10%;
     }
     button#close-details.CloseButton {
-        width: 35%;
+        width: 30%;
         padding: 2%;
-        font-size: 10pt;
+        font-size: 11pt;
         margin: 2% 0% 2% 2%;
     }
     .ServiceInfo {
@@ -97,9 +109,9 @@ input#forgot-password {
         border: 2px solid black;
     }
     button#go-back.SubmitButton {
-        width: 45%;
+        width: 35%;
         padding: 3% 2%;
-        margin: 0% 0% 4% 10%;
+        margin: 0% 0% 4% 30%;
         border-radius: 20px;
     }
 }
