@@ -52,3 +52,11 @@ class VaultLogin(db.Model):
             "Password": passwd,
             "Email": self.email
         }
+class RecoverCode(db.Model):
+    __bind_key__ = "code"
+    __tablename__ = "RecoveryCode"
+    code = db.Column(db.Integer, primary_key=True)
+    def __init__(self, code: str):
+        self.code = code
+    def serialize(self) -> Dict:
+        return {"RecoveryCode": self.code}

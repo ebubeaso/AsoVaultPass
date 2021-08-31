@@ -176,6 +176,12 @@ const UpdatePassword = () => {
             setUserError(false);
         }
         ;
+        if (password == confirm) {
+            setConfirmError(false);
+        }
+        else {
+            setConfirmError(true);
+        }
         if (password.length >= 8 && /[A-Z]/.test(password) &&
             /[0-9]/.test(password) && /[\! || \? || \@ || \$ || \%]/.test(password)) {
             if (password == confirm) {
@@ -201,6 +207,9 @@ const UpdatePassword = () => {
                             theHistory.push("/login");
                         }
                     }
+                }).catch(err => {
+                    alert("Sorry, but we could not connect to the backend service. Try again later.");
+                    console.log(err);
                 });
             }
             else {

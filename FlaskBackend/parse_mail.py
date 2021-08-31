@@ -1,5 +1,7 @@
+import os
+workdir = os.environ.get("DOCUMENTS")
 def get_mail_creds():
-    with open("/home/ebube/Documents/AsoVaultPass/creds/creds.txt", "r") as f:
+    with open(f"{workdir}/creds/creds.txt", "r") as f:
         data = f.readlines() # turn the data into an array
     mail = ""
     for i in data:

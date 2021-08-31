@@ -1,27 +1,20 @@
 #! /usr/bin/env python
 from flask import Flask, jsonify, request
-import requests
 from flask_cors import CORS
 from flask_restful import Resource, Api
-from flask_jwt_extended import (JWTManager, create_access_token, get_jwt_identity, 
-create_refresh_token, jwt_required)
 from db import db, get_credentials
 from parse_mail import get_mail_creds
-from werkzeug.security import safe_str_cmp
-import os
 from datetime import timedelta
-from models import Vault, VaultLogin, fernet_key
+from models import Vault, VaultLogin, fernet_key, RecoverCode
 import random
 from cryptography.fernet import Fernet
 from flask_mail import Mail, Message
 VAULTPASS_EMAIL = "aso.vaultpass@gmail.com"
-RECOVERY_CODE = 0
 # initialize the variables
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
 app.secret_key = "EbubeAsoYoungCloudPro2021!!"
-jwt = JWTManager(app)
 # This is the mail configuration
 mailpasswd = get_mail_creds()
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
@@ -38,6 +31,7 @@ db_pass = credentials[1]
 # Setup the database connection configuration
 app.config["JWT_EXPIRATION_DELTA"] = timedelta(seconds=1200)
 app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql://{db_user}:{db_pass}@192.168.1.102:33606/VaultPass"
+app.config["SQLALCHEMY_BINDS"] = {"code": "sqlite:///Code.db"}
 # Turns off the flask SQLAlchemy tracker to save resources
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
@@ -125,14 +119,19 @@ class SetPasswd(Resource):
 class Recovery(Resource):
     def post(self, name):
         req = request.json
+        print(req)
         check_email = VaultLogin.query.filter_by(email=req["recipients"]).first()
         if check_email is not None:
-            global_list = globals()
-            global_list["RECOVERY_CODE"] = req["code"]
-            the_code = global_list["RECOVERY_CODE"]
+            # global_list = globals()
+            # global_list["RECOVERY_CODE"] = req["code"]
+            data = RecoverCode.query.first()
+            data.code = req["code"]
+            db.session.commit()
+            # result = [res for res.serialize() in data]
+            # the_code = result[0]["RecoveryCode"]
             recipients = req["recipients"]
             subject = "Aso VaultPass Recovery information"
-            email = f"Here is your recovery code: {the_code}"
+            email = f"Here is your recovery code: {req['code']}"
             message = Message(subject, sender=VAULTPASS_EMAIL, recipients=[recipients])
             message.body = email
             mail.send(message)
@@ -141,9 +140,15 @@ class Recovery(Resource):
         return {"Message": "Failed", "Result": "That email does not exist in our records. Please try again."}, 200
     def put(self, name):
         req = request.json
-        global_list = globals()
-        recovery = global_list["RECOVERY_CODE"]
+        # global_list = globals()
+        # recovery = global_list["RECOVERY_CODE"]
+        data = RecoverCode.query.first()
+        result = data.serialize()
+        recovery = result["RecoveryCode"]
         if int(req["recoveryCode"]) == recovery:
+            data = RecoverCode.query.first()
+            data.code = 0
+            db.session.commit()
             return {"Message": "That is the correct code!"}, 200
         return {"Message": "The code that you entered is invalid"}, 200
 
